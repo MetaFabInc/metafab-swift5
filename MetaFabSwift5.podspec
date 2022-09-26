@@ -5,11 +5,11 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
   s.watchos.deployment_target = '3.0'
   s.version = '1.0.0'
-  s.source = { :git => 'git@github.com:OpenAPITools/openapi-generator.git', :tag => 'v1.0.0' }
+  s.source = { :git => 'git@github.com:MetaFabInc/metafab-swift5.git', :tag => s.version.to_s }
   s.authors = 'MetaFab&lt;dev@trymetafab.com&gt;'
   s.social_media_url = 'https://twitter.com/tryMetaFab'
   s.license = 'Proprietary'
-  s.homepage = 'https://github.com/OpenAPITools/openapi-generator'
+  s.homepage = 'https://github.com/MetaFabInc/metafab-swift5'
   s.summary = 'Swift5 APIs for MetaFab services.'
   s.description = 'Swift5 APIs for MetaFab services. See https://github.com/MetaFabInc/metafab-swift5 for complete documentation.'
   s.documentation_url = 'https://github.com/MetaFabInc/metafab-swift5'
