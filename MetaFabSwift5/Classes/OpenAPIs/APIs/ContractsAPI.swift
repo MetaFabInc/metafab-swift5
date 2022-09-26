@@ -21,7 +21,7 @@ open class ContractsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createContract(xAuthorization: String, createContractRequest: CreateContractRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: ContractModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func createContract(xAuthorization: String, createContractRequest: CreateContractRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: ContractModel?, _ error: Error?) -> Void)) -> RequestTask {
         return createContractWithRequestBuilder(xAuthorization: xAuthorization, createContractRequest: createContractRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -42,7 +42,7 @@ open class ContractsAPI {
      */
     open class func createContractWithRequestBuilder(xAuthorization: String, createContractRequest: CreateContractRequest) -> RequestBuilder<ContractModel> {
         let localVariablePath = "/v1/contracts"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createContractRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -53,7 +53,7 @@ open class ContractsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<ContractModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ContractModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -66,7 +66,7 @@ open class ContractsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getContracts(xGameKey: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: [ContractModel]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getContracts(xGameKey: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [ContractModel]?, _ error: Error?) -> Void)) -> RequestTask {
         return getContractsWithRequestBuilder(xGameKey: xGameKey).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -86,7 +86,7 @@ open class ContractsAPI {
      */
     open class func getContractsWithRequestBuilder(xGameKey: String) -> RequestBuilder<[ContractModel]> {
         let localVariablePath = "/v1/contracts"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -97,7 +97,7 @@ open class ContractsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[ContractModel]>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[ContractModel]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -112,7 +112,7 @@ open class ContractsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func readContract(contractId: String, _func: String, args: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: AnyCodable?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func readContract(contractId: String, _func: String, args: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: AnyCodable?, _ error: Error?) -> Void)) -> RequestTask {
         return readContractWithRequestBuilder(contractId: contractId, _func: _func, args: args).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -137,7 +137,7 @@ open class ContractsAPI {
         let contractIdPreEscape = "\(APIHelper.mapValueToPathItem(contractId))"
         let contractIdPostEscape = contractIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{contractId}", with: contractIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -152,7 +152,7 @@ open class ContractsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<AnyCodable>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AnyCodable>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -168,7 +168,7 @@ open class ContractsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func writeContract(contractId: String, xAuthorization: String, xPassword: String, writeContractRequest: WriteContractRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func writeContract(contractId: String, xAuthorization: String, xPassword: String, writeContractRequest: WriteContractRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
         return writeContractWithRequestBuilder(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, writeContractRequest: writeContractRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -194,7 +194,7 @@ open class ContractsAPI {
         let contractIdPreEscape = "\(APIHelper.mapValueToPathItem(contractId))"
         let contractIdPostEscape = contractIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{contractId}", with: contractIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: writeContractRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -206,7 +206,7 @@ open class ContractsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

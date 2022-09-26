@@ -20,7 +20,7 @@ open class WalletsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getWalletBalances(walletId: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: [String: Double]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getWalletBalances(walletId: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [String: Double]?, _ error: Error?) -> Void)) -> RequestTask {
         return getWalletBalancesWithRequestBuilder(walletId: walletId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -43,7 +43,7 @@ open class WalletsAPI {
         let walletIdPreEscape = "\(APIHelper.mapValueToPathItem(walletId))"
         let walletIdPostEscape = walletIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{walletId}", with: walletIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -54,7 +54,7 @@ open class WalletsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[String: Double]>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[String: Double]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -67,7 +67,7 @@ open class WalletsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getWalletTransactions(walletId: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: [TransactionModel]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getWalletTransactions(walletId: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [TransactionModel]?, _ error: Error?) -> Void)) -> RequestTask {
         return getWalletTransactionsWithRequestBuilder(walletId: walletId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -90,7 +90,7 @@ open class WalletsAPI {
         let walletIdPreEscape = "\(APIHelper.mapValueToPathItem(walletId))"
         let walletIdPostEscape = walletIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{walletId}", with: walletIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -101,7 +101,7 @@ open class WalletsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[TransactionModel]>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[TransactionModel]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

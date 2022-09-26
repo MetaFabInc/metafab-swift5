@@ -1,4 +1,4 @@
-# Swift5 API client for OpenAPIClient
+# Swift5 API client for MetaFabSwift5
 
  Complete MetaFab API references and guides can be found at: https://trymetafab.com
 

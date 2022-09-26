@@ -21,7 +21,7 @@ Returns an existing game object containing authorization keys and credentials wh
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 
 // Authenticate game
@@ -67,7 +67,7 @@ Create a new game. A game is the root entity required for all API interactions. 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let createGameRequest = createGame_request(name: "name_example", email: "email_example", password: "password_example") // CreateGameRequest | 
 
@@ -117,7 +117,7 @@ Update various fields specific to a game. Such as changing its password, resetti
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let gameId = "gameId_example" // String | Any game id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.

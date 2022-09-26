@@ -20,7 +20,7 @@ Returns the current native token balance for all chains supported by MetaFab for
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem.
 
@@ -70,7 +70,7 @@ Returns an array of MetaFab initiated transactions performed by the provided wal
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem.
 

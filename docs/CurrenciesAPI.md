@@ -27,7 +27,7 @@ Transfers multiple amounts of currency to multiple provided wallet addresses or 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
@@ -83,7 +83,7 @@ Removes (burns) the provided amount of currency from the authenticating game or 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
@@ -139,7 +139,7 @@ Creates a new game currency and deploys an ERC20 token contract on behalf of the
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
 let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
@@ -193,7 +193,7 @@ Returns an array of active currencies for the game associated with the provided 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let xGameKey = "xGameKey_example" // String | The `publishedKey` of a specific game. This can be shared or included in game clients, websites, etc.
 
@@ -243,7 +243,7 @@ Returns the current currency balance of the provided wallet address or or the wa
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
 let address = "address_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. (optional)
@@ -297,7 +297,7 @@ Returns the current fee recipient address and fees of the currency for the provi
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
 
@@ -347,7 +347,7 @@ Creates (mints) the provided amount of currency  to the provided wallet address 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
@@ -403,7 +403,7 @@ Sets the recipient address, basis points, fixed amount and cap amount for a curr
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
@@ -459,7 +459,7 @@ Transfers an amount of currency to the provided wallet address or wallet address
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.

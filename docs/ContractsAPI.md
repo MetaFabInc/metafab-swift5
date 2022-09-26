@@ -22,7 +22,7 @@ Create a MetaFab custom contract entry from an existing contract address and con
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
 let createContractRequest = createContract_request(address: "address_example", abi: "abi_example", chain: "chain_example") // CreateContractRequest | 
@@ -74,7 +74,7 @@ Returns an array of active contracts deployed by the game associated with the pr
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let xGameKey = "xGameKey_example" // String | The `publishedKey` of a specific game. This can be shared or included in game clients, websites, etc.
 
@@ -124,7 +124,7 @@ Oftentimes you'll want to query and retrieve some data from a contract. This is 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
 let _func = "_func_example" // String | A contract function name. This can be any valid function from the the ABI of the contract you are interacting with. For example, `balanceOf`.
@@ -178,7 +178,7 @@ MetaFab's convenience endpoints for contract interactions may not be flexible en
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.

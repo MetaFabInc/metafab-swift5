@@ -19,7 +19,7 @@ open class GamesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func authGame(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: AuthGame200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func authGame(apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: AuthGame200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return authGameWithRequestBuilder().execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -41,7 +41,7 @@ open class GamesAPI {
      */
     open class func authGameWithRequestBuilder() -> RequestBuilder<AuthGame200Response> {
         let localVariablePath = "/v1/games"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -52,7 +52,7 @@ open class GamesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<AuthGame200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AuthGame200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -65,7 +65,7 @@ open class GamesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createGame(createGameRequest: CreateGameRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: AuthGame200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func createGame(createGameRequest: CreateGameRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: AuthGame200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return createGameWithRequestBuilder(createGameRequest: createGameRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -85,7 +85,7 @@ open class GamesAPI {
      */
     open class func createGameWithRequestBuilder(createGameRequest: CreateGameRequest) -> RequestBuilder<AuthGame200Response> {
         let localVariablePath = "/v1/games"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createGameRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -96,7 +96,7 @@ open class GamesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<AuthGame200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AuthGame200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -111,7 +111,7 @@ open class GamesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func updateGame(gameId: String, xAuthorization: String, updateGameRequest: UpdateGameRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: GameModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func updateGame(gameId: String, xAuthorization: String, updateGameRequest: UpdateGameRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: GameModel?, _ error: Error?) -> Void)) -> RequestTask {
         return updateGameWithRequestBuilder(gameId: gameId, xAuthorization: xAuthorization, updateGameRequest: updateGameRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -136,7 +136,7 @@ open class GamesAPI {
         let gameIdPreEscape = "\(APIHelper.mapValueToPathItem(gameId))"
         let gameIdPostEscape = gameIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{gameId}", with: gameIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateGameRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -147,7 +147,7 @@ open class GamesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GameModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GameModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

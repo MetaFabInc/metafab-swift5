@@ -19,7 +19,7 @@ Returns an executed transaction object for the provided transactionId. Transacti
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let transactionId = "transactionId_example" // String | Any transaction id within the MetaFab ecosystem.
 

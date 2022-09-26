@@ -23,7 +23,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func batchTransferCurrency(currencyId: String, xAuthorization: String, xPassword: String, batchTransferCurrencyRequest: BatchTransferCurrencyRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func batchTransferCurrency(currencyId: String, xAuthorization: String, xPassword: String, batchTransferCurrencyRequest: BatchTransferCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
         return batchTransferCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, batchTransferCurrencyRequest: batchTransferCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -49,7 +49,7 @@ open class CurrenciesAPI {
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: batchTransferCurrencyRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -61,7 +61,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -77,7 +77,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func burnCurrency(currencyId: String, xAuthorization: String, xPassword: String, burnCurrencyRequest: BurnCurrencyRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func burnCurrency(currencyId: String, xAuthorization: String, xPassword: String, burnCurrencyRequest: BurnCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
         return burnCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, burnCurrencyRequest: burnCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -103,7 +103,7 @@ open class CurrenciesAPI {
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: burnCurrencyRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -115,7 +115,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -130,7 +130,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createCurrency(xAuthorization: String, xPassword: String, createCurrencyRequest: CreateCurrencyRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: CreateCurrency200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func createCurrency(xAuthorization: String, xPassword: String, createCurrencyRequest: CreateCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: CreateCurrency200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return createCurrencyWithRequestBuilder(xAuthorization: xAuthorization, xPassword: xPassword, createCurrencyRequest: createCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -152,7 +152,7 @@ open class CurrenciesAPI {
      */
     open class func createCurrencyWithRequestBuilder(xAuthorization: String, xPassword: String, createCurrencyRequest: CreateCurrencyRequest) -> RequestBuilder<CreateCurrency200Response> {
         let localVariablePath = "/v1/currencies"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createCurrencyRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -164,7 +164,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<CreateCurrency200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CreateCurrency200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -177,7 +177,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCurrencies(xGameKey: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: [GetCurrencies200ResponseInner]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCurrencies(xGameKey: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [GetCurrencies200ResponseInner]?, _ error: Error?) -> Void)) -> RequestTask {
         return getCurrenciesWithRequestBuilder(xGameKey: xGameKey).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -197,7 +197,7 @@ open class CurrenciesAPI {
      */
     open class func getCurrenciesWithRequestBuilder(xGameKey: String) -> RequestBuilder<[GetCurrencies200ResponseInner]> {
         let localVariablePath = "/v1/currencies"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -208,7 +208,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[GetCurrencies200ResponseInner]>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[GetCurrencies200ResponseInner]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -223,7 +223,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCurrencyBalances(currencyId: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Double?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCurrencyBalances(currencyId: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Double?, _ error: Error?) -> Void)) -> RequestTask {
         return getCurrencyBalancesWithRequestBuilder(currencyId: currencyId, address: address, walletId: walletId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -248,7 +248,7 @@ open class CurrenciesAPI {
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -263,7 +263,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<Double>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Double>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -276,7 +276,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCurrencyFees(currencyId: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: GetCurrencyFees200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCurrencyFees(currencyId: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: GetCurrencyFees200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return getCurrencyFeesWithRequestBuilder(currencyId: currencyId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -299,7 +299,7 @@ open class CurrenciesAPI {
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -310,7 +310,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GetCurrencyFees200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GetCurrencyFees200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -326,7 +326,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func mintCurrency(currencyId: String, xAuthorization: String, xPassword: String, mintCurrencyRequest: MintCurrencyRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func mintCurrency(currencyId: String, xAuthorization: String, xPassword: String, mintCurrencyRequest: MintCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
         return mintCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, mintCurrencyRequest: mintCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -352,7 +352,7 @@ open class CurrenciesAPI {
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: mintCurrencyRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -364,7 +364,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -380,7 +380,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func setCurrencyFees(currencyId: String, xAuthorization: String, xPassword: String, setCurrencyFeesRequest: SetCurrencyFeesRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func setCurrencyFees(currencyId: String, xAuthorization: String, xPassword: String, setCurrencyFeesRequest: SetCurrencyFeesRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
         return setCurrencyFeesWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, setCurrencyFeesRequest: setCurrencyFeesRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -406,7 +406,7 @@ open class CurrenciesAPI {
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: setCurrencyFeesRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -418,7 +418,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -434,7 +434,7 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func transferCurrency(currencyId: String, xAuthorization: String, xPassword: String, transferCurrencyRequest: TransferCurrencyRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func transferCurrency(currencyId: String, xAuthorization: String, xPassword: String, transferCurrencyRequest: TransferCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
         return transferCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, transferCurrencyRequest: transferCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -460,7 +460,7 @@ open class CurrenciesAPI {
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: transferCurrencyRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -472,7 +472,7 @@ open class CurrenciesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

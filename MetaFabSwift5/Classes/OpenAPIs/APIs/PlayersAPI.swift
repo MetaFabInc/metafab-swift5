@@ -20,7 +20,7 @@ open class PlayersAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func authPlayer(xGameKey: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: AuthPlayer200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func authPlayer(xGameKey: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: AuthPlayer200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return authPlayerWithRequestBuilder(xGameKey: xGameKey).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -43,7 +43,7 @@ open class PlayersAPI {
      */
     open class func authPlayerWithRequestBuilder(xGameKey: String) -> RequestBuilder<AuthPlayer200Response> {
         let localVariablePath = "/v1/players"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -54,7 +54,7 @@ open class PlayersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<AuthPlayer200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AuthPlayer200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
@@ -68,7 +68,7 @@ open class PlayersAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createPlayer(xGameKey: String, createPlayerRequest: CreatePlayerRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: AuthPlayer200Response?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func createPlayer(xGameKey: String, createPlayerRequest: CreatePlayerRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: AuthPlayer200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return createPlayerWithRequestBuilder(xGameKey: xGameKey, createPlayerRequest: createPlayerRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -89,7 +89,7 @@ open class PlayersAPI {
      */
     open class func createPlayerWithRequestBuilder(xGameKey: String, createPlayerRequest: CreatePlayerRequest) -> RequestBuilder<AuthPlayer200Response> {
         let localVariablePath = "/v1/players"
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createPlayerRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -100,7 +100,7 @@ open class PlayersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<AuthPlayer200Response>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AuthPlayer200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -115,7 +115,7 @@ open class PlayersAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func updatePlayer(playerId: String, xAuthorization: String, updatePlayerRequest: UpdatePlayerRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: PlayerModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func updatePlayer(playerId: String, xAuthorization: String, updatePlayerRequest: UpdatePlayerRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: PlayerModel?, _ error: Error?) -> Void)) -> RequestTask {
         return updatePlayerWithRequestBuilder(playerId: playerId, xAuthorization: xAuthorization, updatePlayerRequest: updatePlayerRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -140,7 +140,7 @@ open class PlayersAPI {
         let playerIdPreEscape = "\(APIHelper.mapValueToPathItem(playerId))"
         let playerIdPostEscape = playerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{playerId}", with: playerIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updatePlayerRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -151,7 +151,7 @@ open class PlayersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<PlayerModel>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<PlayerModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

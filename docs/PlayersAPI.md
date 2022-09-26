@@ -21,7 +21,7 @@ Returns an existing player object containing access token, wallet, and other det
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let xGameKey = "xGameKey_example" // String | The `publishedKey` of a specific game. This can be shared or included in game clients, websites, etc.
 
@@ -71,7 +71,7 @@ Create a new player for a game. Players are automatically associated with an int
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let xGameKey = "xGameKey_example" // String | The `publishedKey` of a specific game. This can be shared or included in game clients, websites, etc.
 let createPlayerRequest = createPlayer_request(username: "username_example", password: "password_example") // CreatePlayerRequest | 
@@ -123,7 +123,7 @@ Update various fields specific to a player. Such as changing its password and re
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MetaFabSwift5
 
 let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `accessToken` of the authenticating player.

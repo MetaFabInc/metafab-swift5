@@ -6,14 +6,14 @@
 
 import Foundation
 
-// We reverted the change of OpenAPIClientAPI to OpenAPIClient introduced in https://github.com/OpenAPITools/openapi-generator/pull/9624
+// We reverted the change of MetaFabSwift5API to MetaFabSwift5 introduced in https://github.com/OpenAPITools/openapi-generator/pull/9624
 // Because it was causing the following issue https://github.com/OpenAPITools/openapi-generator/issues/9953
 // If you are affected by this issue, please consider removing the following two lines,
 // By setting the option removeMigrationProjectNameClass to true in the generator
-@available(*, deprecated, renamed: "OpenAPIClientAPI")
-public typealias OpenAPIClient = OpenAPIClientAPI
+@available(*, deprecated, renamed: "MetaFabSwift5API")
+public typealias MetaFabSwift5 = MetaFabSwift5API
 
-open class OpenAPIClientAPI {
+open class MetaFabSwift5API {
     public static var basePath = "https://api.trymetafab.com"
     public static var customHeaders: [String: String] = [:]
     public static var credential: URLCredential?
@@ -42,7 +42,7 @@ open class RequestBuilder<T> {
         self.headers = headers
         self.requiresAuthentication = requiresAuthentication
 
-        addHeaders(OpenAPIClientAPI.customHeaders)
+        addHeaders(MetaFabSwift5API.customHeaders)
     }
 
     open func addHeaders(_ aHeaders: [String: String]) {
@@ -52,7 +52,7 @@ open class RequestBuilder<T> {
     }
 
     @discardableResult
-    open func execute(_ apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, ErrorResponse>) -> Void) -> RequestTask {
+    open func execute(_ apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, ErrorResponse>) -> Void) -> RequestTask {
         return requestTask
     }
 
@@ -64,7 +64,7 @@ open class RequestBuilder<T> {
     }
 
     open func addCredential() -> Self {
-        credential = OpenAPIClientAPI.credential
+        credential = MetaFabSwift5API.credential
         return self
     }
 }

@@ -1,10 +1,10 @@
-name: OpenAPIClient
+name: MetaFabSwift5
 targets:
-  OpenAPIClient:
+  MetaFabSwift5:
     type: framework
     platform: iOS
     deploymentTarget: "9.0"
-    sources: [OpenAPIClient]
+    sources: [MetaFabSwift5]
     info:
       path: ./Info.plist
       version: 1.0.0
