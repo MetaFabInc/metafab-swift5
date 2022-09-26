@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.summary = 'Swift5 APIs for MetaFab services.'
   s.description = 'Swift5 APIs for MetaFab services. See https://github.com/MetaFabInc/metafab-swift5 for complete documentation.'
   s.documentation_url = 'https://github.com/MetaFabInc/metafab-swift5'
-  s.source_files = 'MetaFabSwift5/Classes/**/*.swift'
+  s.source_files = 'MetaFabSwift5/Classes/MetaFabSwift5/**/*.swift'
   s.dependency 'AnyCodable-FlightSchool', '~> 0.6.1'
 end

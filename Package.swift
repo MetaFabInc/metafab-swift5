@@ -27,7 +27,7 @@ let package = Package(
         .target(
             name: "MetaFabSwift5",
             dependencies: ["AnyCodable", ],
-            path: "MetaFabSwift5/Classes"
+            path: "MetaFabSwift5/Classes/MetaFabSwift5"
         ),
     ]
 )
