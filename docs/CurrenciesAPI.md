@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**burnCurrency**](CurrenciesAPI.md#burncurrency) | **POST** /v1/currencies/{currencyId}/burns | Burn currency
 [**createCurrency**](CurrenciesAPI.md#createcurrency) | **POST** /v1/currencies | Create currency
 [**getCurrencies**](CurrenciesAPI.md#getcurrencies) | **GET** /v1/currencies | Get currencies
-[**getCurrencyBalances**](CurrenciesAPI.md#getcurrencybalances) | **GET** /v1/currencies/{currencyId}/balances | Get currency balance
+[**getCurrencyBalance**](CurrenciesAPI.md#getcurrencybalance) | **GET** /v1/currencies/{currencyId}/balances | Get currency balance
 [**getCurrencyFees**](CurrenciesAPI.md#getcurrencyfees) | **GET** /v1/currencies/{currencyId}/fees | Get currency fees
 [**mintCurrency**](CurrenciesAPI.md#mintcurrency) | **POST** /v1/currencies/{currencyId}/mints | Mint currency
 [**setCurrencyFees**](CurrenciesAPI.md#setcurrencyfees) | **POST** /v1/currencies/{currencyId}/fees | Set currency fees
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 Batch transfer currency
 
-Transfers multiple amounts of currency to multiple provided wallet addresses or wallet addresses associated with the provided walletIds. You may also provide a combination of addresses and walletIds in one request, the proper receipients will be automatically determined, with `addresses` getting `amounts` order priority first. Optional references may be included for the transfer. References are useful for identifying transfers intended to pay for items, trades, services and more.
+Transfers multiple amounts of currency to multiple provided wallet addresses or wallet addresses associated with the provided walletIds. You may also provide a combination of addresses and walletIds in one request, the proper receipients will be automatically determined, with `addresses` getting `amounts` order priority first.  Optional references may be included for the transfer. References are useful for identifying transfers intended to pay for items, trades, services and more.
 
 ### Example
 ```swift
@@ -231,9 +231,9 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getCurrencyBalances**
+# **getCurrencyBalance**
 ```swift
-    open class func getCurrencyBalances(currencyId: String, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Double?, _ error: Error?) -> Void)
+    open class func getCurrencyBalance(currencyId: String, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Double?, _ error: Error?) -> Void)
 ```
 
 Get currency balance
@@ -250,7 +250,7 @@ let address = "address_example" // String | A valid EVM based address. For examp
 let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem. (optional)
 
 // Get currency balance
-CurrenciesAPI.getCurrencyBalances(currencyId: currencyId, address: address, walletId: walletId) { (response, error) in
+CurrenciesAPI.getCurrencyBalance(currencyId: currencyId, address: address, walletId: walletId) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -342,7 +342,7 @@ No authorization required
 
 Mint currency
 
-Creates (mints) the provided amount of currency  to the provided wallet address or wallet address associated with the provided walletId.
+Creates (mints) the provided amount of currency to the provided wallet address or wallet address associated with the provided walletId.
 
 ### Example
 ```swift

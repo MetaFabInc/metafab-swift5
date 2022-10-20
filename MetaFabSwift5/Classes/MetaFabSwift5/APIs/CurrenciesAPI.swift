@@ -37,7 +37,7 @@ open class CurrenciesAPI {
     /**
      Batch transfer currency
      - POST /v1/currencies/{currencyId}/batchTransfers
-     - Transfers multiple amounts of currency to multiple provided wallet addresses or wallet addresses associated with the provided walletIds. You may also provide a combination of addresses and walletIds in one request, the proper receipients will be automatically determined, with `addresses` getting `amounts` order priority first. Optional references may be included for the transfer. References are useful for identifying transfers intended to pay for items, trades, services and more.
+     - Transfers multiple amounts of currency to multiple provided wallet addresses or wallet addresses associated with the provided walletIds. You may also provide a combination of addresses and walletIds in one request, the proper receipients will be automatically determined, with `addresses` getting `amounts` order priority first.  Optional references may be included for the transfer. References are useful for identifying transfers intended to pay for items, trades, services and more.
      - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
      - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
@@ -223,8 +223,8 @@ open class CurrenciesAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCurrencyBalances(currencyId: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Double?, _ error: Error?) -> Void)) -> RequestTask {
-        return getCurrencyBalancesWithRequestBuilder(currencyId: currencyId, address: address, walletId: walletId).execute(apiResponseQueue) { result in
+    open class func getCurrencyBalance(currencyId: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Double?, _ error: Error?) -> Void)) -> RequestTask {
+        return getCurrencyBalanceWithRequestBuilder(currencyId: currencyId, address: address, walletId: walletId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -243,7 +243,7 @@ open class CurrenciesAPI {
      - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
      - returns: RequestBuilder<Double> 
      */
-    open class func getCurrencyBalancesWithRequestBuilder(currencyId: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Double> {
+    open class func getCurrencyBalanceWithRequestBuilder(currencyId: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Double> {
         var localVariablePath = "/v1/currencies/{currencyId}/balances"
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -340,7 +340,7 @@ open class CurrenciesAPI {
     /**
      Mint currency
      - POST /v1/currencies/{currencyId}/mints
-     - Creates (mints) the provided amount of currency  to the provided wallet address or wallet address associated with the provided walletId.
+     - Creates (mints) the provided amount of currency to the provided wallet address or wallet address associated with the provided walletId.
      - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
      - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
