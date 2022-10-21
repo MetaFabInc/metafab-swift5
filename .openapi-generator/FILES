@@ -34,7 +34,6 @@ MetaFabSwift5/Classes/MetaFabSwift5/Models/CreateCollection200ResponseAllOfContr
 MetaFabSwift5/Classes/MetaFabSwift5/Models/CreateCollection200ResponseAllOfContractAllOf.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/CreateCollectionItemRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/CreateCollectionItemRequestAttributesInner.swift
-MetaFabSwift5/Classes/MetaFabSwift5/Models/CreateCollectionItemRequestAttributesInnerValue.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/CreateCollectionRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/CreateContractRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/CreateCurrency200Response.swift
@@ -84,7 +83,6 @@ docs/CreateCollection200ResponseAllOfContract.md
 docs/CreateCollection200ResponseAllOfContractAllOf.md
 docs/CreateCollectionItemRequest.md
 docs/CreateCollectionItemRequestAttributesInner.md
-docs/CreateCollectionItemRequestAttributesInnerValue.md
 docs/CreateCollectionRequest.md
 docs/CreateContractRequest.md
 docs/CreateCurrency200Response.md

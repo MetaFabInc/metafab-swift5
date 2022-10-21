@@ -265,7 +265,7 @@ import MetaFabSwift5
 let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
 let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
-let createCollectionItemRequest = createCollectionItem_request(id: 123, name: "name_example", description: "description_example", imageBase64: 123, imageUrl: "imageUrl_example", externalUrl: "externalUrl_example", attributes: [createCollectionItem_request_attributes_inner(traitType: "traitType_example", value: createCollectionItem_request_attributes_inner_value())], data: "TODO") // CreateCollectionItemRequest | 
+let createCollectionItemRequest = createCollectionItem_request(id: 123, name: "name_example", description: "description_example", imageBase64: 123, imageUrl: "imageUrl_example", externalUrl: "externalUrl_example", attributes: [createCollectionItem_request_attributes_inner(traitType: "traitType_example", value: "TODO")], data: "TODO") // CreateCollectionItemRequest | 
 
 // Create collection item
 ItemsAPI.createCollectionItem(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, createCollectionItemRequest: createCollectionItemRequest) { (response, error) in

@@ -13,9 +13,9 @@ import AnyCodable
 public struct CreateCollectionItemRequestAttributesInner: Codable, JSONEncodable, Hashable {
 
     public var traitType: String
-    public var value: CreateCollectionItemRequestAttributesInnerValue
+    public var value: AnyCodable?
 
-    public init(traitType: String, value: CreateCollectionItemRequestAttributesInnerValue) {
+    public init(traitType: String, value: AnyCodable?) {
         self.traitType = traitType
         self.value = value
     }
