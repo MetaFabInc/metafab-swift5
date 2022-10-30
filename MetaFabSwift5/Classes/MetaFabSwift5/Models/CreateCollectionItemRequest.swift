@@ -24,9 +24,9 @@ public struct CreateCollectionItemRequest: Codable, JSONEncodable, Hashable {
     public var imageUrl: String?
     /** An optional URL where players can go to learn more about this item specifically, or your game, or any other link. */
     public var externalUrl: String?
-    /** An array of objects that conform with metadata standard. */
+    /** An array of objects that conform with the [metadata attributes standard that can be found here](https://docs.opensea.io/docs/metadata-standards#attributes) */
     public var attributes: [CreateCollectionItemRequestAttributesInner]?
-    /** An arbitrary object of data attached to the top level metadata object. This is useful for including data or resource URLs specific to your game. Such as URLs that point to */
+    /** An arbitrary object of data attached to the top level metadata object. This is useful for including data or resource URLs specific to your game. Such as URLs that point to 3D models, music files, bitmaps, or anything else you need to reference. */
     public var data: AnyCodable?
 
     public init(id: Double, name: String, description: String, imageBase64: Data? = nil, imageUrl: String? = nil, externalUrl: String? = nil, attributes: [CreateCollectionItemRequestAttributesInner]? = nil, data: AnyCodable? = nil) {

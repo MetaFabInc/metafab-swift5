@@ -253,7 +253,7 @@ open class ItemsAPI {
     /**
      Create collection item
      - POST /v1/collections/{collectionId}/items
-     - Creates a new item type. Item type creation associates all of the relevant item data to a specific itemId. Such as item name, image, description, attributes, any arbitrary data such as 2D or 3D model resolver URLs, and more. It is recommended, but not required, that you create a new item type through this endpoint before minting any quantity of the related itemId.  Item type data is uploaded to, and resolved through IPFS for decentralized persistence. Any itemId provided will have its existing item type overriden if it already exists.
+     - Creates a new item type. Item type creation associates all of the relevant item data to a specific itemId. Such as item name, image, description, attributes, any arbitrary data such as 2D or 3D model resolver URLs, and more. It is recommended, but not required, that you create a new item type through this endpoint before minting any quantity of the related itemId.  Any itemId provided will have its existing item type overriden if it already exists.  Item type data is uploaded to, and resolved through IPFS for decentralized persistence.
      - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
      - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
@@ -293,7 +293,7 @@ open class ItemsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCollectionApproval(collectionId: String, operatorAddress: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Double?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCollectionApproval(collectionId: String, operatorAddress: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Bool?, _ error: Error?) -> Void)) -> RequestTask {
         return getCollectionApprovalWithRequestBuilder(collectionId: collectionId, operatorAddress: operatorAddress, address: address, walletId: walletId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -312,9 +312,9 @@ open class ItemsAPI {
      - parameter operatorAddress: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. 
      - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
      - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
-     - returns: RequestBuilder<Double> 
+     - returns: RequestBuilder<Bool> 
      */
-    open class func getCollectionApprovalWithRequestBuilder(collectionId: String, operatorAddress: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Double> {
+    open class func getCollectionApprovalWithRequestBuilder(collectionId: String, operatorAddress: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Bool> {
         var localVariablePath = "/v1/collections/{collectionId}/approvals"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -335,7 +335,7 @@ open class ItemsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<Double>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Bool>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -688,7 +688,7 @@ open class ItemsAPI {
     /**
      Get collection items
      - GET /v1/collections/{collectionId}/items
-     - Returns all collection items as an array of metadata objects.
+     - Returns all collection items as an array of metadata objects.  Please note that ONLY items that have had at least 1 quantity minted will be returned. If you've created an item that has not been minted yet, it will not be returned in the array response.
      - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
      - returns: RequestBuilder<[AnyCodable]> 
      */
@@ -709,6 +709,64 @@ open class ItemsAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<[AnyCodable]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Get collection role
+     
+     - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
+     - parameter role: (query) A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; 
+     - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
+     - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func getCollectionRole(collectionId: String, role: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Bool?, _ error: Error?) -> Void)) -> RequestTask {
+        return getCollectionRoleWithRequestBuilder(collectionId: collectionId, role: role, address: address, walletId: walletId).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Get collection role
+     - GET /v1/collections/{collectionId}/roles
+     - Returns a boolean (true/false) representing if the provided role for this collection has been granted to the provided address or address associated with the provided walletId.
+     - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
+     - parameter role: (query) A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; 
+     - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
+     - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
+     - returns: RequestBuilder<Bool> 
+     */
+    open class func getCollectionRoleWithRequestBuilder(collectionId: String, role: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Bool> {
+        var localVariablePath = "/v1/collections/{collectionId}/roles"
+        let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
+        let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{collectionId}", with: collectionIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "role": (wrappedValue: role.encodeToJSON(), isExplode: true),
+            "address": (wrappedValue: address?.encodeToJSON(), isExplode: true),
+            "walletId": (wrappedValue: walletId?.encodeToJSON(), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<Bool>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -755,6 +813,60 @@ open class ItemsAPI {
         let localVariableRequestBuilder: RequestBuilder<[GetCollections200ResponseInner]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Grant collection role
+     
+     - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
+     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter grantCollectionRoleRequest: (body)  
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func grantCollectionRole(collectionId: String, xAuthorization: String, xPassword: String, grantCollectionRoleRequest: GrantCollectionRoleRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return grantCollectionRoleWithRequestBuilder(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, grantCollectionRoleRequest: grantCollectionRoleRequest).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Grant collection role
+     - POST /v1/collections/{collectionId}/roles
+     - Grants the provided role for the collection to the provided address or address associated with the provided walletId. Granted roles give different types of authority on behalf of the collection for specific players, addresses, or contracts to perform different types of permissioned collection operations.
+     - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
+     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter grantCollectionRoleRequest: (body)  
+     - returns: RequestBuilder<TransactionModel> 
+     */
+    open class func grantCollectionRoleWithRequestBuilder(collectionId: String, xAuthorization: String, xPassword: String, grantCollectionRoleRequest: GrantCollectionRoleRequest) -> RequestBuilder<TransactionModel> {
+        var localVariablePath = "/v1/collections/{collectionId}/roles"
+        let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
+        let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{collectionId}", with: collectionIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: grantCollectionRoleRequest)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "X-Authorization": xAuthorization.encodeToJSON(),
+            "X-Password": xPassword.encodeToJSON(),
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**
@@ -814,6 +926,60 @@ open class ItemsAPI {
         let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Revoke collection role
+     
+     - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
+     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter revokeCollectionRoleRequest: (body)  
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func revokeCollectionRole(collectionId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return revokeCollectionRoleWithRequestBuilder(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, revokeCollectionRoleRequest: revokeCollectionRoleRequest).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Revoke collection role
+     - DELETE /v1/collections/{collectionId}/roles
+     - Revokes the provided role for the collection to the provided address or address associated with the provided walletId.
+     - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
+     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter revokeCollectionRoleRequest: (body)  
+     - returns: RequestBuilder<TransactionModel> 
+     */
+    open class func revokeCollectionRoleWithRequestBuilder(collectionId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest) -> RequestBuilder<TransactionModel> {
+        var localVariablePath = "/v1/collections/{collectionId}/roles"
+        let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
+        let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{collectionId}", with: collectionIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: revokeCollectionRoleRequest)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "X-Authorization": xAuthorization.encodeToJSON(),
+            "X-Password": xPassword.encodeToJSON(),
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**

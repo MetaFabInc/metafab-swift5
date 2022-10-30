@@ -316,6 +316,118 @@ open class CurrenciesAPI {
     }
 
     /**
+     Get currency role
+     
+     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter role: (query) A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; 
+     - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
+     - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func getCurrencyRole(currencyId: String, role: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Bool?, _ error: Error?) -> Void)) -> RequestTask {
+        return getCurrencyRoleWithRequestBuilder(currencyId: currencyId, role: role, address: address, walletId: walletId).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Get currency role
+     - GET /v1/currencies/{currencyId}/roles
+     - Returns a boolean (true/false) representing if the provided role for this currency has been granted to the provided address or address associated with the provided walletId.
+     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter role: (query) A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; 
+     - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
+     - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
+     - returns: RequestBuilder<Bool> 
+     */
+    open class func getCurrencyRoleWithRequestBuilder(currencyId: String, role: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Bool> {
+        var localVariablePath = "/v1/currencies/{currencyId}/roles"
+        let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
+        let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "role": (wrappedValue: role.encodeToJSON(), isExplode: true),
+            "address": (wrappedValue: address?.encodeToJSON(), isExplode: true),
+            "walletId": (wrappedValue: walletId?.encodeToJSON(), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<Bool>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Grant currency role
+     
+     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
+     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter grantCurrencyRoleRequest: (body)  
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func grantCurrencyRole(currencyId: String, xAuthorization: String, xPassword: String, grantCurrencyRoleRequest: GrantCurrencyRoleRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return grantCurrencyRoleWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, grantCurrencyRoleRequest: grantCurrencyRoleRequest).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Grant currency role
+     - POST /v1/currencies/{currencyId}/roles
+     - Grants the provided role for the currency to the provided address or address associated with the provided walletId. Granted roles give different types of authority on behalf of the currency for specific players, addresses, or contracts to perform different types of permissioned currency operations.
+     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
+     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter grantCurrencyRoleRequest: (body)  
+     - returns: RequestBuilder<TransactionModel> 
+     */
+    open class func grantCurrencyRoleWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, grantCurrencyRoleRequest: GrantCurrencyRoleRequest) -> RequestBuilder<TransactionModel> {
+        var localVariablePath = "/v1/currencies/{currencyId}/roles"
+        let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
+        let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: grantCurrencyRoleRequest)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "X-Authorization": xAuthorization.encodeToJSON(),
+            "X-Password": xPassword.encodeToJSON(),
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
      Mint currency
      
      - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
@@ -367,6 +479,60 @@ open class CurrenciesAPI {
         let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Revoke currency role
+     
+     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
+     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter revokeCollectionRoleRequest: (body)  
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func revokeCurrencyRole(currencyId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return revokeCurrencyRoleWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, revokeCollectionRoleRequest: revokeCollectionRoleRequest).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Revoke currency role
+     - DELETE /v1/currencies/{currencyId}/roles
+     - Revokes the provided role for the currency to the provided address or address associated with the provided walletId.
+     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
+     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter revokeCollectionRoleRequest: (body)  
+     - returns: RequestBuilder<TransactionModel> 
+     */
+    open class func revokeCurrencyRoleWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest) -> RequestBuilder<TransactionModel> {
+        var localVariablePath = "/v1/currencies/{currencyId}/roles"
+        let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
+        let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{currencyId}", with: currencyIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: revokeCollectionRoleRequest)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "X-Authorization": xAuthorization.encodeToJSON(),
+            "X-Password": xPassword.encodeToJSON(),
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<TransactionModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**

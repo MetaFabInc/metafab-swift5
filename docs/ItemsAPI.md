@@ -17,8 +17,11 @@ Method | HTTP request | Description
 [**getCollectionItemSupply**](ItemsAPI.md#getcollectionitemsupply) | **GET** /v1/collections/{collectionId}/items/{collectionItemId}/supplies | Get collection item supply
 [**getCollectionItemTimelock**](ItemsAPI.md#getcollectionitemtimelock) | **GET** /v1/collections/{collectionId}/items/{collectionItemId}/timelocks | Get collection item timelock
 [**getCollectionItems**](ItemsAPI.md#getcollectionitems) | **GET** /v1/collections/{collectionId}/items | Get collection items
+[**getCollectionRole**](ItemsAPI.md#getcollectionrole) | **GET** /v1/collections/{collectionId}/roles | Get collection role
 [**getCollections**](ItemsAPI.md#getcollections) | **GET** /v1/collections | Get collections
+[**grantCollectionRole**](ItemsAPI.md#grantcollectionrole) | **POST** /v1/collections/{collectionId}/roles | Grant collection role
 [**mintCollectionItem**](ItemsAPI.md#mintcollectionitem) | **POST** /v1/collections/{collectionId}/items/{collectionItemId}/mints | Mint collection item
+[**revokeCollectionRole**](ItemsAPI.md#revokecollectionrole) | **DELETE** /v1/collections/{collectionId}/roles | Revoke collection role
 [**setCollectionApproval**](ItemsAPI.md#setcollectionapproval) | **POST** /v1/collections/{collectionId}/approvals | Set collection approval
 [**setCollectionItemTimelock**](ItemsAPI.md#setcollectionitemtimelock) | **POST** /v1/collections/{collectionId}/items/{collectionItemId}/timelocks | Set collection item timelock
 [**transferCollectionItem**](ItemsAPI.md#transfercollectionitem) | **POST** /v1/collections/{collectionId}/items/{collectionItemId}/transfers | Transfer collection item
@@ -255,7 +258,7 @@ No authorization required
 
 Create collection item
 
-Creates a new item type. Item type creation associates all of the relevant item data to a specific itemId. Such as item name, image, description, attributes, any arbitrary data such as 2D or 3D model resolver URLs, and more. It is recommended, but not required, that you create a new item type through this endpoint before minting any quantity of the related itemId.  Item type data is uploaded to, and resolved through IPFS for decentralized persistence. Any itemId provided will have its existing item type overriden if it already exists.
+Creates a new item type. Item type creation associates all of the relevant item data to a specific itemId. Such as item name, image, description, attributes, any arbitrary data such as 2D or 3D model resolver URLs, and more. It is recommended, but not required, that you create a new item type through this endpoint before minting any quantity of the related itemId.  Any itemId provided will have its existing item type overriden if it already exists.  Item type data is uploaded to, and resolved through IPFS for decentralized persistence.
 
 ### Example
 ```swift
@@ -306,7 +309,7 @@ No authorization required
 
 # **getCollectionApproval**
 ```swift
-    open class func getCollectionApproval(collectionId: String, operatorAddress: String, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Double?, _ error: Error?) -> Void)
+    open class func getCollectionApproval(collectionId: String, operatorAddress: String, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Bool?, _ error: Error?) -> Void)
 ```
 
 Get collection approval
@@ -347,7 +350,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Double**
+**Bool**
 
 ### Authorization
 
@@ -687,7 +690,7 @@ No authorization required
 
 Get collection items
 
-Returns all collection items as an array of metadata objects.
+Returns all collection items as an array of metadata objects.  Please note that ONLY items that have had at least 1 quantity minted will be returned. If you've created an item that has not been minted yet, it will not be returned in the array response.
 
 ### Example
 ```swift
@@ -718,6 +721,62 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[AnyCodable]**](AnyCodable.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getCollectionRole**
+```swift
+    open class func getCollectionRole(collectionId: String, role: String, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Bool?, _ error: Error?) -> Void)
+```
+
+Get collection role
+
+Returns a boolean (true/false) representing if the provided role for this collection has been granted to the provided address or address associated with the provided walletId.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let role = "role_example" // String | A valid MetaFab role or bytes string representing a role, such as `0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7`
+let address = "address_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. (optional)
+let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem. (optional)
+
+// Get collection role
+ItemsAPI.getCollectionRole(collectionId: collectionId, role: role, address: address, walletId: walletId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **role** | **String** | A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; | 
+ **address** | **String** | A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. | [optional] 
+ **walletId** | **String** | Any wallet id within the MetaFab ecosystem. | [optional] 
+
+### Return type
+
+**Bool**
 
 ### Authorization
 
@@ -780,6 +839,62 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **grantCollectionRole**
+```swift
+    open class func grantCollectionRole(collectionId: String, xAuthorization: String, xPassword: String, grantCollectionRoleRequest: GrantCollectionRoleRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+```
+
+Grant collection role
+
+Grants the provided role for the collection to the provided address or address associated with the provided walletId. Granted roles give different types of authority on behalf of the collection for specific players, addresses, or contracts to perform different types of permissioned collection operations.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
+let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let grantCollectionRoleRequest = grantCollectionRole_request(role: "role_example", address: "address_example", walletId: ["walletId_example"]) // GrantCollectionRoleRequest | 
+
+// Grant collection role
+ItemsAPI.grantCollectionRole(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, grantCollectionRoleRequest: grantCollectionRoleRequest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
+ **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **grantCollectionRoleRequest** | [**GrantCollectionRoleRequest**](GrantCollectionRoleRequest.md) |  | 
+
+### Return type
+
+[**TransactionModel**](TransactionModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **mintCollectionItem**
 ```swift
     open class func mintCollectionItem(collectionId: String, collectionItemId: Double, xAuthorization: String, xPassword: String, mintCollectionItemRequest: MintCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
@@ -822,6 +937,62 @@ Name | Type | Description  | Notes
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
  **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **mintCollectionItemRequest** | [**MintCollectionItemRequest**](MintCollectionItemRequest.md) |  | 
+
+### Return type
+
+[**TransactionModel**](TransactionModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **revokeCollectionRole**
+```swift
+    open class func revokeCollectionRole(collectionId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+```
+
+Revoke collection role
+
+Revokes the provided role for the collection to the provided address or address associated with the provided walletId.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
+let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let revokeCollectionRoleRequest = revokeCollectionRole_request(role: "role_example", address: "address_example", walletId: ["walletId_example"]) // RevokeCollectionRoleRequest | 
+
+// Revoke collection role
+ItemsAPI.revokeCollectionRole(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, revokeCollectionRoleRequest: revokeCollectionRoleRequest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
+ **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **revokeCollectionRoleRequest** | [**RevokeCollectionRoleRequest**](RevokeCollectionRoleRequest.md) |  | 
 
 ### Return type
 

@@ -10,7 +10,10 @@ Method | HTTP request | Description
 [**getCurrencies**](CurrenciesAPI.md#getcurrencies) | **GET** /v1/currencies | Get currencies
 [**getCurrencyBalance**](CurrenciesAPI.md#getcurrencybalance) | **GET** /v1/currencies/{currencyId}/balances | Get currency balance
 [**getCurrencyFees**](CurrenciesAPI.md#getcurrencyfees) | **GET** /v1/currencies/{currencyId}/fees | Get currency fees
+[**getCurrencyRole**](CurrenciesAPI.md#getcurrencyrole) | **GET** /v1/currencies/{currencyId}/roles | Get currency role
+[**grantCurrencyRole**](CurrenciesAPI.md#grantcurrencyrole) | **POST** /v1/currencies/{currencyId}/roles | Grant currency role
 [**mintCurrency**](CurrenciesAPI.md#mintcurrency) | **POST** /v1/currencies/{currencyId}/mints | Mint currency
+[**revokeCurrencyRole**](CurrenciesAPI.md#revokecurrencyrole) | **DELETE** /v1/currencies/{currencyId}/roles | Revoke currency role
 [**setCurrencyFees**](CurrenciesAPI.md#setcurrencyfees) | **POST** /v1/currencies/{currencyId}/fees | Set currency fees
 [**transferCurrency**](CurrenciesAPI.md#transfercurrency) | **POST** /v1/currencies/{currencyId}/transfers | Transfer currency
 
@@ -335,6 +338,118 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getCurrencyRole**
+```swift
+    open class func getCurrencyRole(currencyId: String, role: String, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Bool?, _ error: Error?) -> Void)
+```
+
+Get currency role
+
+Returns a boolean (true/false) representing if the provided role for this currency has been granted to the provided address or address associated with the provided walletId.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
+let role = "role_example" // String | A valid MetaFab role or bytes string representing a role, such as `0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7`
+let address = "address_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. (optional)
+let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem. (optional)
+
+// Get currency role
+CurrenciesAPI.getCurrencyRole(currencyId: currencyId, role: role, address: address, walletId: walletId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **currencyId** | **String** | Any currency id within the MetaFab ecosystem. | 
+ **role** | **String** | A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; | 
+ **address** | **String** | A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. | [optional] 
+ **walletId** | **String** | Any wallet id within the MetaFab ecosystem. | [optional] 
+
+### Return type
+
+**Bool**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **grantCurrencyRole**
+```swift
+    open class func grantCurrencyRole(currencyId: String, xAuthorization: String, xPassword: String, grantCurrencyRoleRequest: GrantCurrencyRoleRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+```
+
+Grant currency role
+
+Grants the provided role for the currency to the provided address or address associated with the provided walletId. Granted roles give different types of authority on behalf of the currency for specific players, addresses, or contracts to perform different types of permissioned currency operations.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
+let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
+let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let grantCurrencyRoleRequest = grantCurrencyRole_request(role: "role_example", address: "address_example", walletId: ["walletId_example"]) // GrantCurrencyRoleRequest | 
+
+// Grant currency role
+CurrenciesAPI.grantCurrencyRole(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, grantCurrencyRoleRequest: grantCurrencyRoleRequest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **currencyId** | **String** | Any currency id within the MetaFab ecosystem. | 
+ **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
+ **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **grantCurrencyRoleRequest** | [**GrantCurrencyRoleRequest**](GrantCurrencyRoleRequest.md) |  | 
+
+### Return type
+
+[**TransactionModel**](TransactionModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **mintCurrency**
 ```swift
     open class func mintCurrency(currencyId: String, xAuthorization: String, xPassword: String, mintCurrencyRequest: MintCurrencyRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
@@ -375,6 +490,62 @@ Name | Type | Description  | Notes
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
  **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **mintCurrencyRequest** | [**MintCurrencyRequest**](MintCurrencyRequest.md) |  | 
+
+### Return type
+
+[**TransactionModel**](TransactionModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **revokeCurrencyRole**
+```swift
+    open class func revokeCurrencyRole(currencyId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+```
+
+Revoke currency role
+
+Revokes the provided role for the currency to the provided address or address associated with the provided walletId.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
+let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
+let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let revokeCollectionRoleRequest = revokeCollectionRole_request(role: "role_example", address: "address_example", walletId: ["walletId_example"]) // RevokeCollectionRoleRequest | 
+
+// Revoke currency role
+CurrenciesAPI.revokeCurrencyRole(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, revokeCollectionRoleRequest: revokeCollectionRoleRequest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **currencyId** | **String** | Any currency id within the MetaFab ecosystem. | 
+ **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
+ **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **revokeCollectionRoleRequest** | [**RevokeCollectionRoleRequest**](RevokeCollectionRoleRequest.md) |  | 
 
 ### Return type
 

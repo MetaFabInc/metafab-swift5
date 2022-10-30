@@ -14,7 +14,7 @@ public struct SetCollectionApprovalRequest: Codable, JSONEncodable, Hashable {
 
     /** A true or false value approves or disapproves the provided address or address associated with the provided walletId. */
     public var approved: Bool
-    /** A valid EVM based addresses to allow control over the authenticating game or player's wallet items for this collection. */
+    /** A valid EVM based address to allow control over the authenticating game or player's wallet items for this collection. */
     public var address: String?
     /** A wallet id within the MetaFab ecosystem to allow control over the authenticating game or player's wallet items for this collection. */
     public var walletId: [String]?
