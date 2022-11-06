@@ -365,7 +365,7 @@ No authorization required
 
 # **getCollectionItem**
 ```swift
-    open class func getCollectionItem(collectionId: String, collectionItemId: Double, completion: @escaping (_ data: [AnyCodable]?, _ error: Error?) -> Void)
+    open class func getCollectionItem(collectionId: String, collectionItemId: Double, completion: @escaping (_ data: AnyCodable?, _ error: Error?) -> Void)
 ```
 
 Get collection item
@@ -402,7 +402,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[AnyCodable]**](AnyCodable.md)
+[**AnyCodable**](AnyCodable.md)
 
 ### Authorization
 

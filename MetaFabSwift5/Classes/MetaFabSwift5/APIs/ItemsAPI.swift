@@ -349,7 +349,7 @@ open class ItemsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCollectionItem(collectionId: String, collectionItemId: Double, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [AnyCodable]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCollectionItem(collectionId: String, collectionItemId: Double, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: AnyCodable?, _ error: Error?) -> Void)) -> RequestTask {
         return getCollectionItemWithRequestBuilder(collectionId: collectionId, collectionItemId: collectionItemId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -366,9 +366,9 @@ open class ItemsAPI {
      - Returns a metadata object for the provided collectionItemId.
      - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
      - parameter collectionItemId: (path) Any item id for the collection. Zero, or a positive integer. 
-     - returns: RequestBuilder<[AnyCodable]> 
+     - returns: RequestBuilder<AnyCodable> 
      */
-    open class func getCollectionItemWithRequestBuilder(collectionId: String, collectionItemId: Double) -> RequestBuilder<[AnyCodable]> {
+    open class func getCollectionItemWithRequestBuilder(collectionId: String, collectionItemId: Double) -> RequestBuilder<AnyCodable> {
         var localVariablePath = "/v1/collections/{collectionId}/items/{collectionItemId}"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -387,7 +387,7 @@ open class ItemsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[AnyCodable]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AnyCodable>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

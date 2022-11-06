@@ -17,6 +17,8 @@ public struct CreateCollectionRequest: Codable, JSONEncodable, Hashable {
         case goerli = "GOERLI"
         case matic = "MATIC"
         case mumbai = "MUMBAI"
+        case arbitrum = "ARBITRUM"
+        case arbitrumgoerli = "ARBITRUMGOERLI"
     }
     /** The blockchain you want to deploy this item collection on. Support for new blockchains are added over time. */
     public var chain: Chain
