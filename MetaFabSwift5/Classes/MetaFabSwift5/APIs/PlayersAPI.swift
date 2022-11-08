@@ -33,7 +33,7 @@ open class PlayersAPI {
 
     /**
      Authenticate player
-     - GET /v1/players
+     - GET /v1/players/auth
      - Returns an existing player object containing access token, wallet, and other details for a game when provided a valid username and password login using Basic Auth.
      - BASIC:
        - type: http
@@ -42,7 +42,7 @@ open class PlayersAPI {
      - returns: RequestBuilder<AuthPlayer200Response> 
      */
     open class func authPlayerWithRequestBuilder(xGameKey: String) -> RequestBuilder<AuthPlayer200Response> {
-        let localVariablePath = "/v1/players"
+        let localVariablePath = "/v1/players/auth"
         let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
@@ -103,6 +103,97 @@ open class PlayersAPI {
         let localVariableRequestBuilder: RequestBuilder<AuthPlayer200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Get player
+     
+     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func getPlayer(playerId: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: PublicPlayer?, _ error: Error?) -> Void)) -> RequestTask {
+        return getPlayerWithRequestBuilder(playerId: playerId).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Get player
+     - GET /v1/players/{playerId}
+     - Returns a player object for the provided player id.
+     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - returns: RequestBuilder<PublicPlayer> 
+     */
+    open class func getPlayerWithRequestBuilder(playerId: String) -> RequestBuilder<PublicPlayer> {
+        var localVariablePath = "/v1/players/{playerId}"
+        let playerIdPreEscape = "\(APIHelper.mapValueToPathItem(playerId))"
+        let playerIdPostEscape = playerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{playerId}", with: playerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<PublicPlayer>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Get players
+     
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func getPlayers(xAuthorization: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [PublicPlayer]?, _ error: Error?) -> Void)) -> RequestTask {
+        return getPlayersWithRequestBuilder(xAuthorization: xAuthorization).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Get players
+     - GET /v1/players
+     - Returns all players for the authenticated game as an array of player objects.
+     - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
+     - returns: RequestBuilder<[PublicPlayer]> 
+     */
+    open class func getPlayersWithRequestBuilder(xAuthorization: String) -> RequestBuilder<[PublicPlayer]> {
+        let localVariablePath = "/v1/players"
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "X-Authorization": xAuthorization.encodeToJSON(),
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[PublicPlayer]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**

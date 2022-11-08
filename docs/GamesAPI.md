@@ -4,8 +4,9 @@ All URIs are relative to *https://api.trymetafab.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authGame**](GamesAPI.md#authgame) | **GET** /v1/games | Authenticate game
+[**authGame**](GamesAPI.md#authgame) | **GET** /v1/games/auth | Authenticate game
 [**createGame**](GamesAPI.md#creategame) | **POST** /v1/games | Create game
+[**getGame**](GamesAPI.md#getgame) | **GET** /v1/games/{gameId} | Get game
 [**updateGame**](GamesAPI.md#updategame) | **PATCH** /v1/games/{gameId} | Update game
 
 
@@ -101,6 +102,56 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getGame**
+```swift
+    open class func getGame(gameId: String, completion: @escaping (_ data: PublicGame?, _ error: Error?) -> Void)
+```
+
+Get game
+
+Returns a game object for the provided game id.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let gameId = "gameId_example" // String | Any game id within the MetaFab ecosystem.
+
+// Get game
+GamesAPI.getGame(gameId: gameId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **gameId** | **String** | Any game id within the MetaFab ecosystem. | 
+
+### Return type
+
+[**PublicGame**](PublicGame.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -32,7 +32,7 @@ open class GamesAPI {
 
     /**
      Authenticate game
-     - GET /v1/games
+     - GET /v1/games/auth
      - Returns an existing game object containing authorization keys and credentials when provided a valid email (in place of username) and password login using Basic Auth.
      - BASIC:
        - type: http
@@ -40,7 +40,7 @@ open class GamesAPI {
      - returns: RequestBuilder<AuthGame200Response> 
      */
     open class func authGameWithRequestBuilder() -> RequestBuilder<AuthGame200Response> {
-        let localVariablePath = "/v1/games"
+        let localVariablePath = "/v1/games/auth"
         let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
@@ -99,6 +99,53 @@ open class GamesAPI {
         let localVariableRequestBuilder: RequestBuilder<AuthGame200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Get game
+     
+     - parameter gameId: (path) Any game id within the MetaFab ecosystem. 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func getGame(gameId: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: PublicGame?, _ error: Error?) -> Void)) -> RequestTask {
+        return getGameWithRequestBuilder(gameId: gameId).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Get game
+     - GET /v1/games/{gameId}
+     - Returns a game object for the provided game id.
+     - parameter gameId: (path) Any game id within the MetaFab ecosystem. 
+     - returns: RequestBuilder<PublicGame> 
+     */
+    open class func getGameWithRequestBuilder(gameId: String) -> RequestBuilder<PublicGame> {
+        var localVariablePath = "/v1/games/{gameId}"
+        let gameIdPreEscape = "\(APIHelper.mapValueToPathItem(gameId))"
+        let gameIdPostEscape = gameIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{gameId}", with: gameIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<PublicGame>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**

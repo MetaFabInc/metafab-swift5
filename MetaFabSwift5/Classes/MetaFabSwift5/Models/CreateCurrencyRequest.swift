@@ -16,7 +16,7 @@ public struct CreateCurrencyRequest: Codable, JSONEncodable, Hashable {
         case ethereum = "ETHEREUM"
         case goerli = "GOERLI"
         case matic = "MATIC"
-        case mumbai = "MUMBAI"
+        case maticmumbai = "MATICMUMBAI"
         case arbitrum = "ARBITRUM"
         case arbitrumgoerli = "ARBITRUMGOERLI"
     }

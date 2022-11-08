@@ -4,8 +4,10 @@ All URIs are relative to *https://api.trymetafab.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authPlayer**](PlayersAPI.md#authplayer) | **GET** /v1/players | Authenticate player
+[**authPlayer**](PlayersAPI.md#authplayer) | **GET** /v1/players/auth | Authenticate player
 [**createPlayer**](PlayersAPI.md#createplayer) | **POST** /v1/players | Create player
+[**getPlayer**](PlayersAPI.md#getplayer) | **GET** /v1/players/{playerId} | Get player
+[**getPlayers**](PlayersAPI.md#getplayers) | **GET** /v1/players | Get players
 [**updatePlayer**](PlayersAPI.md#updateplayer) | **PATCH** /v1/players/{playerId} | Update player
 
 
@@ -107,6 +109,106 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getPlayer**
+```swift
+    open class func getPlayer(playerId: String, completion: @escaping (_ data: PublicPlayer?, _ error: Error?) -> Void)
+```
+
+Get player
+
+Returns a player object for the provided player id.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
+
+// Get player
+PlayersAPI.getPlayer(playerId: playerId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
+
+### Return type
+
+[**PublicPlayer**](PublicPlayer.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getPlayers**
+```swift
+    open class func getPlayers(xAuthorization: String, completion: @escaping (_ data: [PublicPlayer]?, _ error: Error?) -> Void)
+```
+
+Get players
+
+Returns all players for the authenticated game as an array of player objects.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
+
+// Get players
+PlayersAPI.getPlayers(xAuthorization: xAuthorization) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
+
+### Return type
+
+[**[PublicPlayer]**](PublicPlayer.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

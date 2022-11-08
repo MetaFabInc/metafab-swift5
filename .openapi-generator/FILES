@@ -58,6 +58,9 @@ MetaFabSwift5/Classes/MetaFabSwift5/Models/GrantCurrencyRoleRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/MintCollectionItemRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/MintCurrencyRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/PlayerModel.swift
+MetaFabSwift5/Classes/MetaFabSwift5/Models/PublicGame.swift
+MetaFabSwift5/Classes/MetaFabSwift5/Models/PublicPlayer.swift
+MetaFabSwift5/Classes/MetaFabSwift5/Models/PublicPlayerWallet.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/RevokeCollectionRoleRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/SetCollectionApprovalRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/SetCollectionItemTimelockRequest.swift
@@ -122,6 +125,9 @@ docs/MintCollectionItemRequest.md
 docs/MintCurrencyRequest.md
 docs/PlayerModel.md
 docs/PlayersAPI.md
+docs/PublicGame.md
+docs/PublicPlayer.md
+docs/PublicPlayerWallet.md
 docs/RevokeCollectionRoleRequest.md
 docs/SetCollectionApprovalRequest.md
 docs/SetCollectionItemTimelockRequest.md
