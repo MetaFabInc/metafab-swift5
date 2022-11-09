@@ -53,6 +53,7 @@ MetaFabSwift5/Classes/MetaFabSwift5/Models/GetCurrencies200ResponseInner.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/GetCurrencies200ResponseInnerAllOf.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/GetCurrencyFees200Response.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/GetExchanges200ResponseInner.swift
+MetaFabSwift5/Classes/MetaFabSwift5/Models/GetPlayerData200Response.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/GrantCollectionRoleRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/GrantCurrencyRoleRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/MintCollectionItemRequest.swift
@@ -66,6 +67,7 @@ MetaFabSwift5/Classes/MetaFabSwift5/Models/SetCollectionApprovalRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/SetCollectionItemTimelockRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/SetCurrencyFeesRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/SetExchangeOfferRequest.swift
+MetaFabSwift5/Classes/MetaFabSwift5/Models/SetPlayerDataRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/TransactionModel.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/TransferCollectionItemRequest.swift
 MetaFabSwift5/Classes/MetaFabSwift5/Models/TransferCurrencyRequest.swift
@@ -118,6 +120,7 @@ docs/GetCurrencies200ResponseInner.md
 docs/GetCurrencies200ResponseInnerAllOf.md
 docs/GetCurrencyFees200Response.md
 docs/GetExchanges200ResponseInner.md
+docs/GetPlayerData200Response.md
 docs/GrantCollectionRoleRequest.md
 docs/GrantCurrencyRoleRequest.md
 docs/ItemsAPI.md
@@ -133,6 +136,7 @@ docs/SetCollectionApprovalRequest.md
 docs/SetCollectionItemTimelockRequest.md
 docs/SetCurrencyFeesRequest.md
 docs/SetExchangeOfferRequest.md
+docs/SetPlayerDataRequest.md
 docs/TransactionModel.md
 docs/TransactionsAPI.md
 docs/TransferCollectionItemRequest.md

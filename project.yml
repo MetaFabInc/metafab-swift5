@@ -7,7 +7,7 @@ targets:
     sources: [MetaFabSwift5/Classes/MetaFabSwift5]
     info:
       path: ./Info.plist
-      version: 1.2.0
+      version: 1.2.1
     settings:
       APPLICATION_EXTENSION_API_ONLY: true
     scheme: {}

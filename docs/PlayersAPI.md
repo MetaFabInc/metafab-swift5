@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**authPlayer**](PlayersAPI.md#authplayer) | **GET** /v1/players/auth | Authenticate player
 [**createPlayer**](PlayersAPI.md#createplayer) | **POST** /v1/players | Create player
 [**getPlayer**](PlayersAPI.md#getplayer) | **GET** /v1/players/{playerId} | Get player
+[**getPlayerData**](PlayersAPI.md#getplayerdata) | **GET** /v1/players/{playerId}/data | Get player data
 [**getPlayers**](PlayersAPI.md#getplayers) | **GET** /v1/players | Get players
+[**setPlayerData**](PlayersAPI.md#setplayerdata) | **POST** /v1/players/{playerId}/data | Set player data
 [**updatePlayer**](PlayersAPI.md#updateplayer) | **PATCH** /v1/players/{playerId} | Update player
 
 
@@ -163,6 +165,56 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getPlayerData**
+```swift
+    open class func getPlayerData(playerId: String, completion: @escaping (_ data: GetPlayerData200Response?, _ error: Error?) -> Void)
+```
+
+Get player data
+
+Returns the latest public and protected data as an object for the provided playerId.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
+
+// Get player data
+PlayersAPI.getPlayerData(playerId: playerId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
+
+### Return type
+
+[**GetPlayerData200Response**](GetPlayerData200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getPlayers**
 ```swift
     open class func getPlayers(xAuthorization: String, completion: @escaping (_ data: [PublicPlayer]?, _ error: Error?) -> Void)
@@ -209,6 +261,60 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setPlayerData**
+```swift
+    open class func setPlayerData(playerId: String, xAuthorization: String, setPlayerDataRequest: SetPlayerDataRequest, completion: @escaping (_ data: GetPlayerData200Response?, _ error: Error?) -> Void)
+```
+
+Set player data
+
+Creates or updates public and/or protected data for the provided playerId. Data updates are performed using deep merging. This means that when you update any top level or nested properties specific to player public or protected data, you only need to include the properties you are making changes to. Any existing properties not included in request body arguments will be retained on the player data object.  Please note, When writing an array type for a player, arrays do not follow the deep merge approach. If you add or remove an item from an array, the entire array must be passed as an argument when updating the related property for player public or protected data.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
+let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
+let setPlayerDataRequest = setPlayerData_request(protectedData: "TODO", publicData: "TODO") // SetPlayerDataRequest | 
+
+// Set player data
+PlayersAPI.setPlayerData(playerId: playerId, xAuthorization: xAuthorization, setPlayerDataRequest: setPlayerDataRequest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
+ **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
+ **setPlayerDataRequest** | [**SetPlayerDataRequest**](SetPlayerDataRequest.md) |  | 
+
+### Return type
+
+[**GetPlayerData200Response**](GetPlayerData200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
