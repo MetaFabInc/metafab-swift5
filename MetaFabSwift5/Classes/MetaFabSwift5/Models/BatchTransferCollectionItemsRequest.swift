@@ -17,11 +17,11 @@ public struct BatchTransferCollectionItemsRequest: Codable, JSONEncodable, Hasha
     /** An array of wallet ids within the MetaFab ecosystem to transfer items to. */
     public var walletIds: [String]?
     /** An array of unique itemIds to transfer. Each recipient will receive the same set of items provided. */
-    public var itemIds: [Double]
+    public var itemIds: [Int]
     /** The quantities of each unique itemId to transfer. Each recipient will receive the same quantities of items provided. */
-    public var quantities: [Double]
+    public var quantities: [Int]
 
-    public init(addresses: [String]? = nil, walletIds: [String]? = nil, itemIds: [Double], quantities: [Double]) {
+    public init(addresses: [String]? = nil, walletIds: [String]? = nil, itemIds: [Int], quantities: [Int]) {
         self.addresses = addresses
         self.walletIds = walletIds
         self.itemIds = itemIds

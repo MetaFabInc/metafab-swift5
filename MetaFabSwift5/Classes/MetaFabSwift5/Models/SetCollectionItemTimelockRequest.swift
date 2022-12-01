@@ -13,9 +13,9 @@ import AnyCodable
 public struct SetCollectionItemTimelockRequest: Codable, JSONEncodable, Hashable {
 
     /** A unix timestamp (in seconds) defining when the set timelock expires. */
-    public var timelock: Double
+    public var timelock: Int
 
-    public init(timelock: Double) {
+    public init(timelock: Int) {
         self.timelock = timelock
     }
 

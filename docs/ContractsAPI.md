@@ -183,7 +183,7 @@ import MetaFabSwift5
 let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
 let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
-let writeContractRequest = writeContract_request(_func: "_func_example", args: "args_example") // WriteContractRequest | 
+let writeContractRequest = writeContract_request(_func: "_func_example", args: [writeContract_request_args_inner()]) // WriteContractRequest | 
 
 // Write contract data
 ContractsAPI.writeContract(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, writeContractRequest: writeContractRequest) { (response, error) in

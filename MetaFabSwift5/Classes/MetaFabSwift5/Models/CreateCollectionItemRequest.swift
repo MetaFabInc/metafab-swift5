@@ -13,7 +13,7 @@ import AnyCodable
 public struct CreateCollectionItemRequest: Codable, JSONEncodable, Hashable {
 
     /** A unique itemId to use for this item within the collection. If an existing itemId is used, the current metadata will be overriden. Any number may be used.  The terms `itemId` and `collectionItemId` are used interchangeably and equivalent to one another throughout MetaFab documentation. */
-    public var id: Double
+    public var id: Int
     /** The name of this item. */
     public var name: String
     /** A text description of this item. This is a great spot to include lore, game mechanics and more related to this item. */
@@ -29,7 +29,7 @@ public struct CreateCollectionItemRequest: Codable, JSONEncodable, Hashable {
     /** An arbitrary object of data attached to the top level metadata object. This is useful for including data or resource URLs specific to your game. Such as URLs that point to 3D models, music files, bitmaps, or anything else you need to reference. */
     public var data: AnyCodable?
 
-    public init(id: Double, name: String, description: String, imageBase64: Data? = nil, imageUrl: String? = nil, externalUrl: String? = nil, attributes: [CreateCollectionItemRequestAttributesInner]? = nil, data: AnyCodable? = nil) {
+    public init(id: Int, name: String, description: String, imageBase64: Data? = nil, imageUrl: String? = nil, externalUrl: String? = nil, attributes: [CreateCollectionItemRequestAttributesInner]? = nil, data: AnyCodable? = nil) {
         self.id = id
         self.name = name
         self.description = description

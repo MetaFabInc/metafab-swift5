@@ -411,7 +411,7 @@ import MetaFabSwift5
 let currencyId = "currencyId_example" // String | Any currency id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
 let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
-let grantCurrencyRoleRequest = grantCurrencyRole_request(role: "role_example", address: "address_example", walletId: ["walletId_example"]) // GrantCurrencyRoleRequest | 
+let grantCurrencyRoleRequest = grantCurrencyRole_request(role: "role_example", address: "address_example", walletId: "walletId_example") // GrantCurrencyRoleRequest | 
 
 // Grant currency role
 CurrenciesAPI.grantCurrencyRole(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, grantCurrencyRoleRequest: grantCurrencyRoleRequest) { (response, error) in

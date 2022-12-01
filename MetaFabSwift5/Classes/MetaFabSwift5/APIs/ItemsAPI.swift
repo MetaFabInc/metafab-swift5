@@ -403,7 +403,7 @@ open class ItemsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCollectionItemBalance(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Double?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCollectionItemBalance(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Int?, _ error: Error?) -> Void)) -> RequestTask {
         return getCollectionItemBalanceWithRequestBuilder(collectionId: collectionId, collectionItemId: collectionItemId, address: address, walletId: walletId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -422,9 +422,9 @@ open class ItemsAPI {
      - parameter collectionItemId: (path) Any item id for the collection. Zero, or a positive integer. 
      - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
      - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
-     - returns: RequestBuilder<Double> 
+     - returns: RequestBuilder<Int> 
      */
-    open class func getCollectionItemBalanceWithRequestBuilder(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Double> {
+    open class func getCollectionItemBalanceWithRequestBuilder(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Int> {
         var localVariablePath = "/v1/collections/{collectionId}/items/{collectionItemId}/balances"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -447,7 +447,7 @@ open class ItemsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<Double>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Int>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -462,7 +462,7 @@ open class ItemsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCollectionItemBalances(collectionId: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [String: Double]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCollectionItemBalances(collectionId: String, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [String: Int]?, _ error: Error?) -> Void)) -> RequestTask {
         return getCollectionItemBalancesWithRequestBuilder(collectionId: collectionId, address: address, walletId: walletId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -480,9 +480,9 @@ open class ItemsAPI {
      - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
      - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
      - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
-     - returns: RequestBuilder<[String: Double]> 
+     - returns: RequestBuilder<[String: Int]> 
      */
-    open class func getCollectionItemBalancesWithRequestBuilder(collectionId: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<[String: Double]> {
+    open class func getCollectionItemBalancesWithRequestBuilder(collectionId: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<[String: Int]> {
         var localVariablePath = "/v1/collections/{collectionId}/balances"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -502,7 +502,7 @@ open class ItemsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[String: Double]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[String: Int]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -515,7 +515,7 @@ open class ItemsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCollectionItemSupplies(collectionId: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [String: Double]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCollectionItemSupplies(collectionId: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [String: Int]?, _ error: Error?) -> Void)) -> RequestTask {
         return getCollectionItemSuppliesWithRequestBuilder(collectionId: collectionId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -531,9 +531,9 @@ open class ItemsAPI {
      - GET /v1/collections/{collectionId}/supplies
      - Returns the currency circulating supply of all collection items.
      - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
-     - returns: RequestBuilder<[String: Double]> 
+     - returns: RequestBuilder<[String: Int]> 
      */
-    open class func getCollectionItemSuppliesWithRequestBuilder(collectionId: String) -> RequestBuilder<[String: Double]> {
+    open class func getCollectionItemSuppliesWithRequestBuilder(collectionId: String) -> RequestBuilder<[String: Int]> {
         var localVariablePath = "/v1/collections/{collectionId}/supplies"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -549,7 +549,7 @@ open class ItemsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[String: Double]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[String: Int]>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -565,7 +565,7 @@ open class ItemsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCollectionItemSupply(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Double?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCollectionItemSupply(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Int?, _ error: Error?) -> Void)) -> RequestTask {
         return getCollectionItemSupplyWithRequestBuilder(collectionId: collectionId, collectionItemId: collectionItemId, address: address, walletId: walletId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -584,9 +584,9 @@ open class ItemsAPI {
      - parameter collectionItemId: (path) Any item id for the collection. Zero, or a positive integer. 
      - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
      - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
-     - returns: RequestBuilder<Double> 
+     - returns: RequestBuilder<Int> 
      */
-    open class func getCollectionItemSupplyWithRequestBuilder(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Double> {
+    open class func getCollectionItemSupplyWithRequestBuilder(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Int> {
         var localVariablePath = "/v1/collections/{collectionId}/items/{collectionItemId}/supplies"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -609,7 +609,7 @@ open class ItemsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<Double>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Int>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
@@ -623,7 +623,7 @@ open class ItemsAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func getCollectionItemTimelock(collectionId: String, collectionItemId: Double, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Double?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func getCollectionItemTimelock(collectionId: String, collectionItemId: Double, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Int?, _ error: Error?) -> Void)) -> RequestTask {
         return getCollectionItemTimelockWithRequestBuilder(collectionId: collectionId, collectionItemId: collectionItemId).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -640,9 +640,9 @@ open class ItemsAPI {
      - Returns a timestamp (in seconds) for when the provided collectionItemId's transfer timelock expires. A value of 0 means the provided collectionItemId does not have a timelock set. Timelocks prevent items of a specific collectionItemId from being transferred until the set timelock timestamp has been surpassed.
      - parameter collectionId: (path) Any collection id within the MetaFab ecosystem. 
      - parameter collectionItemId: (path) Any item id for the collection. Zero, or a positive integer. 
-     - returns: RequestBuilder<Double> 
+     - returns: RequestBuilder<Int> 
      */
-    open class func getCollectionItemTimelockWithRequestBuilder(collectionId: String, collectionItemId: Double) -> RequestBuilder<Double> {
+    open class func getCollectionItemTimelockWithRequestBuilder(collectionId: String, collectionItemId: Double) -> RequestBuilder<Int> {
         var localVariablePath = "/v1/collections/{collectionId}/items/{collectionItemId}/timelocks"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -661,7 +661,7 @@ open class ItemsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<Double>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Int>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

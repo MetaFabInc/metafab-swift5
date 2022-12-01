@@ -417,7 +417,7 @@ No authorization required
 
 # **getCollectionItemBalance**
 ```swift
-    open class func getCollectionItemBalance(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Double?, _ error: Error?) -> Void)
+    open class func getCollectionItemBalance(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Int?, _ error: Error?) -> Void)
 ```
 
 Get collection item balance
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Double**
+**Int**
 
 ### Authorization
 
@@ -473,7 +473,7 @@ No authorization required
 
 # **getCollectionItemBalances**
 ```swift
-    open class func getCollectionItemBalances(collectionId: String, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: [String: Double]?, _ error: Error?) -> Void)
+    open class func getCollectionItemBalances(collectionId: String, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: [String: Int]?, _ error: Error?) -> Void)
 ```
 
 Get collection item balances
@@ -512,7 +512,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[String: Double]**
+**[String: Int]**
 
 ### Authorization
 
@@ -527,7 +527,7 @@ No authorization required
 
 # **getCollectionItemSupplies**
 ```swift
-    open class func getCollectionItemSupplies(collectionId: String, completion: @escaping (_ data: [String: Double]?, _ error: Error?) -> Void)
+    open class func getCollectionItemSupplies(collectionId: String, completion: @escaping (_ data: [String: Int]?, _ error: Error?) -> Void)
 ```
 
 Get collection item supplies
@@ -562,7 +562,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[String: Double]**
+**[String: Int]**
 
 ### Authorization
 
@@ -577,7 +577,7 @@ No authorization required
 
 # **getCollectionItemSupply**
 ```swift
-    open class func getCollectionItemSupply(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Double?, _ error: Error?) -> Void)
+    open class func getCollectionItemSupply(collectionId: String, collectionItemId: Double, address: String? = nil, walletId: String? = nil, completion: @escaping (_ data: Int?, _ error: Error?) -> Void)
 ```
 
 Get collection item supply
@@ -618,7 +618,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Double**
+**Int**
 
 ### Authorization
 
@@ -633,7 +633,7 @@ No authorization required
 
 # **getCollectionItemTimelock**
 ```swift
-    open class func getCollectionItemTimelock(collectionId: String, collectionItemId: Double, completion: @escaping (_ data: Double?, _ error: Error?) -> Void)
+    open class func getCollectionItemTimelock(collectionId: String, collectionItemId: Double, completion: @escaping (_ data: Int?, _ error: Error?) -> Void)
 ```
 
 Get collection item timelock
@@ -670,7 +670,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Double**
+**Int**
 
 ### Authorization
 

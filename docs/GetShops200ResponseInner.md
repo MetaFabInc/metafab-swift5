@@ -1,4 +1,4 @@
-# GetCollections200ResponseInner
+# GetShops200ResponseInner
 
 ## Properties
 Name | Type | Description | Notes

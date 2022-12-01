@@ -17,9 +17,9 @@ public struct GrantCurrencyRoleRequest: Codable, JSONEncodable, Hashable {
     /** A valid EVM based address to grant the role to. */
     public var address: String?
     /** A wallet id within the MetaFab ecosystem to grant the role to. */
-    public var walletId: [String]?
+    public var walletId: String?
 
-    public init(role: String, address: String? = nil, walletId: [String]? = nil) {
+    public init(role: String, address: String? = nil, walletId: String? = nil) {
         self.role = role
         self.address = address
         self.walletId = walletId

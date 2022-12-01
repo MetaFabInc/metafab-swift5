@@ -17,9 +17,9 @@ public struct TransferCollectionItemRequest: Codable, JSONEncodable, Hashable {
     /** A wallet id within the MetaFab ecosystem to transfer items to. */
     public var walletId: [String]?
     /** The quantity of the collectionItemId to transfer. */
-    public var quantity: Double
+    public var quantity: Int
 
-    public init(address: String? = nil, walletId: [String]? = nil, quantity: Double) {
+    public init(address: String? = nil, walletId: [String]? = nil, quantity: Int) {
         self.address = address
         self.walletId = walletId
         self.quantity = quantity

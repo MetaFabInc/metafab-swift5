@@ -12,9 +12,9 @@ import AnyCodable
 
 public struct GetCollections200ResponseInnerAllOf: Codable, JSONEncodable, Hashable {
 
-    public var contract: CollectionModel?
+    public var contract: ContractModel?
 
-    public init(contract: CollectionModel? = nil) {
+    public init(contract: ContractModel? = nil) {
         self.contract = contract
     }
 

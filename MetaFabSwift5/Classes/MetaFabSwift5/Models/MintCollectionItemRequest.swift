@@ -15,11 +15,11 @@ public struct MintCollectionItemRequest: Codable, JSONEncodable, Hashable {
     /** A valid EVM based address to create (mint) the item(s) for. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. */
     public var address: String?
     /** The quantity of the specified item id to create (mint). */
-    public var quantity: Double
+    public var quantity: Int
     /** Any wallet id within the MetaFab ecosystem to create (mint) the item(s) for. */
     public var walletId: String?
 
-    public init(address: String? = nil, quantity: Double, walletId: String? = nil) {
+    public init(address: String? = nil, quantity: Int, walletId: String? = nil) {
         self.address = address
         self.quantity = quantity
         self.walletId = walletId

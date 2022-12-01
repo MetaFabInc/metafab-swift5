@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **rpcs** | [**AnyCodable**](.md) | This field has not had a description added. | [optional] 
 **publishedKey** | **String** | This field has not had a description added. | [optional] 
 **secretKey** | **String** | This field has not had a description added. | [optional] 
+**verified** | **Bool** | This field has not had a description added. | [optional] 
 **updatedAt** | **String** | This field has not had a description added. | [optional] 
 **createdAt** | **String** | This field has not had a description added. | [optional] 
 **wallet** | [**WalletModel**](WalletModel.md) |  | [optional] 

@@ -15,9 +15,9 @@ public struct WriteContractRequest: Codable, JSONEncodable, Hashable {
     /** A contract function name. This can be any valid function from the the ABI of the contract you are interacting with. For example, `mint`. */
     public var _func: String
     /** An array of args. This is optional and only necessary if the function being invoked requires arguments per the contract ABI. For example, `[123, \"Hello\", false]`. */
-    public var args: String?
+    public var args: [WriteContractRequestArgsInner]?
 
-    public init(_func: String, args: String? = nil) {
+    public init(_func: String, args: [WriteContractRequestArgsInner]? = nil) {
         self._func = _func
         self.args = args
     }

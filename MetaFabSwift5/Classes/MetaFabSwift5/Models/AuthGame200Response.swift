@@ -29,13 +29,15 @@ public struct AuthGame200Response: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var secretKey: String?
     /** This field has not had a description added. */
+    public var verified: Bool?
+    /** This field has not had a description added. */
     public var updatedAt: String?
     /** This field has not had a description added. */
     public var createdAt: String?
     public var wallet: WalletModel?
     public var fundingWallet: WalletModel?
 
-    public init(id: String? = nil, walletId: String? = nil, fundingWalletId: String? = nil, email: String? = nil, name: String? = nil, rpcs: AnyCodable? = nil, publishedKey: String? = nil, secretKey: String? = nil, updatedAt: String? = nil, createdAt: String? = nil, wallet: WalletModel? = nil, fundingWallet: WalletModel? = nil) {
+    public init(id: String? = nil, walletId: String? = nil, fundingWalletId: String? = nil, email: String? = nil, name: String? = nil, rpcs: AnyCodable? = nil, publishedKey: String? = nil, secretKey: String? = nil, verified: Bool? = nil, updatedAt: String? = nil, createdAt: String? = nil, wallet: WalletModel? = nil, fundingWallet: WalletModel? = nil) {
         self.id = id
         self.walletId = walletId
         self.fundingWalletId = fundingWalletId
@@ -44,6 +46,7 @@ public struct AuthGame200Response: Codable, JSONEncodable, Hashable {
         self.rpcs = rpcs
         self.publishedKey = publishedKey
         self.secretKey = secretKey
+        self.verified = verified
         self.updatedAt = updatedAt
         self.createdAt = createdAt
         self.wallet = wallet
@@ -59,6 +62,7 @@ public struct AuthGame200Response: Codable, JSONEncodable, Hashable {
         case rpcs
         case publishedKey
         case secretKey
+        case verified
         case updatedAt
         case createdAt
         case wallet
@@ -77,6 +81,7 @@ public struct AuthGame200Response: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(rpcs, forKey: .rpcs)
         try container.encodeIfPresent(publishedKey, forKey: .publishedKey)
         try container.encodeIfPresent(secretKey, forKey: .secretKey)
+        try container.encodeIfPresent(verified, forKey: .verified)
         try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(createdAt, forKey: .createdAt)
         try container.encodeIfPresent(wallet, forKey: .wallet)

@@ -13,9 +13,9 @@ import AnyCodable
 public struct BurnCollectionItemRequest: Codable, JSONEncodable, Hashable {
 
     /** The quantity of the collectionItemId to burn. */
-    public var quantity: Double
+    public var quantity: Int
 
-    public init(quantity: Double) {
+    public init(quantity: Int) {
         self.quantity = quantity
     }
 
