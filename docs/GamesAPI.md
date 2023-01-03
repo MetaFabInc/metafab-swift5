@@ -172,7 +172,7 @@ import MetaFabSwift5
 
 let gameId = "gameId_example" // String | Any game id within the MetaFab ecosystem.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let updateGameRequest = updateGame_request(name: "name_example", email: "email_example", currentPassword: "currentPassword_example", newPassword: "newPassword_example", rpcs: "TODO", resetPublishedKey: false, resetSecretKey: false) // UpdateGameRequest | 
+let updateGameRequest = updateGame_request(name: "name_example", email: "email_example", currentPassword: "currentPassword_example", newPassword: "newPassword_example", rpcs: "TODO", redirectUris: ["redirectUris_example"], iconImageBase64: "iconImageBase64_example", coverImageBase64: "coverImageBase64_example", primaryColorHex: "primaryColorHex_example", resetPublishedKey: false, resetSecretKey: false) // UpdateGameRequest | 
 
 // Update game
 GamesAPI.updateGame(gameId: gameId, xAuthorization: xAuthorization, updateGameRequest: updateGameRequest) { (response, error) in

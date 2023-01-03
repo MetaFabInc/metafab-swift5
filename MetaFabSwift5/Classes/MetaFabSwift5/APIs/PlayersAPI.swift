@@ -244,6 +244,111 @@ open class PlayersAPI {
     }
 
     /**
+     Remove player connected wallet
+     
+     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerWalletId: (path) Any player wallet id within the MetaFab ecosystem. 
+     - parameter removePlayerConnectedWalletRequest: (body)  
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func removePlayerConnectedWallet(playerId: String, playerWalletId: String, removePlayerConnectedWalletRequest: RemovePlayerConnectedWalletRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return removePlayerConnectedWalletWithRequestBuilder(playerId: playerId, playerWalletId: playerWalletId, removePlayerConnectedWalletRequest: removePlayerConnectedWalletRequest).execute(apiResponseQueue) { result in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Remove player connected wallet
+     - DELETE /v1/players/{playerId}/wallets/{playerWalletId}
+     - Removes an external wallet from a player account. The player's wallet is reverted to their custodial wallet.
+     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerWalletId: (path) Any player wallet id within the MetaFab ecosystem. 
+     - parameter removePlayerConnectedWalletRequest: (body)  
+     - returns: RequestBuilder<Void> 
+     */
+    open class func removePlayerConnectedWalletWithRequestBuilder(playerId: String, playerWalletId: String, removePlayerConnectedWalletRequest: RemovePlayerConnectedWalletRequest) -> RequestBuilder<Void> {
+        var localVariablePath = "/v1/players/{playerId}/wallets/{playerWalletId}"
+        let playerIdPreEscape = "\(APIHelper.mapValueToPathItem(playerId))"
+        let playerIdPostEscape = playerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{playerId}", with: playerIdPostEscape, options: .literal, range: nil)
+        let playerWalletIdPreEscape = "\(APIHelper.mapValueToPathItem(playerWalletId))"
+        let playerWalletIdPostEscape = playerWalletIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{playerWalletId}", with: playerWalletIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: removePlayerConnectedWalletRequest)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = MetaFabSwift5API.requestBuilderFactory.getNonDecodableBuilder()
+
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Set player connected wallet
+     
+     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;accessToken&#x60; of the authenticating player. 
+     - parameter setPlayerConnectedWalletRequest: (body)  
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func setPlayerConnectedWallet(playerId: String, xAuthorization: String, setPlayerConnectedWalletRequest: SetPlayerConnectedWalletRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: SetPlayerConnectedWallet200Response?, _ error: Error?) -> Void)) -> RequestTask {
+        return setPlayerConnectedWalletWithRequestBuilder(playerId: playerId, xAuthorization: xAuthorization, setPlayerConnectedWalletRequest: setPlayerConnectedWalletRequest).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Set player connected wallet
+     - POST /v1/players/{playerId}/wallets
+     - Sets an external wallet as the wallet for a player account. The set wallet can transact gaslessly with all MetaFab related systems through the same MetaFab API calls as custodial wallets without requiring transaction signing or private keys.  This is done through an internal system MetaFab has created that allows an external connected wallet to delegate transaction signing for a specific game's set of contracts to a player's password protected custodial wallet. This allow the custodial wallet to sign and submit transactions to a specific game's related contracts as if they were signed and submitted by the connected external wallet. This also means that all earned tokens, purchased items and any interactions happen and are recorded on chain as the external connected wallet. No additional logic needs to be writted by developers to support both custodial and external wallets, everything just works.  Finally, this endpoint is meant for advanced users. The majority of developers who want to implement external wallet support for their game can do so without any extra work through our whitelabeled wallet connection feature that implements this endpoint underneath the hood without any required work.
+     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter xAuthorization: (header) The &#x60;accessToken&#x60; of the authenticating player. 
+     - parameter setPlayerConnectedWalletRequest: (body)  
+     - returns: RequestBuilder<SetPlayerConnectedWallet200Response> 
+     */
+    open class func setPlayerConnectedWalletWithRequestBuilder(playerId: String, xAuthorization: String, setPlayerConnectedWalletRequest: SetPlayerConnectedWalletRequest) -> RequestBuilder<SetPlayerConnectedWallet200Response> {
+        var localVariablePath = "/v1/players/{playerId}/wallets"
+        let playerIdPreEscape = "\(APIHelper.mapValueToPathItem(playerId))"
+        let playerIdPostEscape = playerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{playerId}", with: playerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: setPlayerConnectedWalletRequest)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "X-Authorization": xAuthorization.encodeToJSON(),
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<SetPlayerConnectedWallet200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
      Set player data
      
      - parameter playerId: (path) Any player id within the MetaFab ecosystem. 

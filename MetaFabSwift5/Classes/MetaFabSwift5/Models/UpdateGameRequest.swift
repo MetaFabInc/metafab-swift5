@@ -22,17 +22,29 @@ public struct UpdateGameRequest: Codable, JSONEncodable, Hashable {
     public var newPassword: String?
     /** Sets a custom RPC for your game to use instead of MetaFab's default RPCs for the chain(s) you specify.  Expects a JSON object containing key value pairs of supported `chain` -> `rpc url`. Only the chain names provided as keys in the object will be explicitly overriden. To delete a custom RPC for your game, provide the chain name to delete as a key in the provided object and `null` as the value.  Set RPC example, `{ MATIC: 'https://polygon-rpc.com' }` Delete RPC example, `{ MATIC: null }` */
     public var rpcs: [String: String]?
+    /** An array of valid base redirect uris or exact uris that can be used for the redirect uri of various MetaFab features such as player login/registration and wallet connection.  Expects base or exact uris. For example, you could use include a uri of `https://trymetafab.com` and it would allow redirection to any valid uri on the domain, such as `https://trymetafab.com/play/game`. */
+    public var redirectUris: [String]?
+    /** A base64 string of the icon image for this game. Supported image formats are `jpg`, `jpeg`, `png`, `gif` Recommended size is 512x512 pixels, or 1:1 aspect ratio. This image is used for your auth/connect wallet flow and other MetaFab features for your game. */
+    public var iconImageBase64: String?
+    /** A base64 string of the cover image for this game. Supported image formats are `jpg`, `jpeg`, `png`, `gif`. Recommended size is 1600x1000 pixels, or 16:10 aspect ratio.  This image is used as the background image for your auth/connect wallet flow and other MetaFab features for your game. */
+    public var coverImageBase64: String?
+    /** A valid hex color code. This color is used for your auth/connect wallet flow to control the color of buttons and other brandable MetaFab features for your game. */
+    public var primaryColorHex: String?
     /** Revokes the game's previous published key and returns a new one if true. */
     public var resetPublishedKey: Bool?
     /** Revokes the game's previous secret key and returns a new on if true. */
     public var resetSecretKey: Bool?
 
-    public init(name: String? = nil, email: String? = nil, currentPassword: String? = nil, newPassword: String? = nil, rpcs: [String: String]? = nil, resetPublishedKey: Bool? = nil, resetSecretKey: Bool? = nil) {
+    public init(name: String? = nil, email: String? = nil, currentPassword: String? = nil, newPassword: String? = nil, rpcs: [String: String]? = nil, redirectUris: [String]? = nil, iconImageBase64: String? = nil, coverImageBase64: String? = nil, primaryColorHex: String? = nil, resetPublishedKey: Bool? = nil, resetSecretKey: Bool? = nil) {
         self.name = name
         self.email = email
         self.currentPassword = currentPassword
         self.newPassword = newPassword
         self.rpcs = rpcs
+        self.redirectUris = redirectUris
+        self.iconImageBase64 = iconImageBase64
+        self.coverImageBase64 = coverImageBase64
+        self.primaryColorHex = primaryColorHex
         self.resetPublishedKey = resetPublishedKey
         self.resetSecretKey = resetSecretKey
     }
@@ -43,6 +55,10 @@ public struct UpdateGameRequest: Codable, JSONEncodable, Hashable {
         case currentPassword
         case newPassword
         case rpcs
+        case redirectUris
+        case iconImageBase64
+        case coverImageBase64
+        case primaryColorHex
         case resetPublishedKey
         case resetSecretKey
     }
@@ -56,6 +72,10 @@ public struct UpdateGameRequest: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(currentPassword, forKey: .currentPassword)
         try container.encodeIfPresent(newPassword, forKey: .newPassword)
         try container.encodeIfPresent(rpcs, forKey: .rpcs)
+        try container.encodeIfPresent(redirectUris, forKey: .redirectUris)
+        try container.encodeIfPresent(iconImageBase64, forKey: .iconImageBase64)
+        try container.encodeIfPresent(coverImageBase64, forKey: .coverImageBase64)
+        try container.encodeIfPresent(primaryColorHex, forKey: .primaryColorHex)
         try container.encodeIfPresent(resetPublishedKey, forKey: .resetPublishedKey)
         try container.encodeIfPresent(resetSecretKey, forKey: .resetSecretKey)
     }

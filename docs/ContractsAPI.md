@@ -7,6 +7,8 @@ Method | HTTP request | Description
 [**createContract**](ContractsAPI.md#createcontract) | **POST** /v1/contracts | Create custom contract
 [**getContracts**](ContractsAPI.md#getcontracts) | **GET** /v1/contracts | Get contracts
 [**readContract**](ContractsAPI.md#readcontract) | **GET** /v1/contracts/{contractId}/reads | Read contract data
+[**transferContractOwnership**](ContractsAPI.md#transfercontractownership) | **POST** /v1/contracts/{contractId}/owners | Transfer contract ownership
+[**upgradeContractTrustedForwarder**](ContractsAPI.md#upgradecontracttrustedforwarder) | **POST** /v1/contracts/{contractId}/forwarders | Upgrade contract trusted forwarder
 [**writeContract**](ContractsAPI.md#writecontract) | **POST** /v1/contracts/{contractId}/writes | Write contract data
 
 
@@ -25,7 +27,7 @@ Create a MetaFab custom contract entry from an existing contract address and con
 import MetaFabSwift5
 
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let createContractRequest = createContract_request(address: "address_example", abi: "abi_example", chain: "chain_example") // CreateContractRequest | 
+let createContractRequest = createContract_request(address: "address_example", forwarderAddress: "forwarderAddress_example", abi: "abi_example", chain: "chain_example") // CreateContractRequest | 
 
 // Create custom contract
 ContractsAPI.createContract(xAuthorization: xAuthorization, createContractRequest: createContractRequest) { (response, error) in
@@ -162,6 +164,118 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **transferContractOwnership**
+```swift
+    open class func transferContractOwnership(contractId: String, xAuthorization: String, xPassword: String, transferContractOwnershipRequest: TransferContractOwnershipRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+```
+
+Transfer contract ownership
+
+Transfer ownership and control of a MetaFab deployed smart contract to another wallet you control. Transferring control does not disrupt your usage of MetaFab APIs and can be done so without causing any service outages for your game. The new owner wallet will have full control over any relevant item collections and marketplace related pages this contract may be associated with, such as for MetaFab item or NFT contracts.  Your game's custodial wallet will retain a `MANAGER_ROLE` on your contracts, allowing you to still use MetaFab APIs without issue while you retain full contract ownership and the contract's administrator role. If ever you want eject from using the MetaFab APIs but still retain your deployed smart contracts, you can revoke the `MANAGER_ROLE` from your game's custodial wallet address for your contract. We do not lock you into our systems.  Please be certain that the wallet address you transfer ownership to is one you control. Once ownership and admin permissions are transferred, your game's custodial wallet no longer has permission to reassign ownership or administrative priveleges for your contract.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
+let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
+let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let transferContractOwnershipRequest = transferContractOwnership_request(ownerAddress: "ownerAddress_example") // TransferContractOwnershipRequest | 
+
+// Transfer contract ownership
+ContractsAPI.transferContractOwnership(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, transferContractOwnershipRequest: transferContractOwnershipRequest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contractId** | **String** | Any contract id within the MetaFab ecosystem. | 
+ **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
+ **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **transferContractOwnershipRequest** | [**TransferContractOwnershipRequest**](TransferContractOwnershipRequest.md) |  | 
+
+### Return type
+
+[**TransactionModel**](TransactionModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **upgradeContractTrustedForwarder**
+```swift
+    open class func upgradeContractTrustedForwarder(contractId: String, xAuthorization: String, xPassword: String, upgradeContractTrustedForwarderRequest: UpgradeContractTrustedForwarderRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+```
+
+Upgrade contract trusted forwarder
+
+In rare circumstances, you may need to upgrade the underlying trusted forwarder contract address attached to your game's contracts. Using this endpoint, you can provide a new trusted forwarder contract address to assign to any of your contracts that implement the `upgradeTrustedForwarder` function.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import MetaFabSwift5
+
+let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
+let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
+let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let upgradeContractTrustedForwarderRequest = upgradeContractTrustedForwarder_request(forwarderAddress: "forwarderAddress_example") // UpgradeContractTrustedForwarderRequest | 
+
+// Upgrade contract trusted forwarder
+ContractsAPI.upgradeContractTrustedForwarder(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, upgradeContractTrustedForwarderRequest: upgradeContractTrustedForwarderRequest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contractId** | **String** | Any contract id within the MetaFab ecosystem. | 
+ **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
+ **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **upgradeContractTrustedForwarderRequest** | [**UpgradeContractTrustedForwarderRequest**](UpgradeContractTrustedForwarderRequest.md) |  | 
+
+### Return type
+
+[**TransactionModel**](TransactionModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

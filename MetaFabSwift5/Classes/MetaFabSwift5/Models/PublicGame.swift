@@ -19,14 +19,26 @@ public struct PublicGame: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var publishedKey: String?
     /** This field has not had a description added. */
+    public var redirectUris: [String]?
+    /** This field has not had a description added. */
+    public var iconImageUrl: String?
+    /** This field has not had a description added. */
+    public var coverImageUrl: String?
+    /** This field has not had a description added. */
+    public var primaryColorHex: String?
+    /** This field has not had a description added. */
     public var updatedAt: String?
     /** This field has not had a description added. */
     public var createdAt: String?
 
-    public init(id: String? = nil, name: String? = nil, publishedKey: String? = nil, updatedAt: String? = nil, createdAt: String? = nil) {
+    public init(id: String? = nil, name: String? = nil, publishedKey: String? = nil, redirectUris: [String]? = nil, iconImageUrl: String? = nil, coverImageUrl: String? = nil, primaryColorHex: String? = nil, updatedAt: String? = nil, createdAt: String? = nil) {
         self.id = id
         self.name = name
         self.publishedKey = publishedKey
+        self.redirectUris = redirectUris
+        self.iconImageUrl = iconImageUrl
+        self.coverImageUrl = coverImageUrl
+        self.primaryColorHex = primaryColorHex
         self.updatedAt = updatedAt
         self.createdAt = createdAt
     }
@@ -35,6 +47,10 @@ public struct PublicGame: Codable, JSONEncodable, Hashable {
         case id
         case name
         case publishedKey
+        case redirectUris
+        case iconImageUrl
+        case coverImageUrl
+        case primaryColorHex
         case updatedAt
         case createdAt
     }
@@ -46,6 +62,10 @@ public struct PublicGame: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(publishedKey, forKey: .publishedKey)
+        try container.encodeIfPresent(redirectUris, forKey: .redirectUris)
+        try container.encodeIfPresent(iconImageUrl, forKey: .iconImageUrl)
+        try container.encodeIfPresent(coverImageUrl, forKey: .coverImageUrl)
+        try container.encodeIfPresent(primaryColorHex, forKey: .primaryColorHex)
         try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(createdAt, forKey: .createdAt)
     }

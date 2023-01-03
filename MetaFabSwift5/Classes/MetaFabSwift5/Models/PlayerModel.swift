@@ -19,6 +19,8 @@ public struct PlayerModel: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var walletId: String?
     /** This field has not had a description added. */
+    public var connectedWalletId: String?
+    /** This field has not had a description added. */
     public var username: String?
     /** This field has not had a description added. */
     public var accessToken: String?
@@ -27,10 +29,11 @@ public struct PlayerModel: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var createdAt: String?
 
-    public init(id: String? = nil, gameId: String? = nil, walletId: String? = nil, username: String? = nil, accessToken: String? = nil, updatedAt: String? = nil, createdAt: String? = nil) {
+    public init(id: String? = nil, gameId: String? = nil, walletId: String? = nil, connectedWalletId: String? = nil, username: String? = nil, accessToken: String? = nil, updatedAt: String? = nil, createdAt: String? = nil) {
         self.id = id
         self.gameId = gameId
         self.walletId = walletId
+        self.connectedWalletId = connectedWalletId
         self.username = username
         self.accessToken = accessToken
         self.updatedAt = updatedAt
@@ -41,6 +44,7 @@ public struct PlayerModel: Codable, JSONEncodable, Hashable {
         case id
         case gameId
         case walletId
+        case connectedWalletId
         case username
         case accessToken
         case updatedAt
@@ -54,6 +58,7 @@ public struct PlayerModel: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(gameId, forKey: .gameId)
         try container.encodeIfPresent(walletId, forKey: .walletId)
+        try container.encodeIfPresent(connectedWalletId, forKey: .connectedWalletId)
         try container.encodeIfPresent(username, forKey: .username)
         try container.encodeIfPresent(accessToken, forKey: .accessToken)
         try container.encodeIfPresent(updatedAt, forKey: .updatedAt)

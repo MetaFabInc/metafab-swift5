@@ -25,18 +25,21 @@ public struct CreateCollection200ResponseAllOfContract: Codable, JSONEncodable, 
     /** This field has not had a description added. */
     public var address: String?
     /** This field has not had a description added. */
+    public var forwarderAddress: String?
+    /** This field has not had a description added. */
     public var updatedAt: String?
     /** This field has not had a description added. */
     public var createdAt: String?
     public var transactions: [TransactionModel]?
 
-    public init(id: String? = nil, gameId: String? = nil, chain: String? = nil, abi: AnyCodable? = nil, type: String? = nil, address: String? = nil, updatedAt: String? = nil, createdAt: String? = nil, transactions: [TransactionModel]? = nil) {
+    public init(id: String? = nil, gameId: String? = nil, chain: String? = nil, abi: AnyCodable? = nil, type: String? = nil, address: String? = nil, forwarderAddress: String? = nil, updatedAt: String? = nil, createdAt: String? = nil, transactions: [TransactionModel]? = nil) {
         self.id = id
         self.gameId = gameId
         self.chain = chain
         self.abi = abi
         self.type = type
         self.address = address
+        self.forwarderAddress = forwarderAddress
         self.updatedAt = updatedAt
         self.createdAt = createdAt
         self.transactions = transactions
@@ -49,6 +52,7 @@ public struct CreateCollection200ResponseAllOfContract: Codable, JSONEncodable, 
         case abi
         case type
         case address
+        case forwarderAddress
         case updatedAt
         case createdAt
         case transactions
@@ -64,6 +68,7 @@ public struct CreateCollection200ResponseAllOfContract: Codable, JSONEncodable, 
         try container.encodeIfPresent(abi, forKey: .abi)
         try container.encodeIfPresent(type, forKey: .type)
         try container.encodeIfPresent(address, forKey: .address)
+        try container.encodeIfPresent(forwarderAddress, forKey: .forwarderAddress)
         try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(createdAt, forKey: .createdAt)
         try container.encodeIfPresent(transactions, forKey: .transactions)

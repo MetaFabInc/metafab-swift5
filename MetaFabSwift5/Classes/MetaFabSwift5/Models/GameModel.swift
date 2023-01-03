@@ -25,6 +25,14 @@ public struct GameModel: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var rpcs: AnyCodable?
     /** This field has not had a description added. */
+    public var redirectUris: AnyCodable?
+    /** This field has not had a description added. */
+    public var iconImageUrl: String?
+    /** This field has not had a description added. */
+    public var coverImageUrl: String?
+    /** This field has not had a description added. */
+    public var primaryColorHex: String?
+    /** This field has not had a description added. */
     public var publishedKey: String?
     /** This field has not had a description added. */
     public var secretKey: String?
@@ -35,13 +43,17 @@ public struct GameModel: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var createdAt: String?
 
-    public init(id: String? = nil, walletId: String? = nil, fundingWalletId: String? = nil, email: String? = nil, name: String? = nil, rpcs: AnyCodable? = nil, publishedKey: String? = nil, secretKey: String? = nil, verified: Bool? = nil, updatedAt: String? = nil, createdAt: String? = nil) {
+    public init(id: String? = nil, walletId: String? = nil, fundingWalletId: String? = nil, email: String? = nil, name: String? = nil, rpcs: AnyCodable? = nil, redirectUris: AnyCodable? = nil, iconImageUrl: String? = nil, coverImageUrl: String? = nil, primaryColorHex: String? = nil, publishedKey: String? = nil, secretKey: String? = nil, verified: Bool? = nil, updatedAt: String? = nil, createdAt: String? = nil) {
         self.id = id
         self.walletId = walletId
         self.fundingWalletId = fundingWalletId
         self.email = email
         self.name = name
         self.rpcs = rpcs
+        self.redirectUris = redirectUris
+        self.iconImageUrl = iconImageUrl
+        self.coverImageUrl = coverImageUrl
+        self.primaryColorHex = primaryColorHex
         self.publishedKey = publishedKey
         self.secretKey = secretKey
         self.verified = verified
@@ -56,6 +68,10 @@ public struct GameModel: Codable, JSONEncodable, Hashable {
         case email
         case name
         case rpcs
+        case redirectUris
+        case iconImageUrl
+        case coverImageUrl
+        case primaryColorHex
         case publishedKey
         case secretKey
         case verified
@@ -73,6 +89,10 @@ public struct GameModel: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(email, forKey: .email)
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(rpcs, forKey: .rpcs)
+        try container.encodeIfPresent(redirectUris, forKey: .redirectUris)
+        try container.encodeIfPresent(iconImageUrl, forKey: .iconImageUrl)
+        try container.encodeIfPresent(coverImageUrl, forKey: .coverImageUrl)
+        try container.encodeIfPresent(primaryColorHex, forKey: .primaryColorHex)
         try container.encodeIfPresent(publishedKey, forKey: .publishedKey)
         try container.encodeIfPresent(secretKey, forKey: .secretKey)
         try container.encodeIfPresent(verified, forKey: .verified)
