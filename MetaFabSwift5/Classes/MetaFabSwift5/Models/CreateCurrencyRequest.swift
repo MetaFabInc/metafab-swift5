@@ -18,7 +18,10 @@ public struct CreateCurrencyRequest: Codable, JSONEncodable, Hashable {
         case matic = "MATIC"
         case maticmumbai = "MATICMUMBAI"
         case arbitrum = "ARBITRUM"
+        case arbitrumnova = "ARBITRUMNOVA"
         case arbitrumgoerli = "ARBITRUMGOERLI"
+        case fantom = "FANTOM"
+        case fantomtest = "FANTOMTEST"
     }
     /** The name of this currency. This can be anything, such as `Bright Gems`, `Gold`, etc. */
     public var name: String

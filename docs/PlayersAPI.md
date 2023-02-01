@@ -131,7 +131,7 @@ Returns a player object for the provided player id.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
+let playerId = "playerId_example" // String | Any player id within the MetaFab platform.
 
 // Get player
 PlayersAPI.getPlayer(playerId: playerId) { (response, error) in
@@ -150,7 +150,7 @@ PlayersAPI.getPlayer(playerId: playerId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
+ **playerId** | **String** | Any player id within the MetaFab platform. | 
 
 ### Return type
 
@@ -181,7 +181,7 @@ Returns the latest public and protected data as an object for the provided playe
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
+let playerId = "playerId_example" // String | Any player id within the MetaFab platform.
 
 // Get player data
 PlayersAPI.getPlayerData(playerId: playerId) { (response, error) in
@@ -200,7 +200,7 @@ PlayersAPI.getPlayerData(playerId: playerId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
+ **playerId** | **String** | Any player id within the MetaFab platform. | 
 
 ### Return type
 
@@ -281,8 +281,8 @@ Removes an external wallet from a player account. The player's wallet is reverte
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
-let playerWalletId = "playerWalletId_example" // String | Any player wallet id within the MetaFab ecosystem.
+let playerId = "playerId_example" // String | Any player id within the MetaFab platform.
+let playerWalletId = "playerWalletId_example" // String | Any player wallet id within the MetaFab platform.
 let removePlayerConnectedWalletRequest = removePlayerConnectedWallet_request(address: "address_example", nonce: 123, signature: "signature_example", chain: "chain_example") // RemovePlayerConnectedWalletRequest | 
 
 // Remove player connected wallet
@@ -302,8 +302,8 @@ PlayersAPI.removePlayerConnectedWallet(playerId: playerId, playerWalletId: playe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
- **playerWalletId** | **String** | Any player wallet id within the MetaFab ecosystem. | 
+ **playerId** | **String** | Any player id within the MetaFab platform. | 
+ **playerWalletId** | **String** | Any player wallet id within the MetaFab platform. | 
  **removePlayerConnectedWalletRequest** | [**RemovePlayerConnectedWalletRequest**](RemovePlayerConnectedWalletRequest.md) |  | 
 
 ### Return type
@@ -335,7 +335,7 @@ Sets an external wallet as the wallet for a player account. The set wallet can t
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
+let playerId = "playerId_example" // String | The player id of the authenticating player.
 let xAuthorization = "xAuthorization_example" // String | The `accessToken` of the authenticating player.
 let setPlayerConnectedWalletRequest = setPlayerConnectedWallet_request(address: "address_example", nonce: 123, signature: "signature_example", chain: "chain_example") // SetPlayerConnectedWalletRequest | 
 
@@ -356,7 +356,7 @@ PlayersAPI.setPlayerConnectedWallet(playerId: playerId, xAuthorization: xAuthori
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
+ **playerId** | **String** | The player id of the authenticating player. | 
  **xAuthorization** | **String** | The &#x60;accessToken&#x60; of the authenticating player. | 
  **setPlayerConnectedWalletRequest** | [**SetPlayerConnectedWalletRequest**](SetPlayerConnectedWalletRequest.md) |  | 
 
@@ -389,7 +389,7 @@ Creates or updates public and/or protected data for the provided playerId. Data 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
+let playerId = "playerId_example" // String | Any player id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
 let setPlayerDataRequest = setPlayerData_request(protectedData: "TODO", publicData: "TODO") // SetPlayerDataRequest | 
 
@@ -410,7 +410,7 @@ PlayersAPI.setPlayerData(playerId: playerId, xAuthorization: xAuthorization, set
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
+ **playerId** | **String** | Any player id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
  **setPlayerDataRequest** | [**SetPlayerDataRequest**](SetPlayerDataRequest.md) |  | 
 
@@ -431,7 +431,7 @@ No authorization required
 
 # **updatePlayer**
 ```swift
-    open class func updatePlayer(playerId: String, xAuthorization: String, updatePlayerRequest: UpdatePlayerRequest, completion: @escaping (_ data: PlayerModel?, _ error: Error?) -> Void)
+    open class func updatePlayer(playerId: String, xAuthorization: String, updatePlayerRequest: UpdatePlayerRequest, completion: @escaping (_ data: UpdatePlayer200Response?, _ error: Error?) -> Void)
 ```
 
 Update player
@@ -443,7 +443,7 @@ Update various fields specific to a player. Such as changing its password and re
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let playerId = "playerId_example" // String | Any player id within the MetaFab ecosystem.
+let playerId = "playerId_example" // String | The player id of the authenticating player.
 let xAuthorization = "xAuthorization_example" // String | The `accessToken` of the authenticating player.
 let updatePlayerRequest = updatePlayer_request(currentPassword: "currentPassword_example", newPassword: "newPassword_example", resetAccessToken: false) // UpdatePlayerRequest | 
 
@@ -464,13 +464,13 @@ PlayersAPI.updatePlayer(playerId: playerId, xAuthorization: xAuthorization, upda
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playerId** | **String** | Any player id within the MetaFab ecosystem. | 
+ **playerId** | **String** | The player id of the authenticating player. | 
  **xAuthorization** | **String** | The &#x60;accessToken&#x60; of the authenticating player. | 
  **updatePlayerRequest** | [**UpdatePlayerRequest**](UpdatePlayerRequest.md) |  | 
 
 ### Return type
 
-[**PlayerModel**](PlayerModel.md)
+[**UpdatePlayer200Response**](UpdatePlayer200Response.md)
 
 ### Authorization
 

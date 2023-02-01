@@ -21,25 +21,36 @@ public struct AuthPlayer200Response: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var connectedWalletId: String?
     /** This field has not had a description added. */
+    public var profileId: String?
+    /** This field has not had a description added. */
     public var username: String?
     /** This field has not had a description added. */
     public var accessToken: String?
     /** This field has not had a description added. */
+    public var profilePermissions: AnyCodable?
+    /** This field has not had a description added. */
     public var updatedAt: String?
     /** This field has not had a description added. */
     public var createdAt: String?
+    /** This field has not had a description added. */
+    public var walletDecryptKey: String?
     public var wallet: WalletModel?
+    public var custodialWallet: WalletModel?
 
-    public init(id: String? = nil, gameId: String? = nil, walletId: String? = nil, connectedWalletId: String? = nil, username: String? = nil, accessToken: String? = nil, updatedAt: String? = nil, createdAt: String? = nil, wallet: WalletModel? = nil) {
+    public init(id: String? = nil, gameId: String? = nil, walletId: String? = nil, connectedWalletId: String? = nil, profileId: String? = nil, username: String? = nil, accessToken: String? = nil, profilePermissions: AnyCodable? = nil, updatedAt: String? = nil, createdAt: String? = nil, walletDecryptKey: String? = nil, wallet: WalletModel? = nil, custodialWallet: WalletModel? = nil) {
         self.id = id
         self.gameId = gameId
         self.walletId = walletId
         self.connectedWalletId = connectedWalletId
+        self.profileId = profileId
         self.username = username
         self.accessToken = accessToken
+        self.profilePermissions = profilePermissions
         self.updatedAt = updatedAt
         self.createdAt = createdAt
+        self.walletDecryptKey = walletDecryptKey
         self.wallet = wallet
+        self.custodialWallet = custodialWallet
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -47,11 +58,15 @@ public struct AuthPlayer200Response: Codable, JSONEncodable, Hashable {
         case gameId
         case walletId
         case connectedWalletId
+        case profileId
         case username
         case accessToken
+        case profilePermissions
         case updatedAt
         case createdAt
+        case walletDecryptKey
         case wallet
+        case custodialWallet
     }
 
     // Encodable protocol methods
@@ -62,11 +77,15 @@ public struct AuthPlayer200Response: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(gameId, forKey: .gameId)
         try container.encodeIfPresent(walletId, forKey: .walletId)
         try container.encodeIfPresent(connectedWalletId, forKey: .connectedWalletId)
+        try container.encodeIfPresent(profileId, forKey: .profileId)
         try container.encodeIfPresent(username, forKey: .username)
         try container.encodeIfPresent(accessToken, forKey: .accessToken)
+        try container.encodeIfPresent(profilePermissions, forKey: .profilePermissions)
         try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(createdAt, forKey: .createdAt)
+        try container.encodeIfPresent(walletDecryptKey, forKey: .walletDecryptKey)
         try container.encodeIfPresent(wallet, forKey: .wallet)
+        try container.encodeIfPresent(custodialWallet, forKey: .custodialWallet)
     }
 }
 

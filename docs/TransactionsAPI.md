@@ -21,7 +21,7 @@ Returns an executed transaction object for the provided transactionId. Transacti
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let transactionId = "transactionId_example" // String | Any transaction id within the MetaFab ecosystem.
+let transactionId = "transactionId_example" // String | Any transaction id within the MetaFab platform.
 
 // Get transaction
 TransactionsAPI.getTransaction(transactionId: transactionId) { (response, error) in
@@ -40,7 +40,7 @@ TransactionsAPI.getTransaction(transactionId: transactionId) { (response, error)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **transactionId** | **String** | Any transaction id within the MetaFab ecosystem. | 
+ **transactionId** | **String** | Any transaction id within the MetaFab platform. | 
 
 ### Return type
 

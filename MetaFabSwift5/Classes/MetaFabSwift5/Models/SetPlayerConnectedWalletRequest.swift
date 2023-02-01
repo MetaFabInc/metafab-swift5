@@ -18,7 +18,10 @@ public struct SetPlayerConnectedWalletRequest: Codable, JSONEncodable, Hashable 
         case matic = "MATIC"
         case maticmumbai = "MATICMUMBAI"
         case arbitrum = "ARBITRUM"
+        case arbitrumnova = "ARBITRUMNOVA"
         case arbitrumgoerli = "ARBITRUMGOERLI"
+        case fantom = "FANTOM"
+        case fantomtest = "FANTOMTEST"
     }
     /** The address of the external wallet to connect to the player. */
     public var address: String

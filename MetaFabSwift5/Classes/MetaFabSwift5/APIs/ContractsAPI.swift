@@ -105,7 +105,7 @@ open class ContractsAPI {
     /**
      Read contract data
      
-     - parameter contractId: (path) Any contract id within the MetaFab ecosystem. 
+     - parameter contractId: (path) Any contract id within the MetaFab platform. 
      - parameter _func: (query) A contract function name. This can be any valid function from the the ABI of the contract you are interacting with. For example, &#x60;balanceOf&#x60;. 
      - parameter args: (query) A comma seperated list of basic data type arguments. This is optional and only necessary if the function being invoked requires arguments per the contract ABI. For example, &#x60;123,\&quot;Hello\&quot;,false&#x60;. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
@@ -127,7 +127,7 @@ open class ContractsAPI {
      Read contract data
      - GET /v1/contracts/{contractId}/reads
      - Oftentimes you'll want to query and retrieve some data from a contract. This is incredibly easy to do for any contract deployed through MetaFab.  Using this endpoint, you can get the data returned by any readable function listed in a contracts ABI. This could be things like querying the totalSupply of a currency contract, the number of owners of an items contract, and more.
-     - parameter contractId: (path) Any contract id within the MetaFab ecosystem. 
+     - parameter contractId: (path) Any contract id within the MetaFab platform. 
      - parameter _func: (query) A contract function name. This can be any valid function from the the ABI of the contract you are interacting with. For example, &#x60;balanceOf&#x60;. 
      - parameter args: (query) A comma seperated list of basic data type arguments. This is optional and only necessary if the function being invoked requires arguments per the contract ABI. For example, &#x60;123,\&quot;Hello\&quot;,false&#x60;. (optional)
      - returns: RequestBuilder<AnyCodable> 
@@ -160,16 +160,16 @@ open class ContractsAPI {
     /**
      Transfer contract ownership
      
-     - parameter contractId: (path) Any contract id within the MetaFab ecosystem. 
+     - parameter contractId: (path) Any contract id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter transferContractOwnershipRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func transferContractOwnership(contractId: String, xAuthorization: String, xPassword: String, transferContractOwnershipRequest: TransferContractOwnershipRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return transferContractOwnershipWithRequestBuilder(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, transferContractOwnershipRequest: transferContractOwnershipRequest).execute(apiResponseQueue) { result in
+    open class func transferContractOwnership(contractId: String, xAuthorization: String, xWalletDecryptKey: String, transferContractOwnershipRequest: TransferContractOwnershipRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return transferContractOwnershipWithRequestBuilder(contractId: contractId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, transferContractOwnershipRequest: transferContractOwnershipRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -183,13 +183,13 @@ open class ContractsAPI {
      Transfer contract ownership
      - POST /v1/contracts/{contractId}/owners
      - Transfer ownership and control of a MetaFab deployed smart contract to another wallet you control. Transferring control does not disrupt your usage of MetaFab APIs and can be done so without causing any service outages for your game. The new owner wallet will have full control over any relevant item collections and marketplace related pages this contract may be associated with, such as for MetaFab item or NFT contracts.  Your game's custodial wallet will retain a `MANAGER_ROLE` on your contracts, allowing you to still use MetaFab APIs without issue while you retain full contract ownership and the contract's administrator role. If ever you want eject from using the MetaFab APIs but still retain your deployed smart contracts, you can revoke the `MANAGER_ROLE` from your game's custodial wallet address for your contract. We do not lock you into our systems.  Please be certain that the wallet address you transfer ownership to is one you control. Once ownership and admin permissions are transferred, your game's custodial wallet no longer has permission to reassign ownership or administrative priveleges for your contract.
-     - parameter contractId: (path) Any contract id within the MetaFab ecosystem. 
+     - parameter contractId: (path) Any contract id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter transferContractOwnershipRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func transferContractOwnershipWithRequestBuilder(contractId: String, xAuthorization: String, xPassword: String, transferContractOwnershipRequest: TransferContractOwnershipRequest) -> RequestBuilder<TransactionModel> {
+    open class func transferContractOwnershipWithRequestBuilder(contractId: String, xAuthorization: String, xWalletDecryptKey: String, transferContractOwnershipRequest: TransferContractOwnershipRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/contracts/{contractId}/owners"
         let contractIdPreEscape = "\(APIHelper.mapValueToPathItem(contractId))"
         let contractIdPostEscape = contractIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -201,7 +201,7 @@ open class ContractsAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -214,16 +214,16 @@ open class ContractsAPI {
     /**
      Upgrade contract trusted forwarder
      
-     - parameter contractId: (path) Any contract id within the MetaFab ecosystem. 
+     - parameter contractId: (path) Any contract id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter upgradeContractTrustedForwarderRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func upgradeContractTrustedForwarder(contractId: String, xAuthorization: String, xPassword: String, upgradeContractTrustedForwarderRequest: UpgradeContractTrustedForwarderRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return upgradeContractTrustedForwarderWithRequestBuilder(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, upgradeContractTrustedForwarderRequest: upgradeContractTrustedForwarderRequest).execute(apiResponseQueue) { result in
+    open class func upgradeContractTrustedForwarder(contractId: String, xAuthorization: String, xWalletDecryptKey: String, upgradeContractTrustedForwarderRequest: UpgradeContractTrustedForwarderRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return upgradeContractTrustedForwarderWithRequestBuilder(contractId: contractId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, upgradeContractTrustedForwarderRequest: upgradeContractTrustedForwarderRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -237,13 +237,13 @@ open class ContractsAPI {
      Upgrade contract trusted forwarder
      - POST /v1/contracts/{contractId}/forwarders
      - In rare circumstances, you may need to upgrade the underlying trusted forwarder contract address attached to your game's contracts. Using this endpoint, you can provide a new trusted forwarder contract address to assign to any of your contracts that implement the `upgradeTrustedForwarder` function.
-     - parameter contractId: (path) Any contract id within the MetaFab ecosystem. 
+     - parameter contractId: (path) Any contract id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter upgradeContractTrustedForwarderRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func upgradeContractTrustedForwarderWithRequestBuilder(contractId: String, xAuthorization: String, xPassword: String, upgradeContractTrustedForwarderRequest: UpgradeContractTrustedForwarderRequest) -> RequestBuilder<TransactionModel> {
+    open class func upgradeContractTrustedForwarderWithRequestBuilder(contractId: String, xAuthorization: String, xWalletDecryptKey: String, upgradeContractTrustedForwarderRequest: UpgradeContractTrustedForwarderRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/contracts/{contractId}/forwarders"
         let contractIdPreEscape = "\(APIHelper.mapValueToPathItem(contractId))"
         let contractIdPostEscape = contractIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -255,7 +255,7 @@ open class ContractsAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -268,16 +268,16 @@ open class ContractsAPI {
     /**
      Write contract data
      
-     - parameter contractId: (path) Any contract id within the MetaFab ecosystem. 
+     - parameter contractId: (path) Any contract id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter writeContractRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func writeContract(contractId: String, xAuthorization: String, xPassword: String, writeContractRequest: WriteContractRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return writeContractWithRequestBuilder(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, writeContractRequest: writeContractRequest).execute(apiResponseQueue) { result in
+    open class func writeContract(contractId: String, xAuthorization: String, xWalletDecryptKey: String, writeContractRequest: WriteContractRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return writeContractWithRequestBuilder(contractId: contractId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, writeContractRequest: writeContractRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -291,13 +291,13 @@ open class ContractsAPI {
      Write contract data
      - POST /v1/contracts/{contractId}/writes
      - MetaFab's convenience endpoints for contract interactions may not be flexible enough depending on your use case. For these situations, you can interact with contracts and create transactions directly.  Using this endpoint, you can execute a transaction for any writeable contract method as defined in the contract's ABI for the MetaFab contractId provided. Both Games and Player resources have authority to use this endpoint to execute transactions against any valid MetaFab contractId.  Additionally, MetaFab will automatically attempt to perform a gasless transaction for players interacting with a contract through this endpoint. Gasless transactions by players through this endpoint will only work if the target contract was deployed through MetaFab or supports MetaFab's ERC2771 trusted forwarder contract.
-     - parameter contractId: (path) Any contract id within the MetaFab ecosystem. 
+     - parameter contractId: (path) Any contract id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter writeContractRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func writeContractWithRequestBuilder(contractId: String, xAuthorization: String, xPassword: String, writeContractRequest: WriteContractRequest) -> RequestBuilder<TransactionModel> {
+    open class func writeContractWithRequestBuilder(contractId: String, xAuthorization: String, xWalletDecryptKey: String, writeContractRequest: WriteContractRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/contracts/{contractId}/writes"
         let contractIdPreEscape = "\(APIHelper.mapValueToPathItem(contractId))"
         let contractIdPostEscape = contractIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -309,7 +309,7 @@ open class ContractsAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)

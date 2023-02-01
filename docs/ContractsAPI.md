@@ -128,7 +128,7 @@ Oftentimes you'll want to query and retrieve some data from a contract. This is 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
+let contractId = "contractId_example" // String | Any contract id within the MetaFab platform.
 let _func = "_func_example" // String | A contract function name. This can be any valid function from the the ABI of the contract you are interacting with. For example, `balanceOf`.
 let args = "args_example" // String | A comma seperated list of basic data type arguments. This is optional and only necessary if the function being invoked requires arguments per the contract ABI. For example, `123,\"Hello\",false`. (optional)
 
@@ -149,7 +149,7 @@ ContractsAPI.readContract(contractId: contractId, _func: _func, args: args) { (r
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contractId** | **String** | Any contract id within the MetaFab ecosystem. | 
+ **contractId** | **String** | Any contract id within the MetaFab platform. | 
  **_func** | **String** | A contract function name. This can be any valid function from the the ABI of the contract you are interacting with. For example, &#x60;balanceOf&#x60;. | 
  **args** | **String** | A comma seperated list of basic data type arguments. This is optional and only necessary if the function being invoked requires arguments per the contract ABI. For example, &#x60;123,\&quot;Hello\&quot;,false&#x60;. | [optional] 
 
@@ -170,7 +170,7 @@ No authorization required
 
 # **transferContractOwnership**
 ```swift
-    open class func transferContractOwnership(contractId: String, xAuthorization: String, xPassword: String, transferContractOwnershipRequest: TransferContractOwnershipRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func transferContractOwnership(contractId: String, xAuthorization: String, xWalletDecryptKey: String, transferContractOwnershipRequest: TransferContractOwnershipRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Transfer contract ownership
@@ -182,13 +182,13 @@ Transfer ownership and control of a MetaFab deployed smart contract to another w
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
+let contractId = "contractId_example" // String | Any contract id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let transferContractOwnershipRequest = transferContractOwnership_request(ownerAddress: "ownerAddress_example") // TransferContractOwnershipRequest | 
 
 // Transfer contract ownership
-ContractsAPI.transferContractOwnership(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, transferContractOwnershipRequest: transferContractOwnershipRequest) { (response, error) in
+ContractsAPI.transferContractOwnership(contractId: contractId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, transferContractOwnershipRequest: transferContractOwnershipRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -204,9 +204,9 @@ ContractsAPI.transferContractOwnership(contractId: contractId, xAuthorization: x
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contractId** | **String** | Any contract id within the MetaFab ecosystem. | 
+ **contractId** | **String** | Any contract id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **transferContractOwnershipRequest** | [**TransferContractOwnershipRequest**](TransferContractOwnershipRequest.md) |  | 
 
 ### Return type
@@ -226,7 +226,7 @@ No authorization required
 
 # **upgradeContractTrustedForwarder**
 ```swift
-    open class func upgradeContractTrustedForwarder(contractId: String, xAuthorization: String, xPassword: String, upgradeContractTrustedForwarderRequest: UpgradeContractTrustedForwarderRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func upgradeContractTrustedForwarder(contractId: String, xAuthorization: String, xWalletDecryptKey: String, upgradeContractTrustedForwarderRequest: UpgradeContractTrustedForwarderRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Upgrade contract trusted forwarder
@@ -238,13 +238,13 @@ In rare circumstances, you may need to upgrade the underlying trusted forwarder 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
+let contractId = "contractId_example" // String | Any contract id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let upgradeContractTrustedForwarderRequest = upgradeContractTrustedForwarder_request(forwarderAddress: "forwarderAddress_example") // UpgradeContractTrustedForwarderRequest | 
 
 // Upgrade contract trusted forwarder
-ContractsAPI.upgradeContractTrustedForwarder(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, upgradeContractTrustedForwarderRequest: upgradeContractTrustedForwarderRequest) { (response, error) in
+ContractsAPI.upgradeContractTrustedForwarder(contractId: contractId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, upgradeContractTrustedForwarderRequest: upgradeContractTrustedForwarderRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -260,9 +260,9 @@ ContractsAPI.upgradeContractTrustedForwarder(contractId: contractId, xAuthorizat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contractId** | **String** | Any contract id within the MetaFab ecosystem. | 
+ **contractId** | **String** | Any contract id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **upgradeContractTrustedForwarderRequest** | [**UpgradeContractTrustedForwarderRequest**](UpgradeContractTrustedForwarderRequest.md) |  | 
 
 ### Return type
@@ -282,7 +282,7 @@ No authorization required
 
 # **writeContract**
 ```swift
-    open class func writeContract(contractId: String, xAuthorization: String, xPassword: String, writeContractRequest: WriteContractRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func writeContract(contractId: String, xAuthorization: String, xWalletDecryptKey: String, writeContractRequest: WriteContractRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Write contract data
@@ -294,13 +294,13 @@ MetaFab's convenience endpoints for contract interactions may not be flexible en
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let contractId = "contractId_example" // String | Any contract id within the MetaFab ecosystem.
+let contractId = "contractId_example" // String | Any contract id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 let writeContractRequest = writeContract_request(_func: "_func_example", args: [writeContract_request_args_inner()]) // WriteContractRequest | 
 
 // Write contract data
-ContractsAPI.writeContract(contractId: contractId, xAuthorization: xAuthorization, xPassword: xPassword, writeContractRequest: writeContractRequest) { (response, error) in
+ContractsAPI.writeContract(contractId: contractId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, writeContractRequest: writeContractRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -316,9 +316,9 @@ ContractsAPI.writeContract(contractId: contractId, xAuthorization: xAuthorizatio
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contractId** | **String** | Any contract id within the MetaFab ecosystem. | 
+ **contractId** | **String** | Any contract id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
  **writeContractRequest** | [**WriteContractRequest**](WriteContractRequest.md) |  | 
 
 ### Return type

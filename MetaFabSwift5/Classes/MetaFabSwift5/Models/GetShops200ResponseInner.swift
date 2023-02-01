@@ -19,15 +19,18 @@ public struct GetShops200ResponseInner: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var contractId: String?
     /** This field has not had a description added. */
+    public var name: String?
+    /** This field has not had a description added. */
     public var updatedAt: String?
     /** This field has not had a description added. */
     public var createdAt: String?
     public var contract: ContractModel?
 
-    public init(id: String? = nil, gameId: String? = nil, contractId: String? = nil, updatedAt: String? = nil, createdAt: String? = nil, contract: ContractModel? = nil) {
+    public init(id: String? = nil, gameId: String? = nil, contractId: String? = nil, name: String? = nil, updatedAt: String? = nil, createdAt: String? = nil, contract: ContractModel? = nil) {
         self.id = id
         self.gameId = gameId
         self.contractId = contractId
+        self.name = name
         self.updatedAt = updatedAt
         self.createdAt = createdAt
         self.contract = contract
@@ -37,6 +40,7 @@ public struct GetShops200ResponseInner: Codable, JSONEncodable, Hashable {
         case id
         case gameId
         case contractId
+        case name
         case updatedAt
         case createdAt
         case contract
@@ -49,6 +53,7 @@ public struct GetShops200ResponseInner: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(gameId, forKey: .gameId)
         try container.encodeIfPresent(contractId, forKey: .contractId)
+        try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(createdAt, forKey: .createdAt)
         try container.encodeIfPresent(contract, forKey: .contract)

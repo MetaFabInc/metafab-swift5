@@ -15,7 +15,7 @@ open class TransactionsAPI {
     /**
      Get transaction
      
-     - parameter transactionId: (path) Any transaction id within the MetaFab ecosystem. 
+     - parameter transactionId: (path) Any transaction id within the MetaFab platform. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -35,7 +35,7 @@ open class TransactionsAPI {
      Get transaction
      - GET /v1/transactions/{transactionId}
      - Returns an executed transaction object for the provided transactionId. Transactions are created by MetaFab when interacting with contracts, currencies, items and other MetaFab resources.
-     - parameter transactionId: (path) Any transaction id within the MetaFab ecosystem. 
+     - parameter transactionId: (path) Any transaction id within the MetaFab platform. 
      - returns: RequestBuilder<TransactionModel> 
      */
     open class func getTransactionWithRequestBuilder(transactionId: String) -> RequestBuilder<TransactionModel> {

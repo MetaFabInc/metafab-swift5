@@ -42,10 +42,12 @@ public struct AuthGame200Response: Codable, JSONEncodable, Hashable {
     public var updatedAt: String?
     /** This field has not had a description added. */
     public var createdAt: String?
+    /** This field has not had a description added. */
+    public var walletDecryptKey: String?
     public var wallet: WalletModel?
     public var fundingWallet: WalletModel?
 
-    public init(id: String? = nil, walletId: String? = nil, fundingWalletId: String? = nil, email: String? = nil, name: String? = nil, rpcs: AnyCodable? = nil, redirectUris: AnyCodable? = nil, iconImageUrl: String? = nil, coverImageUrl: String? = nil, primaryColorHex: String? = nil, publishedKey: String? = nil, secretKey: String? = nil, verified: Bool? = nil, updatedAt: String? = nil, createdAt: String? = nil, wallet: WalletModel? = nil, fundingWallet: WalletModel? = nil) {
+    public init(id: String? = nil, walletId: String? = nil, fundingWalletId: String? = nil, email: String? = nil, name: String? = nil, rpcs: AnyCodable? = nil, redirectUris: AnyCodable? = nil, iconImageUrl: String? = nil, coverImageUrl: String? = nil, primaryColorHex: String? = nil, publishedKey: String? = nil, secretKey: String? = nil, verified: Bool? = nil, updatedAt: String? = nil, createdAt: String? = nil, walletDecryptKey: String? = nil, wallet: WalletModel? = nil, fundingWallet: WalletModel? = nil) {
         self.id = id
         self.walletId = walletId
         self.fundingWalletId = fundingWalletId
@@ -61,6 +63,7 @@ public struct AuthGame200Response: Codable, JSONEncodable, Hashable {
         self.verified = verified
         self.updatedAt = updatedAt
         self.createdAt = createdAt
+        self.walletDecryptKey = walletDecryptKey
         self.wallet = wallet
         self.fundingWallet = fundingWallet
     }
@@ -81,6 +84,7 @@ public struct AuthGame200Response: Codable, JSONEncodable, Hashable {
         case verified
         case updatedAt
         case createdAt
+        case walletDecryptKey
         case wallet
         case fundingWallet
     }
@@ -104,6 +108,7 @@ public struct AuthGame200Response: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(verified, forKey: .verified)
         try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(createdAt, forKey: .createdAt)
+        try container.encodeIfPresent(walletDecryptKey, forKey: .walletDecryptKey)
         try container.encodeIfPresent(wallet, forKey: .wallet)
         try container.encodeIfPresent(fundingWallet, forKey: .fundingWallet)
     }

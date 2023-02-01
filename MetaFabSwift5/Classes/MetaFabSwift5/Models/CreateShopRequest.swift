@@ -18,16 +18,23 @@ public struct CreateShopRequest: Codable, JSONEncodable, Hashable {
         case matic = "MATIC"
         case maticmumbai = "MATICMUMBAI"
         case arbitrum = "ARBITRUM"
+        case arbitrumnova = "ARBITRUMNOVA"
         case arbitrumgoerli = "ARBITRUMGOERLI"
+        case fantom = "FANTOM"
+        case fantomtest = "FANTOMTEST"
     }
+    /** The name of this item collection. This can be anything, such as `Production - Game Shop`, `Testing - My Game Shop`, etc. */
+    public var name: String?
     /** The blockchain you want to deploy this shop on. Support for new blockchains are added over time. */
     public var chain: Chain
 
-    public init(chain: Chain) {
+    public init(name: String? = nil, chain: Chain) {
+        self.name = name
         self.chain = chain
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case name
         case chain
     }
 
@@ -35,6 +42,7 @@ public struct CreateShopRequest: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(name, forKey: .name)
         try container.encode(chain, forKey: .chain)
     }
 }

@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 # **createShop**
 ```swift
-    open class func createShop(xAuthorization: String, xPassword: String, createShopRequest: CreateShopRequest, completion: @escaping (_ data: CreateShop200Response?, _ error: Error?) -> Void)
+    open class func createShop(xAuthorization: String, xWalletDecryptKey: String, createShopRequest: CreateShopRequest, completion: @escaping (_ data: CreateShop200Response?, _ error: Error?) -> Void)
 ```
 
 Create shop
@@ -29,11 +29,11 @@ Creates a new game shop and deploys a shop contract on behalf of the authenticat
 import MetaFabSwift5
 
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
-let createShopRequest = createShop_request(chain: "chain_example") // CreateShopRequest | 
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let createShopRequest = createShop_request(name: "name_example", chain: "chain_example") // CreateShopRequest | 
 
 // Create shop
-ShopsAPI.createShop(xAuthorization: xAuthorization, xPassword: xPassword, createShopRequest: createShopRequest) { (response, error) in
+ShopsAPI.createShop(xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, createShopRequest: createShopRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -50,7 +50,7 @@ ShopsAPI.createShop(xAuthorization: xAuthorization, xPassword: xPassword, create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **createShopRequest** | [**CreateShopRequest**](CreateShopRequest.md) |  | 
 
 ### Return type
@@ -82,7 +82,7 @@ Returns a shop offer object for the provided shopOfferId.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let shopId = "shopId_example" // String | Any shop id within the MetaFab ecosystem.
+let shopId = "shopId_example" // String | Any shop id within the MetaFab platform.
 let shopOfferId = "shopOfferId_example" // String | Any offer id for the shop. Zero, or a positive integer.
 
 // Get shop offer
@@ -102,7 +102,7 @@ ShopsAPI.getShopOffer(shopId: shopId, shopOfferId: shopOfferId) { (response, err
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **shopId** | **String** | Any shop id within the MetaFab ecosystem. | 
+ **shopId** | **String** | Any shop id within the MetaFab platform. | 
  **shopOfferId** | **String** | Any offer id for the shop. Zero, or a positive integer. | 
 
 ### Return type
@@ -134,7 +134,7 @@ Returns all shop offers as an array of shop offer objects.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let shopId = "shopId_example" // String | Any shop id within the MetaFab ecosystem.
+let shopId = "shopId_example" // String | Any shop id within the MetaFab platform.
 
 // Get shop offers
 ShopsAPI.getShopOffers(shopId: shopId) { (response, error) in
@@ -153,7 +153,7 @@ ShopsAPI.getShopOffers(shopId: shopId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **shopId** | **String** | Any shop id within the MetaFab ecosystem. | 
+ **shopId** | **String** | Any shop id within the MetaFab platform. | 
 
 ### Return type
 
@@ -222,7 +222,7 @@ No authorization required
 
 # **removeShopOffer**
 ```swift
-    open class func removeShopOffer(shopId: String, shopOfferId: String, xAuthorization: String, xPassword: String, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func removeShopOffer(shopId: String, shopOfferId: String, xAuthorization: String, xWalletDecryptKey: String, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Remove shop offer
@@ -234,13 +234,13 @@ Removes the provided offer by offerId from the provided shop. Removed offers can
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let shopId = "shopId_example" // String | Any shop id within the MetaFab ecosystem.
+let shopId = "shopId_example" // String | Any shop id within the MetaFab platform.
 let shopOfferId = "shopOfferId_example" // String | Any offer id for the shop. Zero, or a positive integer.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 
 // Remove shop offer
-ShopsAPI.removeShopOffer(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: xAuthorization, xPassword: xPassword) { (response, error) in
+ShopsAPI.removeShopOffer(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -256,10 +256,10 @@ ShopsAPI.removeShopOffer(shopId: shopId, shopOfferId: shopOfferId, xAuthorizatio
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **shopId** | **String** | Any shop id within the MetaFab ecosystem. | 
+ **shopId** | **String** | Any shop id within the MetaFab platform. | 
  **shopOfferId** | **String** | Any offer id for the shop. Zero, or a positive integer. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
 
 ### Return type
 
@@ -278,7 +278,7 @@ No authorization required
 
 # **setShopOffer**
 ```swift
-    open class func setShopOffer(shopId: String, xAuthorization: String, xPassword: String, setShopOfferRequest: SetShopOfferRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func setShopOffer(shopId: String, xAuthorization: String, xWalletDecryptKey: String, setShopOfferRequest: SetShopOfferRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Set shop offer
@@ -290,13 +290,13 @@ Sets a new shop offer or updates an existing one for the provided id. Shop offer
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let shopId = "shopId_example" // String | Any shop id within the MetaFab ecosystem.
+let shopId = "shopId_example" // String | Any shop id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let setShopOfferRequest = setShopOffer_request(id: 123, inputCollectionAddress: "inputCollectionAddress_example", inputCollectionId: "inputCollectionId_example", inputCollectionItemIds: [123], inputCollectionItemAmounts: [123], inputCurrencyAddress: "inputCurrencyAddress_example", inputCurrencyId: "inputCurrencyId_example", inputCurrencyAmount: 123, outputCollectionAddress: "outputCollectionAddress_example", outputCollectionId: "outputCollectionId_example", outputCollectionItemIds: [123], outputCollectionItemAmounts: [123], outputCurrencyAddress: "outputCurrencyAddress_example", outputCurrencyId: "outputCurrencyId_example", outputCurrencyAmount: 123, maxUses: 123) // SetShopOfferRequest | 
 
 // Set shop offer
-ShopsAPI.setShopOffer(shopId: shopId, xAuthorization: xAuthorization, xPassword: xPassword, setShopOfferRequest: setShopOfferRequest) { (response, error) in
+ShopsAPI.setShopOffer(shopId: shopId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, setShopOfferRequest: setShopOfferRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -312,9 +312,9 @@ ShopsAPI.setShopOffer(shopId: shopId, xAuthorization: xAuthorization, xPassword:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **shopId** | **String** | Any shop id within the MetaFab ecosystem. | 
+ **shopId** | **String** | Any shop id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **setShopOfferRequest** | [**SetShopOfferRequest**](SetShopOfferRequest.md) |  | 
 
 ### Return type
@@ -334,7 +334,7 @@ No authorization required
 
 # **useShopOffer**
 ```swift
-    open class func useShopOffer(shopId: String, shopOfferId: String, xAuthorization: String, xPassword: String, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func useShopOffer(shopId: String, shopOfferId: String, xAuthorization: String, xWalletDecryptKey: String, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Use shop offer
@@ -346,13 +346,13 @@ Uses a shop offer. The required (input) item(s) and/or currency are removed from
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let shopId = "shopId_example" // String | Any shop id within the MetaFab ecosystem.
+let shopId = "shopId_example" // String | Any shop id within the MetaFab platform.
 let shopOfferId = "shopOfferId_example" // String | Any offer id for the shop. Zero, or a positive integer.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 
 // Use shop offer
-ShopsAPI.useShopOffer(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: xAuthorization, xPassword: xPassword) { (response, error) in
+ShopsAPI.useShopOffer(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -368,10 +368,10 @@ ShopsAPI.useShopOffer(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **shopId** | **String** | Any shop id within the MetaFab ecosystem. | 
+ **shopId** | **String** | Any shop id within the MetaFab platform. | 
  **shopOfferId** | **String** | Any offer id for the shop. Zero, or a positive integer. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
 
 ### Return type
 
@@ -390,7 +390,7 @@ No authorization required
 
 # **withdrawFromShop**
 ```swift
-    open class func withdrawFromShop(shopId: String, xAuthorization: String, xPassword: String, withdrawFromShopRequest: WithdrawFromShopRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func withdrawFromShop(shopId: String, xAuthorization: String, xWalletDecryptKey: String, withdrawFromShopRequest: WithdrawFromShopRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Withdraw from shop
@@ -402,13 +402,13 @@ Withdraws native token, currency or items from a shop. Whenever a shop offer has
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let shopId = "shopId_example" // String | Any shop id within the MetaFab ecosystem.
+let shopId = "shopId_example" // String | Any shop id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let withdrawFromShopRequest = withdrawFromShop_request(address: "address_example", walletId: "walletId_example", currencyAddress: "currencyAddress_example", currencyId: "currencyId_example", collectionAddress: "collectionAddress_example", collectionId: "collectionId_example", itemIds: [123]) // WithdrawFromShopRequest | 
 
 // Withdraw from shop
-ShopsAPI.withdrawFromShop(shopId: shopId, xAuthorization: xAuthorization, xPassword: xPassword, withdrawFromShopRequest: withdrawFromShopRequest) { (response, error) in
+ShopsAPI.withdrawFromShop(shopId: shopId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, withdrawFromShopRequest: withdrawFromShopRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -424,9 +424,9 @@ ShopsAPI.withdrawFromShop(shopId: shopId, xAuthorization: xAuthorization, xPassw
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **shopId** | **String** | Any shop id within the MetaFab ecosystem. | 
+ **shopId** | **String** | Any shop id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **withdrawFromShopRequest** | [**WithdrawFromShopRequest**](WithdrawFromShopRequest.md) |  | 
 
 ### Return type

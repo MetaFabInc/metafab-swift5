@@ -18,7 +18,10 @@ public struct CreateContractRequest: Codable, JSONEncodable, Hashable {
         case matic = "MATIC"
         case maticmumbai = "MATICMUMBAI"
         case arbitrum = "ARBITRUM"
+        case arbitrumnova = "ARBITRUMNOVA"
         case arbitrumgoerli = "ARBITRUMGOERLI"
+        case fantom = "FANTOM"
+        case fantomtest = "FANTOMTEST"
     }
     /** The address of the existing contract. */
     public var address: String

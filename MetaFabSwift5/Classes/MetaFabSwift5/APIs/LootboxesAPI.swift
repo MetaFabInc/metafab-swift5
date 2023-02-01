@@ -16,14 +16,14 @@ open class LootboxesAPI {
      Create lootbox manager
      
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter createLootboxManagerRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createLootboxManager(xAuthorization: String, xPassword: String, createLootboxManagerRequest: CreateLootboxManagerRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: CreateLootboxManager200Response?, _ error: Error?) -> Void)) -> RequestTask {
-        return createLootboxManagerWithRequestBuilder(xAuthorization: xAuthorization, xPassword: xPassword, createLootboxManagerRequest: createLootboxManagerRequest).execute(apiResponseQueue) { result in
+    open class func createLootboxManager(xAuthorization: String, xWalletDecryptKey: String, createLootboxManagerRequest: CreateLootboxManagerRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: CreateLootboxManager200Response?, _ error: Error?) -> Void)) -> RequestTask {
+        return createLootboxManagerWithRequestBuilder(xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, createLootboxManagerRequest: createLootboxManagerRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -38,11 +38,11 @@ open class LootboxesAPI {
      - POST /v1/lootboxManagers
      - Creates a new game lootbox manager and deploys a lootbox manager contract on behalf of the authenticating game's primary wallet. The deployed lootbox manager contract allows you to create lootbox behavior for existing items. For example, you can define item id(s) from one of your item collections as the requirement(s) to open a \"lootbox\". The required item(s) would be burned from the interacting player's wallet and the player would receive item(s) from a weighted randomized set of possible items the lootbox can contain.
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter createLootboxManagerRequest: (body)  
      - returns: RequestBuilder<CreateLootboxManager200Response> 
      */
-    open class func createLootboxManagerWithRequestBuilder(xAuthorization: String, xPassword: String, createLootboxManagerRequest: CreateLootboxManagerRequest) -> RequestBuilder<CreateLootboxManager200Response> {
+    open class func createLootboxManagerWithRequestBuilder(xAuthorization: String, xWalletDecryptKey: String, createLootboxManagerRequest: CreateLootboxManagerRequest) -> RequestBuilder<CreateLootboxManager200Response> {
         let localVariablePath = "/v1/lootboxManagers"
         let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createLootboxManagerRequest)
@@ -51,7 +51,7 @@ open class LootboxesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -64,8 +64,8 @@ open class LootboxesAPI {
     /**
      Get lootbox manager lootbox
      
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
-     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
+     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab platform. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -85,8 +85,8 @@ open class LootboxesAPI {
      Get lootbox manager lootbox
      - GET /v1/lootboxManagers/{lootboxManagerId}/lootboxes/{lootboxManagerLootboxId}
      - Returns a lootbox manager lootbox object for the provided lootboxManagerLootboxId.
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
-     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
+     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab platform. 
      - returns: RequestBuilder<LootboxManagerLootbox> 
      */
     open class func getLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: String, lootboxManagerLootboxId: String) -> RequestBuilder<LootboxManagerLootbox> {
@@ -116,7 +116,7 @@ open class LootboxesAPI {
     /**
      Get lootbox manager lootboxes
      
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -136,7 +136,7 @@ open class LootboxesAPI {
      Get lootbox manager lootboxes
      - GET /v1/lootboxManagers/{lootboxManagerId}/lootboxes
      - Returns all lootbox manager lootboxes as an array of lootbox objects.
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
      - returns: RequestBuilder<[LootboxManagerLootbox]> 
      */
     open class func getLootboxManagerLootboxesWithRequestBuilder(lootboxManagerId: String) -> RequestBuilder<[LootboxManagerLootbox]> {
@@ -207,16 +207,16 @@ open class LootboxesAPI {
     /**
      Open lootbox manager lootbox
      
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
-     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
+     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func openLootboxManagerLootbox(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xPassword: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [TransactionModel]?, _ error: Error?) -> Void)) -> RequestTask {
-        return openLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId, xAuthorization: xAuthorization, xPassword: xPassword).execute(apiResponseQueue) { result in
+    open class func openLootboxManagerLootbox(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xWalletDecryptKey: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: [TransactionModel]?, _ error: Error?) -> Void)) -> RequestTask {
+        return openLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -230,13 +230,13 @@ open class LootboxesAPI {
      Open lootbox manager lootbox
      - POST /v1/lootboxManagers/{lootboxManagerId}/lootboxes/{lootboxManagerLootboxId}/opens
      - Opens a lootbox manager lootbox. The required input item(s) are burned from the wallet or player wallet opening the lootbox. The given output item(s) are given to the wallet or player wallet opening the lootbox.
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
-     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
+     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - returns: RequestBuilder<[TransactionModel]> 
      */
-    open class func openLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xPassword: String) -> RequestBuilder<[TransactionModel]> {
+    open class func openLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xWalletDecryptKey: String) -> RequestBuilder<[TransactionModel]> {
         var localVariablePath = "/v1/lootboxManagers/{lootboxManagerId}/lootboxes/{lootboxManagerLootboxId}/opens"
         let lootboxManagerIdPreEscape = "\(APIHelper.mapValueToPathItem(lootboxManagerId))"
         let lootboxManagerIdPostEscape = lootboxManagerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -251,7 +251,7 @@ open class LootboxesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -264,16 +264,16 @@ open class LootboxesAPI {
     /**
      Remove lootbox manager lootbox
      
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
-     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
+     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func removeLootboxManagerLootbox(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xPassword: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return removeLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId, xAuthorization: xAuthorization, xPassword: xPassword).execute(apiResponseQueue) { result in
+    open class func removeLootboxManagerLootbox(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xWalletDecryptKey: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return removeLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -287,13 +287,13 @@ open class LootboxesAPI {
      Remove lootbox manager lootbox
      - DELETE /v1/lootboxManagers/{lootboxManagerId}/lootboxes/{lootboxManagerLootboxId}
      - Removes the provided lootbox by lootboxId from the provided lootbox manager. Removed lootboxes can no longer be used.
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
-     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
+     - parameter lootboxManagerLootboxId: (path) Any lootbox manager lootbox id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func removeLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xPassword: String) -> RequestBuilder<TransactionModel> {
+    open class func removeLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xWalletDecryptKey: String) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/lootboxManagers/{lootboxManagerId}/lootboxes/{lootboxManagerLootboxId}"
         let lootboxManagerIdPreEscape = "\(APIHelper.mapValueToPathItem(lootboxManagerId))"
         let lootboxManagerIdPostEscape = lootboxManagerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -308,7 +308,7 @@ open class LootboxesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -321,16 +321,16 @@ open class LootboxesAPI {
     /**
      Set lootbox manager lootbox
      
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter setLootboxManagerLootboxRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func setLootboxManagerLootbox(lootboxManagerId: String, xAuthorization: String, xPassword: String, setLootboxManagerLootboxRequest: SetLootboxManagerLootboxRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return setLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: lootboxManagerId, xAuthorization: xAuthorization, xPassword: xPassword, setLootboxManagerLootboxRequest: setLootboxManagerLootboxRequest).execute(apiResponseQueue) { result in
+    open class func setLootboxManagerLootbox(lootboxManagerId: String, xAuthorization: String, xWalletDecryptKey: String, setLootboxManagerLootboxRequest: SetLootboxManagerLootboxRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return setLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: lootboxManagerId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, setLootboxManagerLootboxRequest: setLootboxManagerLootboxRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -344,13 +344,13 @@ open class LootboxesAPI {
      Set lootbox manager lootbox
      - POST /v1/lootboxManagers/{lootboxManagerId}/lootboxes
      - Sets a new lootbox manager lootbox or updates an existing one for the provided id. Lootboxes allow item(s) to be burned to receive a random set of possible item(s) based on probability weight.  Lootboxes can require any number of unique types of items and quantities to open a created lootbox type within the system. A common pattern with lootboxes is to create a lootbox item type within an item collection, and require it as the input item type.
-     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab ecosystem. 
+     - parameter lootboxManagerId: (path) Any lootbox manager id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter setLootboxManagerLootboxRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func setLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: String, xAuthorization: String, xPassword: String, setLootboxManagerLootboxRequest: SetLootboxManagerLootboxRequest) -> RequestBuilder<TransactionModel> {
+    open class func setLootboxManagerLootboxWithRequestBuilder(lootboxManagerId: String, xAuthorization: String, xWalletDecryptKey: String, setLootboxManagerLootboxRequest: SetLootboxManagerLootboxRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/lootboxManagers/{lootboxManagerId}/lootboxes"
         let lootboxManagerIdPreEscape = "\(APIHelper.mapValueToPathItem(lootboxManagerId))"
         let lootboxManagerIdPostEscape = lootboxManagerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -362,7 +362,7 @@ open class LootboxesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)

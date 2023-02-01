@@ -120,7 +120,7 @@ Returns a game object for the provided game id.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let gameId = "gameId_example" // String | Any game id within the MetaFab ecosystem.
+let gameId = "gameId_example" // String | Any game id within the MetaFab platform.
 
 // Get game
 GamesAPI.getGame(gameId: gameId) { (response, error) in
@@ -139,7 +139,7 @@ GamesAPI.getGame(gameId: gameId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **String** | Any game id within the MetaFab ecosystem. | 
+ **gameId** | **String** | Any game id within the MetaFab platform. | 
 
 ### Return type
 
@@ -158,7 +158,7 @@ No authorization required
 
 # **updateGame**
 ```swift
-    open class func updateGame(gameId: String, xAuthorization: String, updateGameRequest: UpdateGameRequest, completion: @escaping (_ data: GameModel?, _ error: Error?) -> Void)
+    open class func updateGame(gameId: String, xAuthorization: String, updateGameRequest: UpdateGameRequest, completion: @escaping (_ data: UpdateGame200Response?, _ error: Error?) -> Void)
 ```
 
 Update game
@@ -170,7 +170,7 @@ Update various fields specific to a game. Such as changing its password, resetti
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let gameId = "gameId_example" // String | Any game id within the MetaFab ecosystem.
+let gameId = "gameId_example" // String | The game id of the authenticating game.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
 let updateGameRequest = updateGame_request(name: "name_example", email: "email_example", currentPassword: "currentPassword_example", newPassword: "newPassword_example", rpcs: "TODO", redirectUris: ["redirectUris_example"], iconImageBase64: "iconImageBase64_example", coverImageBase64: "coverImageBase64_example", primaryColorHex: "primaryColorHex_example", resetPublishedKey: false, resetSecretKey: false) // UpdateGameRequest | 
 
@@ -191,13 +191,13 @@ GamesAPI.updateGame(gameId: gameId, xAuthorization: xAuthorization, updateGameRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | **String** | Any game id within the MetaFab ecosystem. | 
+ **gameId** | **String** | The game id of the authenticating game. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
  **updateGameRequest** | [**UpdateGameRequest**](UpdateGameRequest.md) |  | 
 
 ### Return type
 
-[**GameModel**](GameModel.md)
+[**UpdateGame200Response**](UpdateGame200Response.md)
 
 ### Authorization
 

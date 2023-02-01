@@ -15,16 +15,16 @@ open class CurrenciesAPI {
     /**
      Batch transfer currency
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter batchTransferCurrencyRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func batchTransferCurrency(currencyId: String, xAuthorization: String, xPassword: String, batchTransferCurrencyRequest: BatchTransferCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return batchTransferCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, batchTransferCurrencyRequest: batchTransferCurrencyRequest).execute(apiResponseQueue) { result in
+    open class func batchTransferCurrency(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, batchTransferCurrencyRequest: BatchTransferCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return batchTransferCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, batchTransferCurrencyRequest: batchTransferCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -38,13 +38,13 @@ open class CurrenciesAPI {
      Batch transfer currency
      - POST /v1/currencies/{currencyId}/batchTransfers
      - Transfers multiple amounts of currency to multiple provided wallet addresses or wallet addresses associated with the provided walletIds. You may also provide a combination of addresses and walletIds in one request, the proper receipients will be automatically determined, with `addresses` getting `amounts` order priority first.  Optional references may be included for the transfer. References are useful for identifying transfers intended to pay for items, trades, services and more.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter batchTransferCurrencyRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func batchTransferCurrencyWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, batchTransferCurrencyRequest: BatchTransferCurrencyRequest) -> RequestBuilder<TransactionModel> {
+    open class func batchTransferCurrencyWithRequestBuilder(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, batchTransferCurrencyRequest: BatchTransferCurrencyRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/currencies/{currencyId}/batchTransfers"
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -56,7 +56,7 @@ open class CurrenciesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -69,16 +69,16 @@ open class CurrenciesAPI {
     /**
      Burn currency
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter burnCurrencyRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func burnCurrency(currencyId: String, xAuthorization: String, xPassword: String, burnCurrencyRequest: BurnCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return burnCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, burnCurrencyRequest: burnCurrencyRequest).execute(apiResponseQueue) { result in
+    open class func burnCurrency(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, burnCurrencyRequest: BurnCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return burnCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, burnCurrencyRequest: burnCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -92,13 +92,13 @@ open class CurrenciesAPI {
      Burn currency
      - POST /v1/currencies/{currencyId}/burns
      - Removes (burns) the provided amount of currency from the authenticating game or players wallet. The currency amount is permanently removed from the circulating supply of the currency.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter burnCurrencyRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func burnCurrencyWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, burnCurrencyRequest: BurnCurrencyRequest) -> RequestBuilder<TransactionModel> {
+    open class func burnCurrencyWithRequestBuilder(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, burnCurrencyRequest: BurnCurrencyRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/currencies/{currencyId}/burns"
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -110,7 +110,7 @@ open class CurrenciesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -124,14 +124,14 @@ open class CurrenciesAPI {
      Create currency
      
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter createCurrencyRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createCurrency(xAuthorization: String, xPassword: String, createCurrencyRequest: CreateCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: CreateCurrency200Response?, _ error: Error?) -> Void)) -> RequestTask {
-        return createCurrencyWithRequestBuilder(xAuthorization: xAuthorization, xPassword: xPassword, createCurrencyRequest: createCurrencyRequest).execute(apiResponseQueue) { result in
+    open class func createCurrency(xAuthorization: String, xWalletDecryptKey: String, createCurrencyRequest: CreateCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: CreateCurrency200Response?, _ error: Error?) -> Void)) -> RequestTask {
+        return createCurrencyWithRequestBuilder(xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, createCurrencyRequest: createCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -146,11 +146,11 @@ open class CurrenciesAPI {
      - POST /v1/currencies
      - Creates a new game currency and deploys an ERC20 token contract on behalf of the authenticating game's primary wallet. The deployed ERC20 contract is preconfigured to fully support bridging across blockchains, batched transfers and gasless transactions on any supported blockchain as well as full support for gasless transactions from player managed wallets.
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter createCurrencyRequest: (body)  
      - returns: RequestBuilder<CreateCurrency200Response> 
      */
-    open class func createCurrencyWithRequestBuilder(xAuthorization: String, xPassword: String, createCurrencyRequest: CreateCurrencyRequest) -> RequestBuilder<CreateCurrency200Response> {
+    open class func createCurrencyWithRequestBuilder(xAuthorization: String, xWalletDecryptKey: String, createCurrencyRequest: CreateCurrencyRequest) -> RequestBuilder<CreateCurrency200Response> {
         let localVariablePath = "/v1/currencies"
         let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createCurrencyRequest)
@@ -159,7 +159,7 @@ open class CurrenciesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -216,9 +216,9 @@ open class CurrenciesAPI {
     /**
      Get currency balance
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
-     - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
+     - parameter walletId: (query) Any wallet id within the MetaFab platform. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -238,9 +238,9 @@ open class CurrenciesAPI {
      Get currency balance
      - GET /v1/currencies/{currencyId}/balances
      - Returns the current currency balance of the provided wallet address or or the wallet address associated with the provided walletId.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
-     - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
+     - parameter walletId: (query) Any wallet id within the MetaFab platform. (optional)
      - returns: RequestBuilder<Double> 
      */
     open class func getCurrencyBalanceWithRequestBuilder(currencyId: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Double> {
@@ -271,7 +271,7 @@ open class CurrenciesAPI {
     /**
      Get currency fees
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -291,7 +291,7 @@ open class CurrenciesAPI {
      Get currency fees
      - GET /v1/currencies/{currencyId}/fees
      - Returns the current fee recipient address and fees of the currency for the provided currencyId. Fees are only applicable for gasless transactions performed by default by players.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - returns: RequestBuilder<GetCurrencyFees200Response> 
      */
     open class func getCurrencyFeesWithRequestBuilder(currencyId: String) -> RequestBuilder<GetCurrencyFees200Response> {
@@ -318,10 +318,10 @@ open class CurrenciesAPI {
     /**
      Get currency role
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter role: (query) A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; 
      - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
-     - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
+     - parameter walletId: (query) Any wallet id within the MetaFab platform. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -341,10 +341,10 @@ open class CurrenciesAPI {
      Get currency role
      - GET /v1/currencies/{currencyId}/roles
      - Returns a boolean (true/false) representing if the provided role for this currency has been granted to the provided address or address associated with the provided walletId.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter role: (query) A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; 
      - parameter address: (query) A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. (optional)
-     - parameter walletId: (query) Any wallet id within the MetaFab ecosystem. (optional)
+     - parameter walletId: (query) Any wallet id within the MetaFab platform. (optional)
      - returns: RequestBuilder<Bool> 
      */
     open class func getCurrencyRoleWithRequestBuilder(currencyId: String, role: String, address: String? = nil, walletId: String? = nil) -> RequestBuilder<Bool> {
@@ -376,16 +376,16 @@ open class CurrenciesAPI {
     /**
      Grant currency role
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter grantCurrencyRoleRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func grantCurrencyRole(currencyId: String, xAuthorization: String, xPassword: String, grantCurrencyRoleRequest: GrantCurrencyRoleRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return grantCurrencyRoleWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, grantCurrencyRoleRequest: grantCurrencyRoleRequest).execute(apiResponseQueue) { result in
+    open class func grantCurrencyRole(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, grantCurrencyRoleRequest: GrantCurrencyRoleRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return grantCurrencyRoleWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, grantCurrencyRoleRequest: grantCurrencyRoleRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -399,13 +399,13 @@ open class CurrenciesAPI {
      Grant currency role
      - POST /v1/currencies/{currencyId}/roles
      - Grants the provided role for the currency to the provided address or address associated with the provided walletId. Granted roles give different types of authority on behalf of the currency for specific players, addresses, or contracts to perform different types of permissioned currency operations.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter grantCurrencyRoleRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func grantCurrencyRoleWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, grantCurrencyRoleRequest: GrantCurrencyRoleRequest) -> RequestBuilder<TransactionModel> {
+    open class func grantCurrencyRoleWithRequestBuilder(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, grantCurrencyRoleRequest: GrantCurrencyRoleRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/currencies/{currencyId}/roles"
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -417,7 +417,7 @@ open class CurrenciesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -430,16 +430,16 @@ open class CurrenciesAPI {
     /**
      Mint currency
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter mintCurrencyRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func mintCurrency(currencyId: String, xAuthorization: String, xPassword: String, mintCurrencyRequest: MintCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return mintCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, mintCurrencyRequest: mintCurrencyRequest).execute(apiResponseQueue) { result in
+    open class func mintCurrency(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, mintCurrencyRequest: MintCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return mintCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, mintCurrencyRequest: mintCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -453,13 +453,13 @@ open class CurrenciesAPI {
      Mint currency
      - POST /v1/currencies/{currencyId}/mints
      - Creates (mints) the provided amount of currency to the provided wallet address or wallet address associated with the provided walletId.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter mintCurrencyRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func mintCurrencyWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, mintCurrencyRequest: MintCurrencyRequest) -> RequestBuilder<TransactionModel> {
+    open class func mintCurrencyWithRequestBuilder(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, mintCurrencyRequest: MintCurrencyRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/currencies/{currencyId}/mints"
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -471,7 +471,7 @@ open class CurrenciesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -484,16 +484,16 @@ open class CurrenciesAPI {
     /**
      Revoke currency role
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter revokeCollectionRoleRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func revokeCurrencyRole(currencyId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return revokeCurrencyRoleWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, revokeCollectionRoleRequest: revokeCollectionRoleRequest).execute(apiResponseQueue) { result in
+    open class func revokeCurrencyRole(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return revokeCurrencyRoleWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, revokeCollectionRoleRequest: revokeCollectionRoleRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -507,13 +507,13 @@ open class CurrenciesAPI {
      Revoke currency role
      - DELETE /v1/currencies/{currencyId}/roles
      - Revokes the provided role for the currency to the provided address or address associated with the provided walletId.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter revokeCollectionRoleRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func revokeCurrencyRoleWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest) -> RequestBuilder<TransactionModel> {
+    open class func revokeCurrencyRoleWithRequestBuilder(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/currencies/{currencyId}/roles"
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -525,7 +525,7 @@ open class CurrenciesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -538,16 +538,16 @@ open class CurrenciesAPI {
     /**
      Set currency fees
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter setCurrencyFeesRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func setCurrencyFees(currencyId: String, xAuthorization: String, xPassword: String, setCurrencyFeesRequest: SetCurrencyFeesRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return setCurrencyFeesWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, setCurrencyFeesRequest: setCurrencyFeesRequest).execute(apiResponseQueue) { result in
+    open class func setCurrencyFees(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, setCurrencyFeesRequest: SetCurrencyFeesRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return setCurrencyFeesWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, setCurrencyFeesRequest: setCurrencyFeesRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -561,13 +561,13 @@ open class CurrenciesAPI {
      Set currency fees
      - POST /v1/currencies/{currencyId}/fees
      - Sets the recipient address, basis points, fixed amount and cap amount for a currency's fees.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter setCurrencyFeesRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func setCurrencyFeesWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, setCurrencyFeesRequest: SetCurrencyFeesRequest) -> RequestBuilder<TransactionModel> {
+    open class func setCurrencyFeesWithRequestBuilder(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, setCurrencyFeesRequest: SetCurrencyFeesRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/currencies/{currencyId}/fees"
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -579,7 +579,7 @@ open class CurrenciesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -592,16 +592,16 @@ open class CurrenciesAPI {
     /**
      Transfer currency
      
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter transferCurrencyRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func transferCurrency(currencyId: String, xAuthorization: String, xPassword: String, transferCurrencyRequest: TransferCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return transferCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xPassword: xPassword, transferCurrencyRequest: transferCurrencyRequest).execute(apiResponseQueue) { result in
+    open class func transferCurrency(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, transferCurrencyRequest: TransferCurrencyRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return transferCurrencyWithRequestBuilder(currencyId: currencyId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, transferCurrencyRequest: transferCurrencyRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -615,13 +615,13 @@ open class CurrenciesAPI {
      Transfer currency
      - POST /v1/currencies/{currencyId}/transfers
      - Transfers an amount of currency to the provided wallet address or wallet address associated with the provided walletId. If you want to transfer to multiple wallets with different amounts and optional references in one API request, please see the Batch transfer currency documentation.  An optional reference may be included for the transfer. References are useful for identifying transfers intended to pay for items, trades, services and more.
-     - parameter currencyId: (path) Any currency id within the MetaFab ecosystem. 
+     - parameter currencyId: (path) Any currency id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter transferCurrencyRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func transferCurrencyWithRequestBuilder(currencyId: String, xAuthorization: String, xPassword: String, transferCurrencyRequest: TransferCurrencyRequest) -> RequestBuilder<TransactionModel> {
+    open class func transferCurrencyWithRequestBuilder(currencyId: String, xAuthorization: String, xWalletDecryptKey: String, transferCurrencyRequest: TransferCurrencyRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/currencies/{currencyId}/transfers"
         let currencyIdPreEscape = "\(APIHelper.mapValueToPathItem(currencyId))"
         let currencyIdPostEscape = currencyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -633,7 +633,7 @@ open class CurrenciesAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)

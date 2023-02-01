@@ -18,7 +18,10 @@ public struct RemovePlayerConnectedWalletRequest: Codable, JSONEncodable, Hashab
         case matic = "MATIC"
         case maticmumbai = "MATICMUMBAI"
         case arbitrum = "ARBITRUM"
+        case arbitrumnova = "ARBITRUMNOVA"
         case arbitrumgoerli = "ARBITRUMGOERLI"
+        case fantom = "FANTOM"
+        case fantomtest = "FANTOMTEST"
     }
     /** The address of the external wallet to remove from a player. */
     public var address: String

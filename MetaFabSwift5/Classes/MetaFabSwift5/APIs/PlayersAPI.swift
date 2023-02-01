@@ -108,7 +108,7 @@ open class PlayersAPI {
     /**
      Get player
      
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) Any player id within the MetaFab platform. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -128,7 +128,7 @@ open class PlayersAPI {
      Get player
      - GET /v1/players/{playerId}
      - Returns a player object for the provided player id.
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) Any player id within the MetaFab platform. 
      - returns: RequestBuilder<PublicPlayer> 
      */
     open class func getPlayerWithRequestBuilder(playerId: String) -> RequestBuilder<PublicPlayer> {
@@ -155,7 +155,7 @@ open class PlayersAPI {
     /**
      Get player data
      
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) Any player id within the MetaFab platform. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -175,7 +175,7 @@ open class PlayersAPI {
      Get player data
      - GET /v1/players/{playerId}/data
      - Returns the latest public and protected data as an object for the provided playerId.
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) Any player id within the MetaFab platform. 
      - returns: RequestBuilder<GetPlayerData200Response> 
      */
     open class func getPlayerDataWithRequestBuilder(playerId: String) -> RequestBuilder<GetPlayerData200Response> {
@@ -246,8 +246,8 @@ open class PlayersAPI {
     /**
      Remove player connected wallet
      
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
-     - parameter playerWalletId: (path) Any player wallet id within the MetaFab ecosystem. 
+     - parameter playerId: (path) Any player id within the MetaFab platform. 
+     - parameter playerWalletId: (path) Any player wallet id within the MetaFab platform. 
      - parameter removePlayerConnectedWalletRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
@@ -268,8 +268,8 @@ open class PlayersAPI {
      Remove player connected wallet
      - DELETE /v1/players/{playerId}/wallets/{playerWalletId}
      - Removes an external wallet from a player account. The player's wallet is reverted to their custodial wallet.
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
-     - parameter playerWalletId: (path) Any player wallet id within the MetaFab ecosystem. 
+     - parameter playerId: (path) Any player id within the MetaFab platform. 
+     - parameter playerWalletId: (path) Any player wallet id within the MetaFab platform. 
      - parameter removePlayerConnectedWalletRequest: (body)  
      - returns: RequestBuilder<Void> 
      */
@@ -300,7 +300,7 @@ open class PlayersAPI {
     /**
      Set player connected wallet
      
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) The player id of the authenticating player. 
      - parameter xAuthorization: (header) The &#x60;accessToken&#x60; of the authenticating player. 
      - parameter setPlayerConnectedWalletRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
@@ -322,7 +322,7 @@ open class PlayersAPI {
      Set player connected wallet
      - POST /v1/players/{playerId}/wallets
      - Sets an external wallet as the wallet for a player account. The set wallet can transact gaslessly with all MetaFab related systems through the same MetaFab API calls as custodial wallets without requiring transaction signing or private keys.  This is done through an internal system MetaFab has created that allows an external connected wallet to delegate transaction signing for a specific game's set of contracts to a player's password protected custodial wallet. This allow the custodial wallet to sign and submit transactions to a specific game's related contracts as if they were signed and submitted by the connected external wallet. This also means that all earned tokens, purchased items and any interactions happen and are recorded on chain as the external connected wallet. No additional logic needs to be writted by developers to support both custodial and external wallets, everything just works.  Finally, this endpoint is meant for advanced users. The majority of developers who want to implement external wallet support for their game can do so without any extra work through our whitelabeled wallet connection feature that implements this endpoint underneath the hood without any required work.
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) The player id of the authenticating player. 
      - parameter xAuthorization: (header) The &#x60;accessToken&#x60; of the authenticating player. 
      - parameter setPlayerConnectedWalletRequest: (body)  
      - returns: RequestBuilder<SetPlayerConnectedWallet200Response> 
@@ -351,7 +351,7 @@ open class PlayersAPI {
     /**
      Set player data
      
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) Any player id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
      - parameter setPlayerDataRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
@@ -373,7 +373,7 @@ open class PlayersAPI {
      Set player data
      - POST /v1/players/{playerId}/data
      - Creates or updates public and/or protected data for the provided playerId. Data updates are performed using deep merging. This means that when you update any top level or nested properties specific to player public or protected data, you only need to include the properties you are making changes to. Any existing properties not included in request body arguments will be retained on the player data object.  Please note, When writing an array type for a player, arrays do not follow the deep merge approach. If you add or remove an item from an array, the entire array must be passed as an argument when updating the related property for player public or protected data.
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) Any player id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
      - parameter setPlayerDataRequest: (body)  
      - returns: RequestBuilder<GetPlayerData200Response> 
@@ -402,14 +402,14 @@ open class PlayersAPI {
     /**
      Update player
      
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) The player id of the authenticating player. 
      - parameter xAuthorization: (header) The &#x60;accessToken&#x60; of the authenticating player. 
      - parameter updatePlayerRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func updatePlayer(playerId: String, xAuthorization: String, updatePlayerRequest: UpdatePlayerRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: PlayerModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func updatePlayer(playerId: String, xAuthorization: String, updatePlayerRequest: UpdatePlayerRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: UpdatePlayer200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return updatePlayerWithRequestBuilder(playerId: playerId, xAuthorization: xAuthorization, updatePlayerRequest: updatePlayerRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -424,12 +424,12 @@ open class PlayersAPI {
      Update player
      - PATCH /v1/players/{playerId}
      - Update various fields specific to a player. Such as changing its password and resetting its access token.
-     - parameter playerId: (path) Any player id within the MetaFab ecosystem. 
+     - parameter playerId: (path) The player id of the authenticating player. 
      - parameter xAuthorization: (header) The &#x60;accessToken&#x60; of the authenticating player. 
      - parameter updatePlayerRequest: (body)  
-     - returns: RequestBuilder<PlayerModel> 
+     - returns: RequestBuilder<UpdatePlayer200Response> 
      */
-    open class func updatePlayerWithRequestBuilder(playerId: String, xAuthorization: String, updatePlayerRequest: UpdatePlayerRequest) -> RequestBuilder<PlayerModel> {
+    open class func updatePlayerWithRequestBuilder(playerId: String, xAuthorization: String, updatePlayerRequest: UpdatePlayerRequest) -> RequestBuilder<UpdatePlayer200Response> {
         var localVariablePath = "/v1/players/{playerId}"
         let playerIdPreEscape = "\(APIHelper.mapValueToPathItem(playerId))"
         let playerIdPostEscape = playerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -445,7 +445,7 @@ open class PlayersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<PlayerModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<UpdatePlayer200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

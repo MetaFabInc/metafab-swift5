@@ -16,14 +16,14 @@ open class ShopsAPI {
      Create shop
      
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter createShopRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func createShop(xAuthorization: String, xPassword: String, createShopRequest: CreateShopRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: CreateShop200Response?, _ error: Error?) -> Void)) -> RequestTask {
-        return createShopWithRequestBuilder(xAuthorization: xAuthorization, xPassword: xPassword, createShopRequest: createShopRequest).execute(apiResponseQueue) { result in
+    open class func createShop(xAuthorization: String, xWalletDecryptKey: String, createShopRequest: CreateShopRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: CreateShop200Response?, _ error: Error?) -> Void)) -> RequestTask {
+        return createShopWithRequestBuilder(xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, createShopRequest: createShopRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -38,11 +38,11 @@ open class ShopsAPI {
      - POST /v1/shops
      - Creates a new game shop and deploys a shop contract on behalf of the authenticating game's primary wallet. The deployed shop contract allows you to create fixed price rates for players to buy specific items from any item collection or ERC1155 contract. Additionally, a shop allows you to create shop offers for some set of item(s) to another set of item(s) or any mix of currency. Shops completely support gasless player transactions.
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter createShopRequest: (body)  
      - returns: RequestBuilder<CreateShop200Response> 
      */
-    open class func createShopWithRequestBuilder(xAuthorization: String, xPassword: String, createShopRequest: CreateShopRequest) -> RequestBuilder<CreateShop200Response> {
+    open class func createShopWithRequestBuilder(xAuthorization: String, xWalletDecryptKey: String, createShopRequest: CreateShopRequest) -> RequestBuilder<CreateShop200Response> {
         let localVariablePath = "/v1/shops"
         let localVariableURLString = MetaFabSwift5API.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createShopRequest)
@@ -51,7 +51,7 @@ open class ShopsAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -64,7 +64,7 @@ open class ShopsAPI {
     /**
      Get shop offer
      
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter shopOfferId: (path) Any offer id for the shop. Zero, or a positive integer. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
@@ -85,7 +85,7 @@ open class ShopsAPI {
      Get shop offer
      - GET /v1/shops/{shopId}/items/{shopOfferId}
      - Returns a shop offer object for the provided shopOfferId.
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter shopOfferId: (path) Any offer id for the shop. Zero, or a positive integer. 
      - returns: RequestBuilder<ShopOffer> 
      */
@@ -116,7 +116,7 @@ open class ShopsAPI {
     /**
      Get shop offers
      
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -136,7 +136,7 @@ open class ShopsAPI {
      Get shop offers
      - GET /v1/shops/{shopId}/offers
      - Returns all shop offers as an array of shop offer objects.
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - returns: RequestBuilder<[ShopOffer]> 
      */
     open class func getShopOffersWithRequestBuilder(shopId: String) -> RequestBuilder<[ShopOffer]> {
@@ -207,16 +207,16 @@ open class ShopsAPI {
     /**
      Remove shop offer
      
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter shopOfferId: (path) Any offer id for the shop. Zero, or a positive integer. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func removeShopOffer(shopId: String, shopOfferId: String, xAuthorization: String, xPassword: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return removeShopOfferWithRequestBuilder(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: xAuthorization, xPassword: xPassword).execute(apiResponseQueue) { result in
+    open class func removeShopOffer(shopId: String, shopOfferId: String, xAuthorization: String, xWalletDecryptKey: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return removeShopOfferWithRequestBuilder(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -230,13 +230,13 @@ open class ShopsAPI {
      Remove shop offer
      - DELETE /v1/shops/{shopId}/offers/{shopOfferId}
      - Removes the provided offer by offerId from the provided shop. Removed offers can no longer be used.
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter shopOfferId: (path) Any offer id for the shop. Zero, or a positive integer. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func removeShopOfferWithRequestBuilder(shopId: String, shopOfferId: String, xAuthorization: String, xPassword: String) -> RequestBuilder<TransactionModel> {
+    open class func removeShopOfferWithRequestBuilder(shopId: String, shopOfferId: String, xAuthorization: String, xWalletDecryptKey: String) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/shops/{shopId}/offers/{shopOfferId}"
         let shopIdPreEscape = "\(APIHelper.mapValueToPathItem(shopId))"
         let shopIdPostEscape = shopIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -251,7 +251,7 @@ open class ShopsAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -264,16 +264,16 @@ open class ShopsAPI {
     /**
      Set shop offer
      
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter setShopOfferRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func setShopOffer(shopId: String, xAuthorization: String, xPassword: String, setShopOfferRequest: SetShopOfferRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return setShopOfferWithRequestBuilder(shopId: shopId, xAuthorization: xAuthorization, xPassword: xPassword, setShopOfferRequest: setShopOfferRequest).execute(apiResponseQueue) { result in
+    open class func setShopOffer(shopId: String, xAuthorization: String, xWalletDecryptKey: String, setShopOfferRequest: SetShopOfferRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return setShopOfferWithRequestBuilder(shopId: shopId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, setShopOfferRequest: setShopOfferRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -287,13 +287,13 @@ open class ShopsAPI {
      Set shop offer
      - POST /v1/shops/{shopId}/offers
      - Sets a new shop offer or updates an existing one for the provided id. Shop offers allow currency to item, item to currency or item to item exchanges.  All request fields besides `id` are optional. Any optional fields omitted will not be used for the offer. This allows you to create many different combinations of offers. For example, you can create an offer that may require 3 unique item ids of specified quantities from a given item collection and gives the user 1 new unique item id in exchange.  Another example, you may want to make a shop offer from one ERC20 token to another. This is also possible - simple set the input and output currency fields and leave the others blank.
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter setShopOfferRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func setShopOfferWithRequestBuilder(shopId: String, xAuthorization: String, xPassword: String, setShopOfferRequest: SetShopOfferRequest) -> RequestBuilder<TransactionModel> {
+    open class func setShopOfferWithRequestBuilder(shopId: String, xAuthorization: String, xWalletDecryptKey: String, setShopOfferRequest: SetShopOfferRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/shops/{shopId}/offers"
         let shopIdPreEscape = "\(APIHelper.mapValueToPathItem(shopId))"
         let shopIdPostEscape = shopIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -305,7 +305,7 @@ open class ShopsAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -318,16 +318,16 @@ open class ShopsAPI {
     /**
      Use shop offer
      
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter shopOfferId: (path) Any offer id for the shop. Zero, or a positive integer. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func useShopOffer(shopId: String, shopOfferId: String, xAuthorization: String, xPassword: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return useShopOfferWithRequestBuilder(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: xAuthorization, xPassword: xPassword).execute(apiResponseQueue) { result in
+    open class func useShopOffer(shopId: String, shopOfferId: String, xAuthorization: String, xWalletDecryptKey: String, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return useShopOfferWithRequestBuilder(shopId: shopId, shopOfferId: shopOfferId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -341,13 +341,13 @@ open class ShopsAPI {
      Use shop offer
      - POST /v1/shops/{shopId}/offers/{shopOfferId}/uses
      - Uses a shop offer. The required (input) item(s) and/or currency are removed from the wallet or player wallet using the offer. The given (output) item(s) and/or currency are given to the wallet or player wallet using the offer.
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter shopOfferId: (path) Any offer id for the shop. Zero, or a positive integer. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. 
-     - parameter xPassword: (header) The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. 
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func useShopOfferWithRequestBuilder(shopId: String, shopOfferId: String, xAuthorization: String, xPassword: String) -> RequestBuilder<TransactionModel> {
+    open class func useShopOfferWithRequestBuilder(shopId: String, shopOfferId: String, xAuthorization: String, xWalletDecryptKey: String) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/shops/{shopId}/offers/{shopOfferId}/uses"
         let shopIdPreEscape = "\(APIHelper.mapValueToPathItem(shopId))"
         let shopIdPostEscape = shopIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -362,7 +362,7 @@ open class ShopsAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
@@ -375,16 +375,16 @@ open class ShopsAPI {
     /**
      Withdraw from shop
      
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter withdrawFromShopRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func withdrawFromShop(shopId: String, xAuthorization: String, xPassword: String, withdrawFromShopRequest: WithdrawFromShopRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
-        return withdrawFromShopWithRequestBuilder(shopId: shopId, xAuthorization: xAuthorization, xPassword: xPassword, withdrawFromShopRequest: withdrawFromShopRequest).execute(apiResponseQueue) { result in
+    open class func withdrawFromShop(shopId: String, xAuthorization: String, xWalletDecryptKey: String, withdrawFromShopRequest: WithdrawFromShopRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: TransactionModel?, _ error: Error?) -> Void)) -> RequestTask {
+        return withdrawFromShopWithRequestBuilder(shopId: shopId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, withdrawFromShopRequest: withdrawFromShopRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -398,13 +398,13 @@ open class ShopsAPI {
      Withdraw from shop
      - POST /v1/shops/{shopId}/withdrawals
      - Withdraws native token, currency or items from a shop. Whenever a shop offer has input requirements, the native tokens, currencies or items for the requirements of that offer are deposited into the shop contract when the offer is used. These can be withdrawn to any other address.
-     - parameter shopId: (path) Any shop id within the MetaFab ecosystem. 
+     - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
-     - parameter xPassword: (header) The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
+     - parameter xWalletDecryptKey: (header) The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. 
      - parameter withdrawFromShopRequest: (body)  
      - returns: RequestBuilder<TransactionModel> 
      */
-    open class func withdrawFromShopWithRequestBuilder(shopId: String, xAuthorization: String, xPassword: String, withdrawFromShopRequest: WithdrawFromShopRequest) -> RequestBuilder<TransactionModel> {
+    open class func withdrawFromShopWithRequestBuilder(shopId: String, xAuthorization: String, xWalletDecryptKey: String, withdrawFromShopRequest: WithdrawFromShopRequest) -> RequestBuilder<TransactionModel> {
         var localVariablePath = "/v1/shops/{shopId}/withdrawals"
         let shopIdPreEscape = "\(APIHelper.mapValueToPathItem(shopId))"
         let shopIdPostEscape = shopIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -416,7 +416,7 @@ open class ShopsAPI {
 
         let localVariableNillableHeaders: [String: Any?] = [
             "X-Authorization": xAuthorization.encodeToJSON(),
-            "X-Password": xPassword.encodeToJSON(),
+            "X-Wallet-Decrypt-Key": xWalletDecryptKey.encodeToJSON(),
         ]
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)

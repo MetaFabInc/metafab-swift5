@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 # **createLootboxManager**
 ```swift
-    open class func createLootboxManager(xAuthorization: String, xPassword: String, createLootboxManagerRequest: CreateLootboxManagerRequest, completion: @escaping (_ data: CreateLootboxManager200Response?, _ error: Error?) -> Void)
+    open class func createLootboxManager(xAuthorization: String, xWalletDecryptKey: String, createLootboxManagerRequest: CreateLootboxManagerRequest, completion: @escaping (_ data: CreateLootboxManager200Response?, _ error: Error?) -> Void)
 ```
 
 Create lootbox manager
@@ -28,11 +28,11 @@ Creates a new game lootbox manager and deploys a lootbox manager contract on beh
 import MetaFabSwift5
 
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
-let createLootboxManagerRequest = createLootboxManager_request(chain: "chain_example") // CreateLootboxManagerRequest | 
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let createLootboxManagerRequest = createLootboxManager_request(name: "name_example", chain: "chain_example") // CreateLootboxManagerRequest | 
 
 // Create lootbox manager
-LootboxesAPI.createLootboxManager(xAuthorization: xAuthorization, xPassword: xPassword, createLootboxManagerRequest: createLootboxManagerRequest) { (response, error) in
+LootboxesAPI.createLootboxManager(xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, createLootboxManagerRequest: createLootboxManagerRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -49,7 +49,7 @@ LootboxesAPI.createLootboxManager(xAuthorization: xAuthorization, xPassword: xPa
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **createLootboxManagerRequest** | [**CreateLootboxManagerRequest**](CreateLootboxManagerRequest.md) |  | 
 
 ### Return type
@@ -81,8 +81,8 @@ Returns a lootbox manager lootbox object for the provided lootboxManagerLootboxI
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab ecosystem.
-let lootboxManagerLootboxId = "lootboxManagerLootboxId_example" // String | Any lootbox manager lootbox id within the MetaFab ecosystem.
+let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab platform.
+let lootboxManagerLootboxId = "lootboxManagerLootboxId_example" // String | Any lootbox manager lootbox id within the MetaFab platform.
 
 // Get lootbox manager lootbox
 LootboxesAPI.getLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId) { (response, error) in
@@ -101,8 +101,8 @@ LootboxesAPI.getLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, lootbo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab ecosystem. | 
- **lootboxManagerLootboxId** | **String** | Any lootbox manager lootbox id within the MetaFab ecosystem. | 
+ **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab platform. | 
+ **lootboxManagerLootboxId** | **String** | Any lootbox manager lootbox id within the MetaFab platform. | 
 
 ### Return type
 
@@ -133,7 +133,7 @@ Returns all lootbox manager lootboxes as an array of lootbox objects.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab ecosystem.
+let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab platform.
 
 // Get lootbox manager lootboxes
 LootboxesAPI.getLootboxManagerLootboxes(lootboxManagerId: lootboxManagerId) { (response, error) in
@@ -152,7 +152,7 @@ LootboxesAPI.getLootboxManagerLootboxes(lootboxManagerId: lootboxManagerId) { (r
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab ecosystem. | 
+ **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab platform. | 
 
 ### Return type
 
@@ -221,7 +221,7 @@ No authorization required
 
 # **openLootboxManagerLootbox**
 ```swift
-    open class func openLootboxManagerLootbox(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xPassword: String, completion: @escaping (_ data: [TransactionModel]?, _ error: Error?) -> Void)
+    open class func openLootboxManagerLootbox(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xWalletDecryptKey: String, completion: @escaping (_ data: [TransactionModel]?, _ error: Error?) -> Void)
 ```
 
 Open lootbox manager lootbox
@@ -233,13 +233,13 @@ Opens a lootbox manager lootbox. The required input item(s) are burned from the 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab ecosystem.
-let lootboxManagerLootboxId = "lootboxManagerLootboxId_example" // String | Any lootbox manager lootbox id within the MetaFab ecosystem.
+let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab platform.
+let lootboxManagerLootboxId = "lootboxManagerLootboxId_example" // String | Any lootbox manager lootbox id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 
 // Open lootbox manager lootbox
-LootboxesAPI.openLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId, xAuthorization: xAuthorization, xPassword: xPassword) { (response, error) in
+LootboxesAPI.openLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -255,10 +255,10 @@ LootboxesAPI.openLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, lootb
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab ecosystem. | 
- **lootboxManagerLootboxId** | **String** | Any lootbox manager lootbox id within the MetaFab ecosystem. | 
+ **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab platform. | 
+ **lootboxManagerLootboxId** | **String** | Any lootbox manager lootbox id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
 
 ### Return type
 
@@ -277,7 +277,7 @@ No authorization required
 
 # **removeLootboxManagerLootbox**
 ```swift
-    open class func removeLootboxManagerLootbox(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xPassword: String, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func removeLootboxManagerLootbox(lootboxManagerId: String, lootboxManagerLootboxId: String, xAuthorization: String, xWalletDecryptKey: String, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Remove lootbox manager lootbox
@@ -289,13 +289,13 @@ Removes the provided lootbox by lootboxId from the provided lootbox manager. Rem
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab ecosystem.
-let lootboxManagerLootboxId = "lootboxManagerLootboxId_example" // String | Any lootbox manager lootbox id within the MetaFab ecosystem.
+let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab platform.
+let lootboxManagerLootboxId = "lootboxManagerLootboxId_example" // String | Any lootbox manager lootbox id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 
 // Remove lootbox manager lootbox
-LootboxesAPI.removeLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId, xAuthorization: xAuthorization, xPassword: xPassword) { (response, error) in
+LootboxesAPI.removeLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, lootboxManagerLootboxId: lootboxManagerLootboxId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -311,10 +311,10 @@ LootboxesAPI.removeLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, loo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab ecosystem. | 
- **lootboxManagerLootboxId** | **String** | Any lootbox manager lootbox id within the MetaFab ecosystem. | 
+ **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab platform. | 
+ **lootboxManagerLootboxId** | **String** | Any lootbox manager lootbox id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
 
 ### Return type
 
@@ -333,7 +333,7 @@ No authorization required
 
 # **setLootboxManagerLootbox**
 ```swift
-    open class func setLootboxManagerLootbox(lootboxManagerId: String, xAuthorization: String, xPassword: String, setLootboxManagerLootboxRequest: SetLootboxManagerLootboxRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func setLootboxManagerLootbox(lootboxManagerId: String, xAuthorization: String, xWalletDecryptKey: String, setLootboxManagerLootboxRequest: SetLootboxManagerLootboxRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Set lootbox manager lootbox
@@ -345,13 +345,13 @@ Sets a new lootbox manager lootbox or updates an existing one for the provided i
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab ecosystem.
+let lootboxManagerId = "lootboxManagerId_example" // String | Any lootbox manager id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let setLootboxManagerLootboxRequest = setLootboxManagerLootbox_request(id: 123, inputCollectionAddress: "inputCollectionAddress_example", inputCollectionId: "inputCollectionId_example", inputCollectionItemIds: [123], inputCollectionItemAmounts: [123], outputCollectionAddress: "outputCollectionAddress_example", outputCollectionId: "outputCollectionId_example", outputCollectionItemIds: [123], outputCollectionItemAmounts: [123], outputCollectionItemWeights: [123], outputTotalItems: 123) // SetLootboxManagerLootboxRequest | 
 
 // Set lootbox manager lootbox
-LootboxesAPI.setLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, xAuthorization: xAuthorization, xPassword: xPassword, setLootboxManagerLootboxRequest: setLootboxManagerLootboxRequest) { (response, error) in
+LootboxesAPI.setLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, setLootboxManagerLootboxRequest: setLootboxManagerLootboxRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -367,9 +367,9 @@ LootboxesAPI.setLootboxManagerLootbox(lootboxManagerId: lootboxManagerId, xAutho
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab ecosystem. | 
+ **lootboxManagerId** | **String** | Any lootbox manager id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **setLootboxManagerLootboxRequest** | [**SetLootboxManagerLootboxRequest**](SetLootboxManagerLootboxRequest.md) |  | 
 
 ### Return type

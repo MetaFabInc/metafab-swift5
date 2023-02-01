@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 # **batchMintCollectionItems**
 ```swift
-    open class func batchMintCollectionItems(collectionId: String, xAuthorization: String, xPassword: String, batchMintCollectionItemsRequest: BatchMintCollectionItemsRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func batchMintCollectionItems(collectionId: String, xAuthorization: String, xWalletDecryptKey: String, batchMintCollectionItemsRequest: BatchMintCollectionItemsRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Batch mint collection items
@@ -41,13 +41,13 @@ Creates (mints) the provided itemIds of the specified quantities to the provided
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let batchMintCollectionItemsRequest = batchMintCollectionItems_request(address: "address_example", itemIds: [123], quantities: [123], walletId: "walletId_example") // BatchMintCollectionItemsRequest | 
 
 // Batch mint collection items
-ItemsAPI.batchMintCollectionItems(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, batchMintCollectionItemsRequest: batchMintCollectionItemsRequest) { (response, error) in
+ItemsAPI.batchMintCollectionItems(collectionId: collectionId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, batchMintCollectionItemsRequest: batchMintCollectionItemsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -63,9 +63,9 @@ ItemsAPI.batchMintCollectionItems(collectionId: collectionId, xAuthorization: xA
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **batchMintCollectionItemsRequest** | [**BatchMintCollectionItemsRequest**](BatchMintCollectionItemsRequest.md) |  | 
 
 ### Return type
@@ -85,7 +85,7 @@ No authorization required
 
 # **batchTransferCollectionItems**
 ```swift
-    open class func batchTransferCollectionItems(collectionId: String, xAuthorization: String, xPassword: String, batchTransferCollectionItemsRequest: BatchTransferCollectionItemsRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func batchTransferCollectionItems(collectionId: String, xAuthorization: String, xWalletDecryptKey: String, batchTransferCollectionItemsRequest: BatchTransferCollectionItemsRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Batch transfer collection items
@@ -97,13 +97,13 @@ Transfers one or multiple items of specified quantities to the provided wallet a
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 let batchTransferCollectionItemsRequest = batchTransferCollectionItems_request(addresses: ["addresses_example"], walletIds: ["walletIds_example"], itemIds: [123], quantities: [123]) // BatchTransferCollectionItemsRequest | 
 
 // Batch transfer collection items
-ItemsAPI.batchTransferCollectionItems(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, batchTransferCollectionItemsRequest: batchTransferCollectionItemsRequest) { (response, error) in
+ItemsAPI.batchTransferCollectionItems(collectionId: collectionId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, batchTransferCollectionItemsRequest: batchTransferCollectionItemsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -119,9 +119,9 @@ ItemsAPI.batchTransferCollectionItems(collectionId: collectionId, xAuthorization
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
  **batchTransferCollectionItemsRequest** | [**BatchTransferCollectionItemsRequest**](BatchTransferCollectionItemsRequest.md) |  | 
 
 ### Return type
@@ -141,7 +141,7 @@ No authorization required
 
 # **burnCollectionItem**
 ```swift
-    open class func burnCollectionItem(collectionId: String, collectionItemId: Double, xAuthorization: String, xPassword: String, burnCollectionItemRequest: BurnCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func burnCollectionItem(collectionId: String, collectionItemId: Double, xAuthorization: String, xWalletDecryptKey: String, burnCollectionItemRequest: BurnCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Burn collection item
@@ -153,14 +153,14 @@ Removes (burns) the provided quantity of the collectionItemId from the authentic
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let collectionItemId = 987 // Double | Any item id for the collection. Zero, or a positive integer.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 let burnCollectionItemRequest = burnCollectionItem_request(quantity: 123) // BurnCollectionItemRequest | 
 
 // Burn collection item
-ItemsAPI.burnCollectionItem(collectionId: collectionId, collectionItemId: collectionItemId, xAuthorization: xAuthorization, xPassword: xPassword, burnCollectionItemRequest: burnCollectionItemRequest) { (response, error) in
+ItemsAPI.burnCollectionItem(collectionId: collectionId, collectionItemId: collectionItemId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, burnCollectionItemRequest: burnCollectionItemRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -176,10 +176,10 @@ ItemsAPI.burnCollectionItem(collectionId: collectionId, collectionItemId: collec
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **collectionItemId** | **Double** | Any item id for the collection. Zero, or a positive integer. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
  **burnCollectionItemRequest** | [**BurnCollectionItemRequest**](BurnCollectionItemRequest.md) |  | 
 
 ### Return type
@@ -199,7 +199,7 @@ No authorization required
 
 # **createCollection**
 ```swift
-    open class func createCollection(xAuthorization: String, xPassword: String, createCollectionRequest: CreateCollectionRequest, completion: @escaping (_ data: CreateCollection200Response?, _ error: Error?) -> Void)
+    open class func createCollection(xAuthorization: String, xWalletDecryptKey: String, createCollectionRequest: CreateCollectionRequest, completion: @escaping (_ data: CreateCollection200Response?, _ error: Error?) -> Void)
 ```
 
 Create collection
@@ -212,11 +212,11 @@ Creates a new game item collection and deploys an extended functionality ERC1155
 import MetaFabSwift5
 
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
-let createCollectionRequest = createCollection_request(chain: "chain_example") // CreateCollectionRequest | 
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let createCollectionRequest = createCollection_request(name: "name_example", chain: "chain_example") // CreateCollectionRequest | 
 
 // Create collection
-ItemsAPI.createCollection(xAuthorization: xAuthorization, xPassword: xPassword, createCollectionRequest: createCollectionRequest) { (response, error) in
+ItemsAPI.createCollection(xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, createCollectionRequest: createCollectionRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -233,7 +233,7 @@ ItemsAPI.createCollection(xAuthorization: xAuthorization, xPassword: xPassword, 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **createCollectionRequest** | [**CreateCollectionRequest**](CreateCollectionRequest.md) |  | 
 
 ### Return type
@@ -253,7 +253,7 @@ No authorization required
 
 # **createCollectionItem**
 ```swift
-    open class func createCollectionItem(collectionId: String, xAuthorization: String, xPassword: String, createCollectionItemRequest: CreateCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func createCollectionItem(collectionId: String, xAuthorization: String, xWalletDecryptKey: String, createCollectionItemRequest: CreateCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Create collection item
@@ -265,13 +265,13 @@ Creates a new item type. Item type creation associates all of the relevant item 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let createCollectionItemRequest = createCollectionItem_request(id: 123, name: "name_example", description: "description_example", imageBase64: 123, imageUrl: "imageUrl_example", externalUrl: "externalUrl_example", attributes: [createCollectionItem_request_attributes_inner(traitType: "traitType_example", value: "TODO")], data: "TODO") // CreateCollectionItemRequest | 
 
 // Create collection item
-ItemsAPI.createCollectionItem(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, createCollectionItemRequest: createCollectionItemRequest) { (response, error) in
+ItemsAPI.createCollectionItem(collectionId: collectionId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, createCollectionItemRequest: createCollectionItemRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -287,9 +287,9 @@ ItemsAPI.createCollectionItem(collectionId: collectionId, xAuthorization: xAutho
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **createCollectionItemRequest** | [**CreateCollectionItemRequest**](CreateCollectionItemRequest.md) |  | 
 
 ### Return type
@@ -321,10 +321,10 @@ Returns a boolean (true/false) representing if the provided operatorAddress has 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let operatorAddress = "operatorAddress_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`.
 let address = "address_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. (optional)
-let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem. (optional)
+let walletId = "walletId_example" // String | Any wallet id within the MetaFab platform. (optional)
 
 // Get collection approval
 ItemsAPI.getCollectionApproval(collectionId: collectionId, operatorAddress: operatorAddress, address: address, walletId: walletId) { (response, error) in
@@ -343,10 +343,10 @@ ItemsAPI.getCollectionApproval(collectionId: collectionId, operatorAddress: oper
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **operatorAddress** | **String** | A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. | 
  **address** | **String** | A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. | [optional] 
- **walletId** | **String** | Any wallet id within the MetaFab ecosystem. | [optional] 
+ **walletId** | **String** | Any wallet id within the MetaFab platform. | [optional] 
 
 ### Return type
 
@@ -365,7 +365,7 @@ No authorization required
 
 # **getCollectionItem**
 ```swift
-    open class func getCollectionItem(collectionId: String, collectionItemId: Double, completion: @escaping (_ data: AnyCodable?, _ error: Error?) -> Void)
+    open class func getCollectionItem(collectionId: String, collectionItemId: Double, completion: @escaping (_ data: CollectionItem?, _ error: Error?) -> Void)
 ```
 
 Get collection item
@@ -377,7 +377,7 @@ Returns a metadata object for the provided collectionItemId.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let collectionItemId = 987 // Double | Any item id for the collection. Zero, or a positive integer.
 
 // Get collection item
@@ -397,12 +397,12 @@ ItemsAPI.getCollectionItem(collectionId: collectionId, collectionItemId: collect
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **collectionItemId** | **Double** | Any item id for the collection. Zero, or a positive integer. | 
 
 ### Return type
 
-[**AnyCodable**](AnyCodable.md)
+[**CollectionItem**](CollectionItem.md)
 
 ### Authorization
 
@@ -429,10 +429,10 @@ Returns the current collection item balance of the provided collectionItemId for
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let collectionItemId = 987 // Double | Any item id for the collection. Zero, or a positive integer.
 let address = "address_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. (optional)
-let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem. (optional)
+let walletId = "walletId_example" // String | Any wallet id within the MetaFab platform. (optional)
 
 // Get collection item balance
 ItemsAPI.getCollectionItemBalance(collectionId: collectionId, collectionItemId: collectionItemId, address: address, walletId: walletId) { (response, error) in
@@ -451,10 +451,10 @@ ItemsAPI.getCollectionItemBalance(collectionId: collectionId, collectionItemId: 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **collectionItemId** | **Double** | Any item id for the collection. Zero, or a positive integer. | 
  **address** | **String** | A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. | [optional] 
- **walletId** | **String** | Any wallet id within the MetaFab ecosystem. | [optional] 
+ **walletId** | **String** | Any wallet id within the MetaFab platform. | [optional] 
 
 ### Return type
 
@@ -485,9 +485,9 @@ Returns the current collection item balances of all collection items for the pro
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let address = "address_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. (optional)
-let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem. (optional)
+let walletId = "walletId_example" // String | Any wallet id within the MetaFab platform. (optional)
 
 // Get collection item balances
 ItemsAPI.getCollectionItemBalances(collectionId: collectionId, address: address, walletId: walletId) { (response, error) in
@@ -506,9 +506,9 @@ ItemsAPI.getCollectionItemBalances(collectionId: collectionId, address: address,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **address** | **String** | A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. | [optional] 
- **walletId** | **String** | Any wallet id within the MetaFab ecosystem. | [optional] 
+ **walletId** | **String** | Any wallet id within the MetaFab platform. | [optional] 
 
 ### Return type
 
@@ -539,7 +539,7 @@ Returns the currency circulating supply of all collection items.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 
 // Get collection item supplies
 ItemsAPI.getCollectionItemSupplies(collectionId: collectionId) { (response, error) in
@@ -558,7 +558,7 @@ ItemsAPI.getCollectionItemSupplies(collectionId: collectionId) { (response, erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
 
 ### Return type
 
@@ -589,10 +589,10 @@ Returns the current circulating supply of the provided collectionItemId.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let collectionItemId = 987 // Double | Any item id for the collection. Zero, or a positive integer.
 let address = "address_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. (optional)
-let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem. (optional)
+let walletId = "walletId_example" // String | Any wallet id within the MetaFab platform. (optional)
 
 // Get collection item supply
 ItemsAPI.getCollectionItemSupply(collectionId: collectionId, collectionItemId: collectionItemId, address: address, walletId: walletId) { (response, error) in
@@ -611,10 +611,10 @@ ItemsAPI.getCollectionItemSupply(collectionId: collectionId, collectionItemId: c
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **collectionItemId** | **Double** | Any item id for the collection. Zero, or a positive integer. | 
  **address** | **String** | A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. | [optional] 
- **walletId** | **String** | Any wallet id within the MetaFab ecosystem. | [optional] 
+ **walletId** | **String** | Any wallet id within the MetaFab platform. | [optional] 
 
 ### Return type
 
@@ -645,7 +645,7 @@ Returns a timestamp (in seconds) for when the provided collectionItemId's transf
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let collectionItemId = 987 // Double | Any item id for the collection. Zero, or a positive integer.
 
 // Get collection item timelock
@@ -665,7 +665,7 @@ ItemsAPI.getCollectionItemTimelock(collectionId: collectionId, collectionItemId:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **collectionItemId** | **Double** | Any item id for the collection. Zero, or a positive integer. | 
 
 ### Return type
@@ -685,7 +685,7 @@ No authorization required
 
 # **getCollectionItems**
 ```swift
-    open class func getCollectionItems(collectionId: String, completion: @escaping (_ data: [AnyCodable]?, _ error: Error?) -> Void)
+    open class func getCollectionItems(collectionId: String, completion: @escaping (_ data: [CollectionItem]?, _ error: Error?) -> Void)
 ```
 
 Get collection items
@@ -697,7 +697,7 @@ Returns all collection items as an array of metadata objects.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 
 // Get collection items
 ItemsAPI.getCollectionItems(collectionId: collectionId) { (response, error) in
@@ -716,11 +716,11 @@ ItemsAPI.getCollectionItems(collectionId: collectionId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
 
 ### Return type
 
-[**[AnyCodable]**](AnyCodable.md)
+[**[CollectionItem]**](CollectionItem.md)
 
 ### Authorization
 
@@ -747,10 +747,10 @@ Returns a boolean (true/false) representing if the provided role for this collec
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let role = "role_example" // String | A valid MetaFab role or bytes string representing a role, such as `0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7`
 let address = "address_example" // String | A valid EVM based address. For example, `0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D`. (optional)
-let walletId = "walletId_example" // String | Any wallet id within the MetaFab ecosystem. (optional)
+let walletId = "walletId_example" // String | Any wallet id within the MetaFab platform. (optional)
 
 // Get collection role
 ItemsAPI.getCollectionRole(collectionId: collectionId, role: role, address: address, walletId: walletId) { (response, error) in
@@ -769,10 +769,10 @@ ItemsAPI.getCollectionRole(collectionId: collectionId, role: role, address: addr
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **role** | **String** | A valid MetaFab role or bytes string representing a role, such as &#x60;0xc9eb32e43bf5ecbceacf00b32281dfc5d6d700a0db676ea26ccf938a385ac3b7&#x60; | 
  **address** | **String** | A valid EVM based address. For example, &#x60;0x39cb70F972E0EE920088AeF97Dbe5c6251a9c25D&#x60;. | [optional] 
- **walletId** | **String** | Any wallet id within the MetaFab ecosystem. | [optional] 
+ **walletId** | **String** | Any wallet id within the MetaFab platform. | [optional] 
 
 ### Return type
 
@@ -841,7 +841,7 @@ No authorization required
 
 # **grantCollectionRole**
 ```swift
-    open class func grantCollectionRole(collectionId: String, xAuthorization: String, xPassword: String, grantCollectionRoleRequest: GrantCollectionRoleRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func grantCollectionRole(collectionId: String, xAuthorization: String, xWalletDecryptKey: String, grantCollectionRoleRequest: GrantCollectionRoleRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Grant collection role
@@ -853,13 +853,13 @@ Grants the provided role for the collection to the provided address or address a
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 let grantCollectionRoleRequest = grantCollectionRole_request(role: "role_example", address: "address_example", walletId: ["walletId_example"]) // GrantCollectionRoleRequest | 
 
 // Grant collection role
-ItemsAPI.grantCollectionRole(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, grantCollectionRoleRequest: grantCollectionRoleRequest) { (response, error) in
+ItemsAPI.grantCollectionRole(collectionId: collectionId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, grantCollectionRoleRequest: grantCollectionRoleRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -875,9 +875,9 @@ ItemsAPI.grantCollectionRole(collectionId: collectionId, xAuthorization: xAuthor
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
  **grantCollectionRoleRequest** | [**GrantCollectionRoleRequest**](GrantCollectionRoleRequest.md) |  | 
 
 ### Return type
@@ -897,7 +897,7 @@ No authorization required
 
 # **mintCollectionItem**
 ```swift
-    open class func mintCollectionItem(collectionId: String, collectionItemId: Double, xAuthorization: String, xPassword: String, mintCollectionItemRequest: MintCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func mintCollectionItem(collectionId: String, collectionItemId: Double, xAuthorization: String, xWalletDecryptKey: String, mintCollectionItemRequest: MintCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Mint collection item
@@ -909,14 +909,14 @@ Creates (mints) the specified quantity of the provided collectionItemId to the p
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let collectionItemId = 987 // Double | Any item id for the collection. Zero, or a positive integer.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let mintCollectionItemRequest = mintCollectionItem_request(address: "address_example", quantity: 123, walletId: "walletId_example") // MintCollectionItemRequest | 
 
 // Mint collection item
-ItemsAPI.mintCollectionItem(collectionId: collectionId, collectionItemId: collectionItemId, xAuthorization: xAuthorization, xPassword: xPassword, mintCollectionItemRequest: mintCollectionItemRequest) { (response, error) in
+ItemsAPI.mintCollectionItem(collectionId: collectionId, collectionItemId: collectionItemId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, mintCollectionItemRequest: mintCollectionItemRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -932,10 +932,10 @@ ItemsAPI.mintCollectionItem(collectionId: collectionId, collectionItemId: collec
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **collectionItemId** | **Double** | Any item id for the collection. Zero, or a positive integer. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **mintCollectionItemRequest** | [**MintCollectionItemRequest**](MintCollectionItemRequest.md) |  | 
 
 ### Return type
@@ -955,7 +955,7 @@ No authorization required
 
 # **revokeCollectionRole**
 ```swift
-    open class func revokeCollectionRole(collectionId: String, xAuthorization: String, xPassword: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func revokeCollectionRole(collectionId: String, xAuthorization: String, xWalletDecryptKey: String, revokeCollectionRoleRequest: RevokeCollectionRoleRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Revoke collection role
@@ -967,13 +967,13 @@ Revokes the provided role for the collection to the provided address or address 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 let revokeCollectionRoleRequest = revokeCollectionRole_request(role: "role_example", address: "address_example", walletId: ["walletId_example"]) // RevokeCollectionRoleRequest | 
 
 // Revoke collection role
-ItemsAPI.revokeCollectionRole(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, revokeCollectionRoleRequest: revokeCollectionRoleRequest) { (response, error) in
+ItemsAPI.revokeCollectionRole(collectionId: collectionId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, revokeCollectionRoleRequest: revokeCollectionRoleRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -989,9 +989,9 @@ ItemsAPI.revokeCollectionRole(collectionId: collectionId, xAuthorization: xAutho
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
  **revokeCollectionRoleRequest** | [**RevokeCollectionRoleRequest**](RevokeCollectionRoleRequest.md) |  | 
 
 ### Return type
@@ -1011,7 +1011,7 @@ No authorization required
 
 # **setCollectionApproval**
 ```swift
-    open class func setCollectionApproval(collectionId: String, xAuthorization: String, xPassword: String, setCollectionApprovalRequest: SetCollectionApprovalRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func setCollectionApproval(collectionId: String, xAuthorization: String, xWalletDecryptKey: String, setCollectionApprovalRequest: SetCollectionApprovalRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Set collection approval
@@ -1023,13 +1023,13 @@ Sets approval for the provided address or wallet address associated with the pro
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 let setCollectionApprovalRequest = setCollectionApproval_request(approved: false, address: "address_example", walletId: ["walletId_example"]) // SetCollectionApprovalRequest | 
 
 // Set collection approval
-ItemsAPI.setCollectionApproval(collectionId: collectionId, xAuthorization: xAuthorization, xPassword: xPassword, setCollectionApprovalRequest: setCollectionApprovalRequest) { (response, error) in
+ItemsAPI.setCollectionApproval(collectionId: collectionId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, setCollectionApprovalRequest: setCollectionApprovalRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1045,9 +1045,9 @@ ItemsAPI.setCollectionApproval(collectionId: collectionId, xAuthorization: xAuth
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
  **setCollectionApprovalRequest** | [**SetCollectionApprovalRequest**](SetCollectionApprovalRequest.md) |  | 
 
 ### Return type
@@ -1067,7 +1067,7 @@ No authorization required
 
 # **setCollectionItemTimelock**
 ```swift
-    open class func setCollectionItemTimelock(collectionId: String, collectionItemId: Double, xAuthorization: String, xPassword: String, setCollectionItemTimelockRequest: SetCollectionItemTimelockRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func setCollectionItemTimelock(collectionId: String, collectionItemId: Double, xAuthorization: String, xWalletDecryptKey: String, setCollectionItemTimelockRequest: SetCollectionItemTimelockRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Set collection item timelock
@@ -1079,14 +1079,14 @@ Sets the item timelock for the provided collection itemId. The timelock is a uni
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let collectionItemId = 987 // Double | Any item id for the collection. Zero, or a positive integer.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of the authenticating game.
-let xPassword = "xPassword_example" // String | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet.
 let setCollectionItemTimelockRequest = setCollectionItemTimelock_request(timelock: 123) // SetCollectionItemTimelockRequest | 
 
 // Set collection item timelock
-ItemsAPI.setCollectionItemTimelock(collectionId: collectionId, collectionItemId: collectionItemId, xAuthorization: xAuthorization, xPassword: xPassword, setCollectionItemTimelockRequest: setCollectionItemTimelockRequest) { (response, error) in
+ItemsAPI.setCollectionItemTimelock(collectionId: collectionId, collectionItemId: collectionItemId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, setCollectionItemTimelockRequest: setCollectionItemTimelockRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1102,10 +1102,10 @@ ItemsAPI.setCollectionItemTimelock(collectionId: collectionId, collectionItemId:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **collectionItemId** | **Double** | Any item id for the collection. Zero, or a positive integer. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of the authenticating game. | 
- **xPassword** | **String** | The password of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game. Required to decrypt and perform blockchain transactions with the game primary wallet. | 
  **setCollectionItemTimelockRequest** | [**SetCollectionItemTimelockRequest**](SetCollectionItemTimelockRequest.md) |  | 
 
 ### Return type
@@ -1125,7 +1125,7 @@ No authorization required
 
 # **transferCollectionItem**
 ```swift
-    open class func transferCollectionItem(collectionId: String, collectionItemId: Double, xAuthorization: String, xPassword: String, transferCollectionItemRequest: TransferCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
+    open class func transferCollectionItem(collectionId: String, collectionItemId: Double, xAuthorization: String, xWalletDecryptKey: String, transferCollectionItemRequest: TransferCollectionItemRequest, completion: @escaping (_ data: TransactionModel?, _ error: Error?) -> Void)
 ```
 
 Transfer collection item
@@ -1137,14 +1137,14 @@ Transfers specified quantity of itemId to the provided wallet address or wallet 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import MetaFabSwift5
 
-let collectionId = "collectionId_example" // String | Any collection id within the MetaFab ecosystem.
+let collectionId = "collectionId_example" // String | Any collection id within the MetaFab platform.
 let collectionItemId = 987 // Double | Any item id for the collection. Zero, or a positive integer.
 let xAuthorization = "xAuthorization_example" // String | The `secretKey` of a specific game or the `accessToken` of a specific player.
-let xPassword = "xPassword_example" // String | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
+let xWalletDecryptKey = "xWalletDecryptKey_example" // String | The `walletDecryptKey` of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet.
 let transferCollectionItemRequest = transferCollectionItem_request(address: "address_example", walletId: ["walletId_example"], quantity: 123) // TransferCollectionItemRequest | 
 
 // Transfer collection item
-ItemsAPI.transferCollectionItem(collectionId: collectionId, collectionItemId: collectionItemId, xAuthorization: xAuthorization, xPassword: xPassword, transferCollectionItemRequest: transferCollectionItemRequest) { (response, error) in
+ItemsAPI.transferCollectionItem(collectionId: collectionId, collectionItemId: collectionItemId, xAuthorization: xAuthorization, xWalletDecryptKey: xWalletDecryptKey, transferCollectionItemRequest: transferCollectionItemRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1160,10 +1160,10 @@ ItemsAPI.transferCollectionItem(collectionId: collectionId, collectionItemId: co
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | **String** | Any collection id within the MetaFab ecosystem. | 
+ **collectionId** | **String** | Any collection id within the MetaFab platform. | 
  **collectionItemId** | **Double** | Any item id for the collection. Zero, or a positive integer. | 
  **xAuthorization** | **String** | The &#x60;secretKey&#x60; of a specific game or the &#x60;accessToken&#x60; of a specific player. | 
- **xPassword** | **String** | The password of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
+ **xWalletDecryptKey** | **String** | The &#x60;walletDecryptKey&#x60; of the authenticating game or player. Required to decrypt and perform blockchain transactions with the game or player primary wallet. | 
  **transferCollectionItemRequest** | [**TransferCollectionItemRequest**](TransferCollectionItemRequest.md) |  | 
 
 ### Return type

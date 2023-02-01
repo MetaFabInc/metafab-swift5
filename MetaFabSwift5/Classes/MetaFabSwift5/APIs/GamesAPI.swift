@@ -104,7 +104,7 @@ open class GamesAPI {
     /**
      Get game
      
-     - parameter gameId: (path) Any game id within the MetaFab ecosystem. 
+     - parameter gameId: (path) Any game id within the MetaFab platform. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -124,7 +124,7 @@ open class GamesAPI {
      Get game
      - GET /v1/games/{gameId}
      - Returns a game object for the provided game id.
-     - parameter gameId: (path) Any game id within the MetaFab ecosystem. 
+     - parameter gameId: (path) Any game id within the MetaFab platform. 
      - returns: RequestBuilder<PublicGame> 
      */
     open class func getGameWithRequestBuilder(gameId: String) -> RequestBuilder<PublicGame> {
@@ -151,14 +151,14 @@ open class GamesAPI {
     /**
      Update game
      
-     - parameter gameId: (path) Any game id within the MetaFab ecosystem. 
+     - parameter gameId: (path) The game id of the authenticating game. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
      - parameter updateGameRequest: (body)  
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func updateGame(gameId: String, xAuthorization: String, updateGameRequest: UpdateGameRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: GameModel?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func updateGame(gameId: String, xAuthorization: String, updateGameRequest: UpdateGameRequest, apiResponseQueue: DispatchQueue = MetaFabSwift5API.apiResponseQueue, completion: @escaping ((_ data: UpdateGame200Response?, _ error: Error?) -> Void)) -> RequestTask {
         return updateGameWithRequestBuilder(gameId: gameId, xAuthorization: xAuthorization, updateGameRequest: updateGameRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -173,12 +173,12 @@ open class GamesAPI {
      Update game
      - PATCH /v1/games/{gameId}
      - Update various fields specific to a game. Such as changing its password, resetting its published or secret key, or updating its RPCs.
-     - parameter gameId: (path) Any game id within the MetaFab ecosystem. 
+     - parameter gameId: (path) The game id of the authenticating game. 
      - parameter xAuthorization: (header) The &#x60;secretKey&#x60; of the authenticating game. 
      - parameter updateGameRequest: (body)  
-     - returns: RequestBuilder<GameModel> 
+     - returns: RequestBuilder<UpdateGame200Response> 
      */
-    open class func updateGameWithRequestBuilder(gameId: String, xAuthorization: String, updateGameRequest: UpdateGameRequest) -> RequestBuilder<GameModel> {
+    open class func updateGameWithRequestBuilder(gameId: String, xAuthorization: String, updateGameRequest: UpdateGameRequest) -> RequestBuilder<UpdateGame200Response> {
         var localVariablePath = "/v1/games/{gameId}"
         let gameIdPreEscape = "\(APIHelper.mapValueToPathItem(gameId))"
         let gameIdPostEscape = gameIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -194,7 +194,7 @@ open class GamesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GameModel>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<UpdateGame200Response>.Type = MetaFabSwift5API.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }

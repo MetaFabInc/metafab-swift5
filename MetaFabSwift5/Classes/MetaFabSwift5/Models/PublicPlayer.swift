@@ -19,20 +19,28 @@ public struct PublicPlayer: Codable, JSONEncodable, Hashable {
     /** This field has not had a description added. */
     public var walletId: String?
     /** This field has not had a description added. */
+    public var connectedWalletId: String?
+    /** This field has not had a description added. */
+    public var profileId: String?
+    /** This field has not had a description added. */
     public var username: String?
     /** This field has not had a description added. */
     public var updatedAt: String?
     /** This field has not had a description added. */
     public var createdAt: String?
-    public var wallet: PublicPlayerWallet?
+    public var custodialWallet: PublicPlayerCustodialWallet?
+    public var wallet: PublicPlayerCustodialWallet?
 
-    public init(id: String? = nil, gameId: String? = nil, walletId: String? = nil, username: String? = nil, updatedAt: String? = nil, createdAt: String? = nil, wallet: PublicPlayerWallet? = nil) {
+    public init(id: String? = nil, gameId: String? = nil, walletId: String? = nil, connectedWalletId: String? = nil, profileId: String? = nil, username: String? = nil, updatedAt: String? = nil, createdAt: String? = nil, custodialWallet: PublicPlayerCustodialWallet? = nil, wallet: PublicPlayerCustodialWallet? = nil) {
         self.id = id
         self.gameId = gameId
         self.walletId = walletId
+        self.connectedWalletId = connectedWalletId
+        self.profileId = profileId
         self.username = username
         self.updatedAt = updatedAt
         self.createdAt = createdAt
+        self.custodialWallet = custodialWallet
         self.wallet = wallet
     }
 
@@ -40,9 +48,12 @@ public struct PublicPlayer: Codable, JSONEncodable, Hashable {
         case id
         case gameId
         case walletId
+        case connectedWalletId
+        case profileId
         case username
         case updatedAt
         case createdAt
+        case custodialWallet
         case wallet
     }
 
@@ -53,9 +64,12 @@ public struct PublicPlayer: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(gameId, forKey: .gameId)
         try container.encodeIfPresent(walletId, forKey: .walletId)
+        try container.encodeIfPresent(connectedWalletId, forKey: .connectedWalletId)
+        try container.encodeIfPresent(profileId, forKey: .profileId)
         try container.encodeIfPresent(username, forKey: .username)
         try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(createdAt, forKey: .createdAt)
+        try container.encodeIfPresent(custodialWallet, forKey: .custodialWallet)
         try container.encodeIfPresent(wallet, forKey: .wallet)
     }
 }
