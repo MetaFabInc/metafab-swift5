@@ -5,7 +5,7 @@ All URIs are relative to *https://api.trymetafab.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createShop**](ShopsAPI.md#createshop) | **POST** /v1/shops | Create shop
-[**getShopOffer**](ShopsAPI.md#getshopoffer) | **GET** /v1/shops/{shopId}/items/{shopOfferId} | Get shop offer
+[**getShopOffer**](ShopsAPI.md#getshopoffer) | **GET** /v1/shops/{shopId}/offers/{shopOfferId} | Get shop offer
 [**getShopOffers**](ShopsAPI.md#getshopoffers) | **GET** /v1/shops/{shopId}/offers | Get shop offers
 [**getShops**](ShopsAPI.md#getshops) | **GET** /v1/shops | Get shops
 [**removeShopOffer**](ShopsAPI.md#removeshopoffer) | **DELETE** /v1/shops/{shopId}/offers/{shopOfferId} | Remove shop offer

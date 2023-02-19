@@ -13,15 +13,19 @@ import AnyCodable
 public struct CreateShopRequest: Codable, JSONEncodable, Hashable {
 
     public enum Chain: String, Codable, CaseIterable {
+        case arbitrum = "ARBITRUM"
+        case arbitrumgoerli = "ARBITRUMGOERLI"
+        case arbitrumnova = "ARBITRUMNOVA"
+        case avalanche = "AVALANCHE"
+        case avalanchefuji = "AVALANCHEFUJI"
         case ethereum = "ETHEREUM"
+        case fantom = "FANTOM"
+        case fantomtest = "FANTOMTEST"
         case goerli = "GOERLI"
         case matic = "MATIC"
         case maticmumbai = "MATICMUMBAI"
-        case arbitrum = "ARBITRUM"
-        case arbitrumnova = "ARBITRUMNOVA"
-        case arbitrumgoerli = "ARBITRUMGOERLI"
-        case fantom = "FANTOM"
-        case fantomtest = "FANTOMTEST"
+        case thundercore = "THUNDERCORE"
+        case thundercoretestnet = "THUNDERCORETESTNET"
     }
     /** The name of this item collection. This can be anything, such as `Production - Game Shop`, `Testing - My Game Shop`, etc. */
     public var name: String?

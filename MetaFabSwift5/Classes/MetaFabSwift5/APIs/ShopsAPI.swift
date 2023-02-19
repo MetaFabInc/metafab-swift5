@@ -83,14 +83,14 @@ open class ShopsAPI {
 
     /**
      Get shop offer
-     - GET /v1/shops/{shopId}/items/{shopOfferId}
+     - GET /v1/shops/{shopId}/offers/{shopOfferId}
      - Returns a shop offer object for the provided shopOfferId.
      - parameter shopId: (path) Any shop id within the MetaFab platform. 
      - parameter shopOfferId: (path) Any offer id for the shop. Zero, or a positive integer. 
      - returns: RequestBuilder<ShopOffer> 
      */
     open class func getShopOfferWithRequestBuilder(shopId: String, shopOfferId: String) -> RequestBuilder<ShopOffer> {
-        var localVariablePath = "/v1/shops/{shopId}/items/{shopOfferId}"
+        var localVariablePath = "/v1/shops/{shopId}/offers/{shopOfferId}"
         let shopIdPreEscape = "\(APIHelper.mapValueToPathItem(shopId))"
         let shopIdPostEscape = shopIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{shopId}", with: shopIdPostEscape, options: .literal, range: nil)
