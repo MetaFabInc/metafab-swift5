@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
   s.watchos.deployment_target = '3.0'
   s.version = '1.5.1'
-  s.source = { :git => 'git@github.com:MetaFabInc/metafab-swift5.git' :tag => s.version.to_s }
+  s.source = { :git => 'git@github.com:MetaFabInc/metafab-swift5.git', :tag => s.version.to_s }
   s.authors = 'MetaFab&lt;dev@trymetafab.com&gt;'
   s.social_media_url = 'https://twitter.com/tryMetaFab'
   s.license = 'Proprietary'
